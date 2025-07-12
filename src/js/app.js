@@ -41,6 +41,8 @@ console.log(
 
 /* --- CONTROL BTN TRIGGER EVENTS --- */
 
+
+
 let click_locked = false;
 
 document.addEventListener('click', (event) => {
@@ -172,6 +174,11 @@ function apply_any_theme(requested_theme, auto_change, auto_activated) {
       localStorage.setItem('theme', 'auto');
     }
 
+
+  }
+
+  if (!auto_activated || auto_activated == null) {
+    auto_initialize_ui();
   }
 
 }
@@ -438,15 +445,18 @@ function app_opening(speed, destination_slide) {
     }, 4100);
   }
 
+  let slide_delay = 4125;
+
   if (speed == 'slow') {
     slow_opening();
   } else if (speed == 'fast') {
+    slide_delay = 500;
     fast_opening();
   }
 
   setTimeout(() => {
     slide(destination_slide);
-  }, 300);
+  }, slide_delay);
 
 }
 
@@ -485,7 +495,7 @@ app_opening('slow', 'home');
 // constants
 
 const version = {
-  build: '2.4',
+  build: '2.5',
   channel: 'stable',
   title: 'Sunset',
   subtitle: "Night's Horizon",
@@ -3109,6 +3119,7 @@ function hacking_retribution() {
     icon: 'alarm'
   });
 
+  document.querySelector('#small-pop-up-area .alert button').setAttribute('onclick', 'window.location.reload()');
   set_shop_and_money_to_zero();
 
   wallet('get');
@@ -3351,13 +3362,7 @@ function export_vocab_list() {
   let file_name = `${vocab_list.name}.vocab`;
 
   const blob = new Blob([export_data], { type: 'application/octet-stream' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = file_name;
-
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  saveAs(blob, file_name);
 
 }
 
@@ -3408,7 +3413,7 @@ function import_vocab_list() {
 function add_imported_list(file_data) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4'];
+  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4', '2.5'];
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 
