@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0MJD3LCM6M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-0MJD3LCM6M', { 'anonymize_ip': true });
+    </script>
+
+    <!-- site config -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Web Byte Studio">
+    <meta name="description"
+        content="Dein smarter Vokabeltrainer für effizientes und nachhaltiges Lernen. Optimiere deinen Fortschritt mit cleveren Wiederholungen und beherrsche deine Vokabeln schnell und easy.">
+    <title>Memory Shift 🎓</title>
+
+    <!-- import -->
+
+    <link rel=" stylesheet" type="text/css" href="./src/css/@font-face.css">
+    <link rel="stylesheet" type="text/css" href="./src/css/style.css">
+
+    <script type="text/javascript" src="./src/import/material-icons-framework.js" defer></script>
+    <script type="text/javascript" src="./src/import/chart.min.js" defer></script>
+
+    <script type="text/javascript" src="./src/js/initialize_ui.js" defer></script>
+    <script type="text/javascript" src="./src/js/app.js" defer></script>
+    <script type="text/javascript" src="./src/js/dynamic_design.js" defer></script>
+    <script type="text/javascript" src="./src/js/chart_implementation.js" defer></script>
+
+    <!-- favicon -->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./src/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="./src/img/favicons/site.webmanifest">
+    <link rel="mask-icon" href="./src/img/favicons/safari-pinned-tab.svg" color="#2a45f8">
+    <link rel="shortcut icon" href="./src/img/favicons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Memory Shift">
+    <meta name="application-name" content="Memory Shift">
+    <meta name="msapplication-TileColor" content="#2a45f8">
+    <meta name="msapplication-config" content="./src/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#2a45f8">
+
+</head>
+
+<body>
+
+    <span id="display-too-small" style="display: none;">Ihr Display ist zu klein. 😭</span>
+
+    <!-- app opening -->
+
+    <div id="app-opening">
+
+        <img src="./src/vid/intro.gif" alt="App Opening Animation">
+
+    </div>
+
+
+    <main>
+
+
+
+        <!-- --- HOME --- -->
+
+
+
+        <section id="home">
+
+            <!-- header -->
+
+            <header class="slide-intro">
+
+                <h1>Memory Shift</h1>
+
+                <button type="button">
+                    <img alt="Avatar">
+                </button>
+
+            </header>
+
+            <!-- overview -->
+
+            <header id="overview">
+
+                <section class="widgets">
+
+                    <button type="button">
+                        <h2>Tägliches Ziel</h2>
+                        <div>
+                            <canvas id="daily-goal"></canvas>
+                            <span></span>
+                        </div>
+                    </button>
+
+                    <div></div>
+
+                    <button type="button">
+                        <h2>Streak</h2>
+                        <div>
+                            <div class="set-icon filled">local_fire_department</div>
+                            <span></span>
+                        </div>
+                    </button>
+
+                </section>
+
+            </header>
+
+            <!-- recent-->
+
+            <section id="recent">
+
+                <section class="pointer-childs">
+                </section>
+
+            </section>
+
+            <!-- exam view-->
+
+            <section id="exam-view">
+
+                <header class="standard-header">
+
+                    <h1>Prüfungen</h1>
+                    <span>Behalte Prüfungen immer im Blick.</span>
+                    <div>Neu</div>
+
+                </header>
+
+                <h2>Keine anstehenden Prüfungen 😅</h2>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- --- LIBRARY --- -->
+
+
+
+        <section id="library">
+
+            <header class="slide-intro">
+
+                <h1>Bibliothek</h1>
+                <button type="button">
+                    <img alt="Avatar">
+                </button>
+
+            </header>
+
+            <span>Noch ziemlich leer hier. ✨</span>
+            <section class="auto-adjust-childs pointer-childs">
+            </section>
+
+            <div>
+                <button type="button" onclick="pop_up('add-list', true)" class="set-icon">add</button>
+                <button type="button" class="set-icon" onclick="import_vocab_list()">folder</button>
+            </div>
+
+        </section>
+
+
+
+        <!-- --- LIST DETAIL --- -->
+
+
+
+        <section id="list-detail" class="auto-adjust-childs">
+
+            <div class="progress-bar">
+                <div></div>
+            </div>
+
+            <header>
+
+                <h2></h2>
+                <img>
+
+            </header>
+
+            <div class="info">
+
+                <div>
+                    <span class="set-icon">event</span>
+                    <h3 style="color: var(--clr-primary)"></h3>
+                </div>
+
+                <div>
+                    <span class="set-icon">timer</span>
+                    <h3></h3>
+                </div>
+
+            </div>
+
+            <div class="widget-row">
+
+                <button type="button" class="set-icon">add</button>
+                <button type="button" class="set-icon" onclick="pop_up('edit-list', true)">edit</button>
+                <button type="button" class="set-icon" onclick="pop_up('add-exam', true)">event</button>
+                <button type="button" class="set-icon" onclick="export_vocab_list()">share</button>
+
+            </div>
+
+            <div class="vocab-list">
+
+            </div>
+
+            <div class="learn-btn">
+
+                <button type="button" class="primary">Lernen 🎓</button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- --- STATISTIC --- -->
+
+
+
+        <section id="statistic">
+
+            <header class="slide-intro">
+
+                <h1>Statistik</h1>
+                <button type="button">
+                    <img alt="Avatar">
+                </button>
+
+            </header>
+
+            <section class="auto-adjust-childs">
+
+                <article class="daily-target">
+
+                    <span>Tägliches Ziel</span>
+                    <div>
+                        <canvas id="daily-target"></canvas>
+                        <h1></h1>
+                    </div>
+
+                </article>
+
+                <article class="streak">
+
+                    <div class="set-icon">local_fire_department</div>
+                    <h1></h1>
+
+                </article>
+
+                <article class="time">
+
+                    <span>Zeit in Minuten</span>
+
+                    <section>
+
+                        <div>
+                            <h2>12</h2>
+                            <span>Heute</span>
+                        </div>
+
+                        <div>
+                            <h2>61</h2>
+                            <span>7 Tage</span>
+                        </div>
+
+                        <div>
+                            <h2>132</h2>
+                            <span>30 Tage</span>
+                        </div>
+
+                    </section>
+
+                </article>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- --- LEARN --- -->
+
+
+
+        <section id="learn">
+
+            <div class="progress-bar">
+                <div></div>
+            </div>
+
+            <header>
+                <img>
+                <span></span>
+            </header>
+
+            <section class="flashcard">
+
+                <div onclick="rotate_flashcard()"></div>
+                <button type="button" class="set-icon" onclick="show_note();">notes</button>
+                <span></span>
+                <p></p>
+
+            </section>
+
+            <div class="turn-flashcard">
+
+                <button type="button" onclick="rotate_flashcard()">
+                    <div class="set-icon">rotate</div>
+                </button>
+
+            </div>
+
+            <section class="answer primary-box">
+
+                <span>Gewusst? 🤔</span>
+
+                <div>
+
+                    <button type="button" onclick="answer_vocab(1)">
+                        <img src="./src/img/understanding/very_good.svg" alt="Sehr gut">
+                    </button>
+
+                    <button type="button" onclick="answer_vocab(2)">
+                        <img src="./src/img/understanding/good.svg" alt="Gut">
+                    </button>
+
+                    <button type="button" onclick="answer_vocab(3)">
+                        <img src="./src/img/understanding/not_good.svg" alt="Okay">
+                    </button>
+
+                    <button type="button" onclick="answer_vocab(4)">
+                        <img src="./src/img/understanding/bad.svg" alt="Nicht so gut">
+                    </button>
+
+                </div>
+
+            </section>
+
+            <section class="text-accuracy">
+
+                <input type="text" name="translation_text_accuracy" placeholder="Übersetzung eingeben"
+                    class="primary-focus">
+                <button class="primary" onclick="check_text_accuracy()">Überprüfen 🗃</button>
+
+            </section>
+
+            <section class="summary">
+
+                <h1>Gut gemacht!</h1>
+
+                <img alt"Sterne">
+
+                <div class="primary-box stats">
+
+                    <span>Stats 📊</span>
+
+                    <section>
+
+                        <article>
+                            <div>
+                                <div class="set-icon">percent</div>
+                            </div>
+                            <span></span>
+                        </article>
+
+                        <article>
+                            <div>
+                                <div class="set-icon">timer</div>
+                            </div>
+                            <span>3:12</span>
+                        </article>
+
+                        <article>
+                            <div>
+                                <div class="set-icon">paid</div>
+                            </div>
+                            <span>+38</span>
+                        </article>
+
+                    </section>
+
+                </div>
+
+                <button class="primary" onclick="finish_learning()">Fertig ✅</button>
+
+            </section>
+
+            <button type="button" class="set-icon cancel-learn"
+                onclick="small_pop_up('verify-cancel-learning')">cancel</button>
+
+        </section>
+
+
+
+        <!-- --- SETTINGS --- -->
+
+
+
+        <section id="settings">
+
+            <!-- header -->
+
+            <header class="slide-intro">
+
+                <h1>Einstellungen</h1>
+
+                <button type="button">
+                    <img alt="Avatar">
+                </button>
+
+            </header>
+
+            <!-- profile box -->
+
+            <div class="profile-box">
+
+                <button type="button" onclick="upload_new_avatar()">
+                    <img alt="Avatar">
+                </button>
+
+                <h1></h1>
+
+                <span></span>
+                <span></span>
+
+            </div>
+
+            <!-- profile -->
+
+            <article class="profile auto-adjust-childs">
+
+                <h1>😃 Profil</h1>
+
+                <div>
+                    <span>Vorname</span>
+                    <input type="name" name="first_name" placeholder="Vorname">
+                </div>
+
+                <div>
+                    <span>Nachname</span>
+                    <input type="name" name="last_name" placeholder="Nachname">
+                </div>
+
+                <div>
+                    <span>E-Mail-Adresse</span>
+                    <input type="text" name="email" placeholder="E-Mail"
+                        pattern="^(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}$">
+                </div>
+
+                <button type="button" class="primary" onclick="update_profile()">Profil updaten ✍</button>
+
+            </article>
+
+            <!-- school -->
+
+            <!--
+
+            <article class="school auto-adjust-childs">
+
+                <h1>🏫 Schule</h1>
+
+                <div>
+                    <span>Schule</span>
+                    <button type="button"></button>
+                </div>
+
+            </article>
+
+            -->
+
+            <!-- learn -->
+
+            <article class="learn auto-adjust-childs">
+
+                <h1>🗃 Lernen</h1>
+
+                <div onclick="dropdown_display('attention_low_upper_case', true)">
+                    <span>Groß-/ Kleinschreibung berücksichtigen</span>
+                    <button type="button"></button>
+                </div>
+
+                <div onclick="dropdown_display('attention_spaces', true)">
+                    <span>Leerzeichen berücksichtigen</span>
+                    <button type="button"></button>
+                </div>
+
+                <div onclick="dropdown_display('set-vocab-counter', true)">
+                    <span>Vokabeln pro Lerndurchgang</span>
+                    <button type="button"></button>
+                </div>
+
+            </article>
+
+            <!-- help / problems -->
+
+            <article class="help">
+
+                <h1>🙏 Hilfe & Probleme</h1>
+
+                <div>
+                    <span>Bei Fragen oder Problemen stehe ich gerne zur Verfügung. 👇</span>
+                </div>
+
+            </article>
+
+            <!-- contact -->
+
+            <article class="contact">
+
+                <h1>📬 Kontakt</h1>
+
+                <div>
+                    <a href="mailto:service@web-byte-studio.com" target="_blank">service@web-byte-studio.com</a>
+                </div>
+
+            </article>
+
+            <!-- support -->
+
+            <article class="support">
+
+                <h1>❤ Support</h1>
+
+                <div>
+
+                    <span>Vielen Dank!</span>
+                    <br>
+                    <a href="https://buymeacoffee.com/timonschroth" target="_blank">
+                        <img src="./src/img/buy_me_a_coffee.png" alt="Buy me a coffee">
+                    </a>
+
+                    <a href="https://www.paypal.com/paypalme/schrothtimon" target="_blank">
+                        <img src="./src/img/paypal.png" alt="PayPal">
+                        <span>Mit PayPal unterstützen</span>
+                    </a>
+
+                </div>
+
+            </article>
+
+            <a href="./imprint.html" class="imprint-link">Impressum & Datenschutzerklärung</a>
+
+        </section>
+
+
+
+        <!-- --- SETUP --- -->
+
+
+
+        <section id="setup">
+
+            <section class="onboarding">
+
+                <header>
+
+                    <img src="./src/img/mshift-horizon.svg" alt="Memory Shift Horizon">
+                    <img src="./src/vid/hello.gif" alt="Hallo">
+
+                </header>
+
+                <div>
+
+                    <header>
+                        <h1>MemoryShift</h1>
+                        <h2>Learn smarter</h2>
+                    </header>
+                    <button type="button" class="primary" onclick="app_setup_steps('start-setup')">Loslegen 🚀</button>
+                    <span>Web Byte Studio</span>
+
+                </div>
+
+            </section>
+
+            <div class="progress-bar">
+                <div></div>
+            </div>
+
+            <section class="introduction">
+
+                <h1>MemoryShift ist ein neuer Weg Vokabeln zu lernen.</h1>
+                <img src="./src/img/introduction.svg" alt="Bild von MemoryShift Home">
+                <button type="button" class="primary" onclick="app_setup_steps('introduction')">Weiter 👉</button>
+
+            </section>
+
+            <section class="functions">
+
+                <h1><span style="color: var(--clr-primary)">MemoryShift</span> kann ...</h1>
+
+                <article class="auto-adjust-childs">
+
+                    <div>
+                        <h1>Adaptives Lernen & Active Recall</h1>
+                        <span>🗃</span>
+                    </div>
+
+                    <div>
+                        <h1>Prüfungen planen</h1>
+                        <span>📅</span>
+                    </div>
+
+                    <div>
+                        <h1>Statistiken erstellen</h1>
+                        <span>📊</span>
+                    </div>
+
+                </article>
+
+                <span>Und noch vieles mehr 😉</span>
+
+                <button type="button" class="primary" onclick="app_setup_steps('start-profile')">Weiter 👉</button>
+
+            </section>
+
+            <section class="start-profile">
+
+                <p>
+                    Lass und zum Starten <br> ein Profil für dich <br> erstellen.
+                </p>
+
+                <button type="button" class="primary" onclick="app_setup_steps('set-profile')">Ja 👍</button>
+
+            </section>
+
+            <section class="set-profile">
+
+                <h1>Hey, willkommen! 🧑</h1>
+
+                <button type="button" class="profile-picture" onclick="upload_new_avatar()">
+                    🖼
+                    <img alt="Avatar">
+                </button>
+
+                <article class="setup-article">
+
+                    <h2>😀 Profil</h2>
+
+                    <div>
+                        <span>Vorname</span>
+                        <input type="name" name="first_name" placeholder="Vorname" class="primary-input">
+                    </div>
+
+                    <div>
+                        <span>Nachname</span>
+                        <input type="name" name="last_name" placeholder="Nachname" class="primary-input">
+                    </div>
+
+                </article>
+
+                <button type="button" class="primary" onclick="app_setup_steps('finishing')">Weiter 👉</button>
+
+            </section>
+
+            <section class="finishing">
+
+                <h1>Es kann losgehen! 🚀</h1>
+
+            </section>
+
+        </section>
+
+
+
+
+
+    </main>
+
+
+
+    <!-- --- DROPDOWN --- -->
+
+
+
+    <section id="dropdown">
+
+        <div class="choose-area">
+
+            <h1 class="emoji"></h1>
+            <h1 class="headline"></h1>
+            <button type="button" class="choose-btn" onclick="options_display(true)">Auswählen</button>
+            <button type="button" class="submit set-icon" onclick="continue_dropdown()">arrow_forward</button>
+
+        </div>
+
+        <div class="options">
+        </div>
+
+    </section>
+
+
+
+    <!-- --- SMALL POP UP --- -->
+
+
+
+    <section id="small-pop-up-area">
+
+        <!-- alert -->
+
+        <div class="alert">
+
+            <header>
+                <div></div>
+                <h1></h1>
+            </header>
+
+            <p>
+            </p>
+
+            <form onsubmit="return false;">
+
+                <button type="submit" onclick="small_pop_up('alert', false)">
+                    <div class="set-icon">arrow_forward</div>
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- verify cancel learning -->
+
+        <div class="verify-cancel-learning">
+
+            <header>
+                <div class="set-icon">cancel</div>
+                <h1>Sicher?</h1>
+            </header>
+
+            <p>
+                Bist du sicher, dass du <b>aufgeben</b> möchtest?
+            </p>
+
+            <form onsubmit="return false;">
+
+                <button type="button" onclick="small_pop_up('verify-cancel-learning', false)">Weiter geht's</button>
+                <button type="submit" onclick="cancel_learn()">
+                    <div class="set-icon">arrow_forward</div>
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- verify delete vocab -->
+
+        <div class="verify-delete-vocab">
+
+            <header>
+                <div class="set-icon">delete</div>
+                <h1>Löschen</h1>
+            </header>
+
+            <p>
+                Das kann nicht rückgängig gemacht werden? 🗑️
+            </p>
+
+            <form onsubmit="return false;">
+
+                <button type="button" onclick="small_pop_up('verify-delete-vocab', false)">Nein</button>
+                <button type="submit" onclick="delete_vocab_list()">
+                    <div class="set-icon">arrow_forward</div>
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- verify delete exam -->
+
+        <div class="verify-delete-exam">
+
+            <header>
+                <div class="set-icon">delete</div>
+                <h1>Sicher?</h1>
+            </header>
+
+            <p>
+                Die Vokabelliste bleibt dabei erhalten. 😅
+            </p>
+
+            <form onsubmit="return false;">
+
+                <button type="button" onclick="small_pop_up('verify-delete-exam', false)">Nein</button>
+                <button type="submit" onclick="delete_exam()">
+                    <div class="set-icon">arrow_forward</div>
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- verify delete list -->
+
+        <div class="verify-delete-list">
+
+            <header>
+                <div class="set-icon">delete</div>
+                <h1>Löschen</h1>
+            </header>
+
+            <p>
+                Das kann nicht rückgängig gemacht werden? 🗑️
+            </p>
+
+            <form onsubmit="return false;">
+
+                <button type="button" onclick="small_pop_up('verify-delete-list', false)">Nein</button>
+                <button type="submit" onclick="delete_vocab_list()">
+                    <div class="set-icon">arrow_forward</div>
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- --- POP UP --- -->
+
+
+
+    <section id="pop-up-area">
+
+        <!-- add vocab -->
+
+        <div id="add-vocab">
+
+            <button type="button">
+                <div class="set-icon">arrow_down</div>
+            </button>
+
+            <article>
+
+                <header>
+                    <img>
+                    <span></span>
+                </header>
+
+                <input type="text" name="native_language" placeholder="Deine Sprache"
+                    class="primary-focus big_text_field">
+
+            </article>
+
+            <article>
+
+                <header>
+                    <img>
+                    <span></span>
+                </header>
+
+                <input type="text" name="translation" placeholder="Fremdsprache" class="primary-focus big_text_field">
+
+            </article>
+
+            <button type="button" class="add-note secondary" onclick="back_to_pop_up('add-note', true)">
+                <div class="set-icon">notes</div>
+                <span>Notiz hinzufügen</span>
+            </button>
+
+            <section>
+                <button type="button" class="primary"></button>
+            </section>
+
+        </div>
+
+        <div id="add-exam">
+
+            <button type="button">
+                <div class="set-icon">arrow_down</div>
+            </button>
+
+            <article class="auto-adjust-childs">
+
+                <h1>Prüfungstermin hinzufügen</h1>
+
+                <h2>Datum</h2>
+                <input type="date" name="exam-date">
+
+            </article>
+
+            <article class="auto-adjust-childs" style="margin-top: 3rem;">
+
+                <h2>Löschen</h1>
+                    <button type="button" class="delete secondary" onclick="small_pop_up('verify-delete-exam', true);">
+                        <div class="set-icon">delete</div>
+                        <span>Löschen</span>
+                    </button>
+
+            </article>
+
+            <section>
+                <button type="button" class="primary"></button>
+            </section>
+
+        </div>
+
+        <!-- edit vocab -->
+
+        <div id="edit-vocab">
+
+            <button type="button">
+                <div class="set-icon">arrow_down</div>
+            </button>
+
+            <article>
+
+                <header>
+                    <img>
+                    <span></span>
+                </header>
+
+                <input type="text" name="native_language" placeholder="Deine Sprache"
+                    class="primary-focus big_text_field">
+
+            </article>
+
+            <article>
+
+                <header>
+                    <img>
+                    <span></span>
+                </header>
+
+                <input type="text" name="translation" placeholder="Fremdsprache" class="primary-focus big_text_field">
+
+            </article>
+
+            <button type="button" class="add-note secondary" onclick="pop_up('add-note', true, true);">
+                <div class="set-icon">notes</div>
+                <span>Notiz hinzufügen</span>
+            </button>
+
+            <button type="button" class="delete secondary" onclick="small_pop_up('verify-delete-vocab', true);">
+                <div class="set-icon">delete</div>
+                <span>Löschen</span>
+            </button>
+
+            <section>
+                <button type="button" class="primary"></button>
+            </section>
+
+        </div>
+
+        <!-- add note -->
+
+        <div id="add-note">
+
+            <button type="button">
+                <div class="set-icon">arrow_down</div>
+            </button>
+
+            <article>
+
+                <h1>Notiz eintragen</h1>
+                <textarea name="note" placeholder="Notiz" class="primary-focus  big_text_field"></textarea>
+
+            </article>
+
+            <section>
+                <button type="button" class="primary" onclick="add_note()"></button>
+            </section>
+
+        </div>
+
+        <!-- add list -->
+
+        <div id="add-list">
+
+            <button type="button">
+                <div class="set-icon">arrow_down</div>
+            </button>
+
+            <article class="choose-language">
+            </article>
+
+            <article class="enter-list-name">
+                <h1>Gib deiner Liste einen Titel</h1>
+                <input type="text" name="list-name" placeholder="Titel">
+            </article>
+
+            <article class="accuracy-test-config">
+                <h1>Wie möchtest du AccuracyTest verwenden?</h1>
+                <div class="clickable_box" onclick="clickable_box('#add-list > .accuracy-test-config', 1, true)">
+                    <img src="./src/img/accuracy_test/1.svg" alt="Nie">
+                    <span>Nie</span>
+                </div>
+                <div class="clickable_box" onclick="clickable_box('#add-list > .accuracy-test-config', 2, true)">
+                    <img src="./src/img/accuracy_test/2.svg" alt="Manchmal">
+                    <span>Manchmal</span>
+                </div>
+                <div class="clickable_box" onclick="clickable_box('#add-list > .accuracy-test-config', 3, true)">
+                    <img src="./src/img/accuracy_test/3.svg" alt="Häufig">
+                    <span>Häufig</span>
+                </div>
+            </article>
+
+            <section>
+                <button type="button" class="primary"></button>
+            </section>
+
+        </div>
+
+        <!-- edit list -->
+
+        <div id="edit-list">
+
+            <button type="button">
+                <div class="set-icon">arrow_down</div>
+            </button>
+
+            <article class="name auto-adjust-childs">
+
+                <h2>Name</h2>
+                <input type="name" name="list_name" placeholder="Listenname" class="big_text_field primary-focus">
+
+            </article>
+
+            <article class="text-accuracy auto-adjust-childs">
+
+                <h2>TextAccuracy</h2>
+                <section>
+                    <div onclick="clickable_box('#edit-list .text-accuracy section', 1, true, true)">
+                        <div class="set-icon">text_accuracy_1</div>
+                        <span>Nie</span>
+                    </div>
+                    <div onclick="clickable_box('#edit-list .text-accuracy section', 2, true, true)">
+                        <div class="set-icon">text_accuracy_2</div>
+                        <span>Manchmal</span>
+                    </div>
+                    <div onclick="clickable_box('#edit-list .text-accuracy section', 3, true, true)">
+                        <div class="set-icon">text_accuracy_3</div>
+                        <span>Häufig</span>
+                    </div>
+                </section>
+
+            </article>
+
+            <article class="auto-adjust-childs">
+
+                <h2>Löschen</h2>
+                <button type="button" class="delete secondary" onclick="small_pop_up('verify-delete-list', true)">
+                    <div class="set-icon">delete</div>
+                    <span>Löschen</span>
+                </button>
+
+            </article>
+
+            <section>
+                <button type="button" class="primary"></button>
+            </section>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- --- BOTTOM NAVIGATION --- -->
+
+
+
+    <nav id="bottom-navigation">
+
+        <button type="button" class="home" onclick="slide('home')">
+            <div class="set-icon">home</div>
+            <div class="set-icon filled">home</div>
+            <span>Home</span>
+        </button>
+
+        <button type="button" class="library" onclick="slide('library')">
+            <div class="set-icon">bookmark</div>
+            <div class="set-icon filled">bookmark</div>
+            <span>Bibliothek</span>
+        </button>
+
+        <button type="button" class="statistic" onclick="slide('statistic')">
+            <div class="set-icon">bar_chart</div>
+            <div class="set-icon filled">bar_chart</div>
+            <span>Statistik</span>
+        </button>
+
+    </nav>
+
+
+</body>
+
+</html>
