@@ -1,0 +1,14 @@
+# LICENSE
+
+Projekt: Memory Shift - Learn Smarter  
+Urheberrecht © 2024 WebByte Studio (Inhaber: Timon Schroth). Alle Rechte vorbehalten.  
+Website: https://memoryshift.app  
+
+Dieses Programm unterliegt dem Urheberrecht und anderen Schutzrechten. Jegliche Art der Vervielfältigung, Verbreitung, öffentlichen Wiedergabe oder sonstigen Nutzung ist ohne die vorherige ausdrückliche und schriftliche Genehmigung von WebByte Studio strengstens untersagt. 
+
+Jegliche Zuwiderhandlung, einschließlich der unautorisierten Nutzung, Bearbeitung, Übersetzung oder anderweitigen Veränderung des Codes, ist gesetzlich untersagt und wird sowohl straf- als auch zivilrechtlich verfolgt.
+
+Allein autorisierte Kontaktadresse für Genehmigungsanfragen:  
+**E-Mail**: service@webbyte.studio  
+
+Sollten Sie Interesse an der Verwendung dieses Codes haben, kontaktieren Sie uns bitte unter der oben genannten Adresse.

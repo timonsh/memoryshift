@@ -1,4 +1,49 @@
+/*!
+
+
+
+* Projekt: Memory Shift - Learn smarter
+* Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* Website: https://memoryshift.app
+*
+* Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
+* irgendeiner Weise verwendet oder verändert werden.
+*
+* Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
+*
+* Kontakt: service@webbyte.studio
+
+
+
+*/
+
+
+
 "use strict";
+
+console.log(
+  "%cAchtung! 🛑",
+  "color: #f4263f; font-size: 40px; font-weight: 700;"
+);
+console.log(
+  "%cDie Nutzung der Entwicklertools kann zu unerwarteten Fehlfunktionen und erheblichen Sicherheitsrisiken führen. " +
+  "Jegliche Manipulation oder Analyse des Codes stellt eine Verletzung der Urheberrechte dar. " +
+  "Alle Rechte vorbehalten © 2024 WebByte Studio (Inhaber: Timon Schroth). " +
+  "Unbefugte Nutzung kann zivil- und strafrechtliche Konsequenzen nach sich ziehen.",
+  "color: #f4263f; font-size: 16px; font-weight: 700;"
+);
+
+
+
+/* --- DEACTIVATE AUTO COMPLETE --- */
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("input").forEach(input => {
+    input.setAttribute("autocomplete", "off");
+  });
+});
 
 
 
@@ -154,6 +199,9 @@ function check_setup_required() {
     img_selector += '.svg';
 
     document.querySelector(`#setup .introduction > img`).setAttribute('src', img_selector);
+
+    localStorage.clear();
+    localStorage.setItem('theme', 'auto');
 
     return true;
   } else {
@@ -412,7 +460,7 @@ app_opening('slow', 'home');
 // constants
 
 const version = {
-  build: '2.0',
+  build: '2.1',
   channel: 'stable',
   title: 'Sunset',
   subtitle: "Night's Horizon",
@@ -421,6 +469,12 @@ const version = {
 
 const app_language = 'Deutsch';
 const available_languages = ['Englisch', 'Französisch', 'Spanisch', 'Latein', 'Russisch'];
+
+// app open counter
+
+let app_open_counter = parseInt(localStorage.getItem('app_open_counter')) | 0;
+app_open_counter++;
+localStorage.setItem('app_open_counter', app_open_counter);
 
 // cache
 
@@ -453,6 +507,8 @@ if (localStorage.getItem('theme') != 'auto') {
   auto_apply_theme();
 }
 setInterval('auto_apply_theme()', 1500);
+
+const ms_watermark_hash = "MShift|WBStudio2024";
 
 // settings
 
@@ -1271,45 +1327,66 @@ function update_vocab() {
 
 function update_vocab_list() {
 
+  let continue_processing = true;
+
   let name = document.querySelector('#edit-list .name input').value;
   let accuracy_test_config = cache.clickable_box_context[0];
 
   if (remove_spaces(name) == '' || accuracy_test_config == null) {
+
     alert_pup(
       {
         heading: 'Korrrekt?',
         text: 'Bitte fülle beide Felder aus.'
       }
     );
+
   } else {
 
     let all_vocab_list_names = [];
     all_vocab_lists.forEach(vl => { all_vocab_list_names.push(vl.name); });
 
-    if (all_vocab_list_names.includes(name)) {
+    if (name.length <= 20) {
 
-      if (cache.vocab_list_context.name != name) {
+      if (all_vocab_list_names.includes(name)) {
 
-        let new_name = name;
-        let count = 1;
+        if (cache.vocab_list_context.name != name) {
 
-        while (all_vocab_list_names.includes(new_name)) {
-          new_name = `${name} (${count})`;
-          count++;
+          let new_name = name;
+          let count = 1;
+
+          while (all_vocab_list_names.includes(new_name)) {
+            new_name = `${name} (${count})`;
+            count++;
+          }
+
+          name = new_name;
+
         }
 
-        name = new_name;
-
       }
+    } else {
+
+      continue_processing = false;
+      alert_pup(
+        {
+          heading: 'Zu lang',
+          text: 'Bitte verwenden Sie einen kürzeren Titel. 🔤'
+        }
+      );
 
     }
 
-    cache.vocab_list_context.name = name;
-    cache.vocab_list_context.accuracy_text_config = accuracy_test_config;
-    save_local_storage();
+    if (continue_processing) {
 
-    pop_up('edit-list', false);
-    open_list_detail(cache.vocab_list_context.name);
+      cache.vocab_list_context.name = name;
+      cache.vocab_list_context.accuracy_text_config = accuracy_test_config;
+      save_local_storage();
+
+      pop_up('edit-list', false);
+      open_list_detail(cache.vocab_list_context.name);
+
+    }
 
   }
 
@@ -1484,17 +1561,36 @@ function create_vocab_list_steps(step_name) {
 
   if (step_name == 'enter-list-name') {
     new_vocab_list.name = document.querySelector(`#add-list > .enter-list-name > input`).value;
+
     if (remove_spaces(new_vocab_list.name) != '') {
-      if (check_if_list_name_is_available(new_vocab_list.name)) {
-        active_slide_context = 'enter-list-name';
-        next_slide_context = 'accuracy-test-config';
+
+      if (new_vocab_list.name.length <= 20) {
+
+        if (check_if_list_name_is_available(new_vocab_list.name)) {
+
+          active_slide_context = 'enter-list-name';
+          next_slide_context = 'accuracy-test-config';
+
+        } else {
+
+          alert_pup(
+            {
+              heading: 'Nicht möglich',
+              text: 'Bitte verwende einen neuen Listennamen. ✏'
+            }
+          );
+
+        }
+
       } else {
+
         alert_pup(
           {
-            heading: 'Nicht möglich',
-            text: 'Bitte verwende einen neuen Listennamen. ✏'
+            heading: 'Zu lang',
+            text: 'Bitte verwenden Sie einen kürzeren Titel. 🔤'
           }
         );
+
       }
     }
   }
@@ -2478,7 +2574,7 @@ function accuracy_test_initialize() {
   })
 
   document.querySelector('#learn .cancel-learn').style.animation = 'fade_out .25s both';
-  setTimeout(() => {  
+  setTimeout(() => {
     document.querySelector('#learn .cancel-learn').style.visibility = 'hidden';
   }, 250);
 
@@ -3261,7 +3357,7 @@ function import_vocab_list() {
 function add_imported_list(file_data) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0', '2.0'];
+  let accepted_builds = ['1.0', '2.0', '2.1'];
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 

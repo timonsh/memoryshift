@@ -2071,6 +2071,23 @@ textarea.big_text_field {
     margin-right: .5rem;
 }
 
+#settings>button:last-of-type {
+    width: auto;
+    height: auto;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5rem;
+    background-color: transparent;
+    border: none;
+}
+
+#settings>button>img {
+    width: auto;
+    height: 30px;
+}
+
 
 
 /* --- SETUP --- */
