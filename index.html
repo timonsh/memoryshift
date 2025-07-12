@@ -3,38 +3,6 @@
 
 <head>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0MJD3LCM6M"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-0MJD3LCM6M', { 'anonymize_ip': true });
-    </script>
-
-    <!-- site config -->
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Web Byte Studio">
-    <meta name="description"
-        content="Dein smarter Vokabeltrainer für effizientes und nachhaltiges Lernen. Optimiere deinen Fortschritt mit cleveren Wiederholungen und beherrsche deine Vokabeln schnell und easy.">
-    <title>Memory Shift 🎓</title>
-
-    <!-- import -->
-
-    <link rel=" stylesheet" type="text/css" href="./src/css/@font-face.css">
-    <link rel="stylesheet" type="text/css" href="./src/css/style.css">
-
-    <script type="text/javascript" src="./src/import/material-icons-framework.js" defer></script>
-    <script type="text/javascript" src="./src/import/chart.min.js" defer></script>
-
-    <script type="text/javascript" src="./src/js/initialize_ui.js" defer></script>
-    <script type="text/javascript" src="./src/js/app.js" defer></script>
-    <script type="text/javascript" src="./src/js/dynamic_design.js" defer></script>
-    <script type="text/javascript" src="./src/js/chart_implementation.js" defer></script>
-
     <!-- favicon -->
 
     <link rel="apple-touch-icon" sizes="180x180" href="./src/img/favicons/apple-touch-icon.png">
@@ -48,6 +16,49 @@
     <meta name="msapplication-TileColor" content="#2a45f8">
     <meta name="msapplication-config" content="./src/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#2a45f8">
+
+    <!-- google tag -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0MJD3LCM6M"></script>
+    <script>
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-0MJD3LCM6M', { 'anonymize_ip': true });
+
+    </script>
+
+    <!-- site config -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="WebByte Studio">
+    <meta name="keywords" content="Memory Shift, MShift, Vokabeltrainer, TIMONO Vokabeltrainer, WebByte Studio, Online Vokabeltrainer, Timon Schroth, MPG, MPGG">
+    <meta name="description"
+        content="Dein smarter Vokabeltrainer für effizientes und nachhaltiges Lernen. Optimiere deinen Fortschritt mit cleveren Wiederholungen und beherrsche deine Vokabeln schnell und easy. Entwickelt von WebByte Studio">
+    <title>Memory Shift 🎓</title>
+
+    <!-- theme -->
+
+    <div id="theme-import">
+    </div>
+
+    <!-- import -->
+
+    <script src="./src/js/shop_items.js" type="text/javascript"></script>
+
+    <link rel=" stylesheet" type="text/css" href="./src/css/@font-face.css">
+    <link rel="stylesheet" type="text/css" href="./src/css/style.css">
+
+    <script type="text/javascript" src="./src/import/material-icons-framework.js" defer></script>
+    <script type="text/javascript" src="./src/import/chart.min.js" defer></script>
+
+    <script type="text/javascript" src="./src/js/initialize_ui.js" defer></script>
+    <script type="text/javascript" src="./src/js/app.js" defer></script>
+    <script type="text/javascript" src="./src/js/dynamic_design.js" defer></script>
+    <script type="text/javascript" src="./src/js/chart_implementation.js" defer></script>
 
 </head>
 
@@ -212,7 +223,6 @@
             </div>
 
             <div class="vocab-list">
-
             </div>
 
             <div class="learn-btn">
@@ -348,11 +358,11 @@
 
             </section>
 
-            <section class="text-accuracy">
+            <section class="accuracy-test">
 
-                <input type="text" name="translation_text_accuracy" placeholder="Übersetzung eingeben"
+                <input type="text" name="translation_accuracy_test" placeholder="Übersetzung eingeben"
                     class="primary-focus">
-                <button class="primary" onclick="check_text_accuracy()">Überprüfen 🗃</button>
+                <button class="primary" onclick="check_accuracy_test()">Überprüfen 🗃</button>
 
             </section>
 
@@ -503,6 +513,19 @@
 
             </article>
 
+            <!-- daily goal -->
+
+            <article class="daily-target auto-adjust-childs">
+
+                <h1>🎯 Tägliches Ziel</h1>
+
+                <div onclick="dropdown_display('daily_target', true)">
+                    <span>Tägliches Ziel</span>
+                    <button type="button"></button>
+                </div>
+
+            </article>
+
             <!-- help / problems -->
 
             <article class="help">
@@ -522,7 +545,7 @@
                 <h1>📬 Kontakt</h1>
 
                 <div>
-                    <a href="mailto:service@web-byte-studio.com" target="_blank">service@web-byte-studio.com</a>
+                    <a href="mailto:service@webbyte.studio" target="_blank">service@webbyte.studio</a>
                 </div>
 
             </article>
@@ -551,6 +574,105 @@
             </article>
 
             <a href="./imprint.html" class="imprint-link">Impressum & Datenschutzerklärung</a>
+
+        </section>
+
+
+
+        <!-- --- SHOP --- -->
+
+
+
+        <section id="shop">
+
+
+            <!-- header -->
+
+            <header class="slide-intro">
+
+                <h1>Shop</h1>
+
+                <button type="button">
+                    <img alt="Avatar">
+                </button>
+
+            </header>
+
+            <!-- payment methods -->
+
+            <section class="payment-method-list">
+
+                <div class="shift-coins">
+                    <div class="set-icon">paid</div>
+                    <span>264</span>
+                </div>
+
+            </section>
+
+            <!-- news / updates -->
+
+            <section class="news">
+
+                <div class="set-icon">event</div>
+                <h1>New Themes</h1>
+                <span>Entdecke sie jetzt!</span>
+
+            </section>
+
+            <!-- available -->
+
+            <section class="available">
+
+                <h1>Shop</h1>
+
+                <article>
+                </article>
+
+            </section>
+
+            <!-- owned -->
+
+            <section class="owned">
+
+                <h1>Im Besitz</h1>
+
+                <article>
+                </article>
+
+            </section>
+
+            <!-- buy item -->
+
+            <section class="buy-item-area">
+
+                <section class="buy-item">
+
+                    <h1></h1>
+
+                    <div class="theme-preview"></div>
+                    <div class="amount">
+                        <div class="set-icon">paid</div>
+                        <span></span>
+                    </div>
+                    <div class="btns">
+                        <button type="button" onclick="cancel_transaction()">Zurück</button>
+                        <button type="button" onclick="complete_transaction()">Kaufen</button>
+                    </div>
+
+                </section>
+
+            </section>
+
+            <!-- theme transition -->
+
+            <section class="theme-transition">
+
+                <div>
+                    <h1></h1>
+                    <span></span>
+                </div>
+
+            </section>
 
         </section>
 
@@ -591,8 +713,7 @@
             <section class="introduction">
 
                 <h1>MemoryShift ist ein neuer Weg Vokabeln zu lernen.</h1>
-                <img src="./src/img/introduction.svg" alt="Bild von MemoryShift Home">
-                <button type="button" class="primary" onclick="app_setup_steps('introduction')">Weiter 👉</button>
+                <img alt="Bild von MemoryShift Home">
 
             </section>
 
@@ -621,17 +742,13 @@
 
                 <span>Und noch vieles mehr 😉</span>
 
-                <button type="button" class="primary" onclick="app_setup_steps('start-profile')">Weiter 👉</button>
-
             </section>
 
             <section class="start-profile">
 
                 <p>
-                    Lass und zum Starten <br> ein Profil für dich <br> erstellen.
+                    Lass uns zum Starten <br> ein Profil für dich <br> erstellen.
                 </p>
-
-                <button type="button" class="primary" onclick="app_setup_steps('set-profile')">Ja 👍</button>
 
             </section>
 
@@ -660,8 +777,6 @@
 
                 </article>
 
-                <button type="button" class="primary" onclick="app_setup_steps('finishing')">Weiter 👉</button>
-
             </section>
 
             <section class="finishing">
@@ -669,6 +784,8 @@
                 <h1>Es kann losgehen! 🚀</h1>
 
             </section>
+
+            <button type="button" class="primary">Weiter 👉</button>
 
         </section>
 
@@ -740,7 +857,7 @@
             </header>
 
             <p>
-                Bist du sicher, dass du <b>aufgeben</b> möchtest?
+                Bist du sicher, dass du <b style="color: var(--clr-font-opposite)">aufgeben</b> möchtest?
             </p>
 
             <form onsubmit="return false;">
@@ -1030,20 +1147,21 @@
 
             </article>
 
-            <article class="text-accuracy auto-adjust-childs">
+            <article class="accuracy-test auto-adjust-childs">
 
-                <h2>TextAccuracy</h2>
+                <h2>AccuracyTest</h2>
+
                 <section>
-                    <div onclick="clickable_box('#edit-list .text-accuracy section', 1, true, true)">
-                        <div class="set-icon">text_accuracy_1</div>
+                    <div onclick="clickable_box('#edit-list .accuracy-test section', 1, true)">
+                        <div class="set-icon">accuracy_test_1</div>
                         <span>Nie</span>
                     </div>
-                    <div onclick="clickable_box('#edit-list .text-accuracy section', 2, true, true)">
-                        <div class="set-icon">text_accuracy_2</div>
+                    <div onclick="clickable_box('#edit-list .accuracy-test section', 2, true)">
+                        <div class="set-icon">accuracy_test_2</div>
                         <span>Manchmal</span>
                     </div>
-                    <div onclick="clickable_box('#edit-list .text-accuracy section', 3, true, true)">
-                        <div class="set-icon">text_accuracy_3</div>
+                    <div onclick="clickable_box('#edit-list .accuracy-test section', 3, true)">
+                        <div class="set-icon">accuracy_test_3</div>
                         <span>Häufig</span>
                     </div>
                 </section>
@@ -1092,6 +1210,12 @@
             <div class="set-icon">bar_chart</div>
             <div class="set-icon filled">bar_chart</div>
             <span>Statistik</span>
+        </button>
+
+        <button type="button" class="shop" onclick="slide('shop')">
+            <div class="set-icon">shopping_bag</div>
+            <div class="set-icon filled">shopping_bag</div>
+            <span>Shop</span>
         </button>
 
     </nav>

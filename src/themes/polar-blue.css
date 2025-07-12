@@ -1,0 +1,46 @@
+:root {
+    --clr-background: #b3e5fc;
+    --clr-primary: #0d47a1;
+    --clr-primary-light: #0d47a1;
+    --clr-secondary: #2196f3;
+    --clr-tertiary: #42a5f5;
+    --clr-quaternary: #fbc02d;
+    --clr-accent: #2196f3;
+    --clr-setup-accent-1: #0d47a1;
+
+    --clr-light-deviation: #90caf9;
+    --clr-light-deviation-mid-transparency: rgba(144, 202, 249, 0.5);
+    --clr-deviation: #64b5f6;
+    --clr-deep-deviation: #42a5f5;
+
+    --clr-agree: #05B853;
+    --clr-warning: #d5006d;
+    --clr-warning-accent: #d0212b;
+    --clr-warning-3_4-transparency: rgba(244, 38, 63, 0.75);
+
+    --clr-svg-change: #000;
+
+    --clr-font: #000;
+    --clr-font-opposite: #fff;
+
+    --clr-Französisch: #3d1181;
+    --clr-Englisch: #0d47a1;
+    --clr-Spanisch: #f46042;
+    --clr-Latein: #05B853;
+    --clr-Deutsch: #f44826;
+    --clr-Russisch: #F85BC0;
+}
+
+#statistic .streak {
+    background: #2196f3;
+}
+
+#statistic .time,
+#settings .profile-box {
+    background: #0d47a1;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--clr-deep-deviation) !important;
+}

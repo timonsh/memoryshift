@@ -1,6 +1,143 @@
 "use strict";
 
 
+
+/* --- THEME-APPLY --- */
+
+
+
+let active_theme;
+
+if (localStorage.getItem('theme') == null) {
+  localStorage.setItem('theme', 'auto');
+}
+
+// auto apply
+
+function check_system_theme() {
+
+  const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (isDarkMode) {
+    return "dark";
+  } else {
+    return "light";
+  }
+
+}
+
+function auto_apply_theme() {
+
+  if (cache.auto_theme_change == true || active_theme == null) {
+
+    let sys_mode = check_system_theme();
+    let mode_change;
+
+    if (sys_mode == 'light') {
+      mode_change = 'day';
+    } else {
+      mode_change = 'night';
+    }
+
+    let new_theme = `primary-${mode_change}`;
+
+    if (active_theme === new_theme) {
+      return false;
+    } else {
+      apply_any_theme(new_theme, null, 'auto');
+    }
+
+  } else {
+    return false;
+  }
+
+}
+
+function start_auto_theme() {
+
+  cache.auto_theme_change = true;
+  localStorage.setItem('theme', 'auto');
+  auto_apply_theme();
+  shop();
+
+}
+
+/* apply any theme */
+
+function apply_any_theme(requested_theme, auto_change, auto_activated) {
+
+  let requested_object;
+
+  owned_shop_items('get').then(result => {
+
+    const owned_themes = result;
+
+    shop_items.themes.forEach(theme => {
+      if (theme.name === requested_theme) {
+        requested_object = theme;
+      }
+    });
+
+    let continue_processing = false;
+
+    if (requested_object.owned == true || owned_themes.includes(requested_object.name)) {
+      continue_processing = true;
+    } else {
+      return 'rejected';
+    }
+
+    if (continue_processing) {
+
+      if (active_theme !== requested_object.name) {
+        if (auto_activated != 'auto') {
+          theme_transition(requested_object);
+        }
+        setTimeout(() => {
+          document.getElementById('theme-import').innerHTML = `<link rel="stylesheet" type="text/css" href="${requested_object.path}">`;
+        }, 75);
+      }
+      active_theme = requested_object.name;
+      if (auto_change == false) {
+        cache.auto_theme_change = false;
+        localStorage.setItem('theme', active_theme);
+      } else if (auto_change == true) {
+        cache.auto_theme_change = true;
+        localStorage.setItem('theme', 'auto');
+      }
+
+    }
+
+    auto_initialize_ui();
+
+  });
+
+}
+
+function theme_transition(theme) {
+
+
+  // in
+  document.querySelector('.theme-transition').style.display = 'flex';
+  document.querySelector('.theme-transition').style.animation = 'fade_in .5s ease-in-out both';
+  document.querySelector('#bottom-navigation').style.animation = 'slide_out .25s ease-in-out both';
+
+  document.querySelector('.theme-transition > div > h1').innerHTML = theme.ui_name;
+  document.querySelector('.theme-transition').style.background = `linear-gradient(0deg, ${theme.display_data.backgroundColor} 0%, ${theme.display_data.child_elmnt_bg} 52%)`;
+  document.querySelector('.theme-transition > div > span').innerHTML = theme.emoji;
+
+  // out
+  setTimeout(() => {
+    setTimeout(() => {
+      document.querySelector('.theme-transition').style.display = 'none';
+    }, 500);
+    document.querySelector('.theme-transition').style.animation = 'fade_out .5s ease-in-out both';
+    document.querySelector('#bottom-navigation').style.animation = 'slide_in .25s ease-in-out .2s both';
+  }, 1500);
+
+}
+
+
+
 /* --- SETUP --- */
 
 
@@ -8,6 +145,16 @@
 function check_setup_required() {
 
   if (user.name.first_name == null || user.name.last_name == null) {
+    let img_selector = './src/img/introduction-';
+    if (check_system_theme() == 'light') {
+      img_selector += 'day';
+    } else {
+      img_selector += 'night';
+    }
+    img_selector += '.svg';
+
+    document.querySelector(`#setup .introduction > img`).setAttribute('src', img_selector);
+
     return true;
   } else {
     return false;
@@ -36,6 +183,20 @@ function app_setup_steps(step) {
 
   if (step == 'start-setup') {
 
+    setTimeout(() => {
+      document.querySelector('#setup > button:last-of-type').style.display = 'block';
+    }, 175);
+
+    let img_selector = './src/img/introduction-';
+    if (check_system_theme() == 'light') {
+      img_selector += 'day';
+    } else {
+      img_selector += 'night';
+    }
+    img_selector += '.svg';
+
+    document.querySelector(`#setup .introduction > img`).setAttribute('src', img_selector);
+
     in_fade = 'introduction';
     out_fade = 'onboarding';
     setTimeout(() => {
@@ -53,30 +214,40 @@ function app_setup_steps(step) {
 
   }
 
-  if (step == 'start-profile') {
+  if (step == 'functions') {
 
     in_fade = 'start-profile';
     out_fade = 'functions';
+    document.querySelector('#setup').style.background = ' var(--clr-setup-accent-1)';
+    document.querySelector('#setup .start-profile').style.background = ' var(--clr-setup-accent-1)';
+    document.querySelector('#setup > button:last-of-type').style.background = '#273259';
+    cache.setup.progress += 25;
+
+  }
+
+  if (step == 'start-profile') {
+
+    in_fade = 'set-profile';
+    out_fade = 'start-profile';
+    document.querySelector('#setup').style.background = ' var(--clr-background)';
+    document.querySelector('#setup > button:last-of-type').style.background = 'var(--clr-primary)';
     cache.setup.progress += 25;
 
   }
 
   if (step == 'set-profile') {
 
-    in_fade = 'set-profile';
-    out_fade = 'start-profile';
-    cache.setup.progress += 25;
-
-  }
-
-  if (step == 'finishing') {
-
+    document.querySelector('#setup').style.background = ' var(--clr-primary)';
     let first_name = document.querySelector(`#setup .set-profile > article > div:first-of-type > input`).value;
     let last_name = document.querySelector(`#setup .set-profile > article > div:last-of-type > input`).value;
 
     if (remove_spaces(first_name) != '' && remove_spaces(last_name) != '') {
 
       cache.setup.progress += 25;
+
+      setTimeout(() => {
+        document.querySelector('#setup > button:last-of-type').remove();
+      }, 175);
 
       in_fade = 'finishing';
       out_fade = 'set-profile';
@@ -95,6 +266,12 @@ function app_setup_steps(step) {
         document.querySelector(`#setup .progress-bar`).style.display = 'none';
       }, 250);
 
+      (async () => {
+        let returned_value = await wallet('add', 25);
+      })();
+
+      auto_initialize_ui();
+
     } else {
 
       alert_pup(
@@ -111,6 +288,9 @@ function app_setup_steps(step) {
   setTimeout(() => {
     document.querySelector(`#setup .progress-bar > div`).style.width = `${cache.setup.progress}%`;
   }, 350);
+
+  console.log(in_fade + out_fade)
+  document.querySelector(`#setup > button:last-of-type`).setAttribute('onclick', `app_setup_steps('${in_fade}')`);
 
   if (in_fade != null) {
     app_setup_slide_in(in_fade);
@@ -232,8 +412,11 @@ app_opening('slow', 'home');
 // constants
 
 const version = {
-  build: '1.0',
-  channel: 'beta'
+  build: '2.0',
+  channel: 'stable',
+  title: 'Sunset',
+  subtitle: "Night's Horizon",
+  emoji: '🌇'
 };
 
 const app_language = 'Deutsch';
@@ -242,6 +425,7 @@ const available_languages = ['Englisch', 'Französisch', 'Spanisch', 'Latein', '
 // cache
 
 let cache = {
+
   vocab_list_context: null,
   dropdown_answers: { front: null, back: null, name: null },
   clickable_box_context: [],
@@ -251,10 +435,24 @@ let cache = {
   pop_up_interactions: [],
   edit_vocab: false,
   clickable_box_already_done: false,
+  auto_theme_change: true,
+  shop: {
+    category: null,
+    name: null,
+    shift_coins_required: null
+  },
+  support_activation_count: 0,
   setup: {
     progress: 0
   }
 };
+
+if (localStorage.getItem('theme') != 'auto') {
+  apply_any_theme(localStorage.getItem('theme'), false, 'auto');
+} else {
+  auto_apply_theme();
+}
+setInterval('auto_apply_theme()', 1500);
 
 // settings
 
@@ -689,7 +887,7 @@ function clean_clickable_box_cache() {
 function reset_my_active_elmnts(parent) {
 
   document.querySelectorAll(`${parent} > div`).forEach(e => {
-    e.style.outline = '3px solid var(--clr-grey)';
+    e.style.outline = '3px solid var(--clr-deviation)';
   });
 
 }
@@ -711,12 +909,12 @@ function clickable_box(parent, pos, one_option, bg_style) {
 
   if (enabled == true) {
     if (bg_style == null || bg_style == false) {
-      document.querySelector(`${parent} > div:nth-of-type(${pos})`).style.outline = '3px solid var(--clr-grey)';
+      document.querySelector(`${parent} > div:nth-of-type(${pos})`).style.outline = '3px solid var(--clr-deviation)';
     } else {
-      document.querySelector(`${parent} > div:nth-of-type(${pos})`).style.backgroundColor = 'var(--clr-grey)';
+      document.querySelector(`${parent} > div:nth-of-type(${pos})`).style.backgroundColor = 'var(--clr-deviation)';
       document.querySelectorAll(`${parent} > div:nth-of-type(${pos}) *`).forEach(elmnt => {
-        elmnt.style.color = '#000';
-        elmnt.style.stroke = '#000';
+        elmnt.style.color = 'var(--clr-font)';
+        elmnt.style.stroke = 'var(--clr-font)';
       })
     }
 
@@ -727,37 +925,27 @@ function clickable_box(parent, pos, one_option, bg_style) {
     } else {
       document.querySelector(`${parent} > div:nth-of-type(${pos})`).style.backgroundColor = 'var(--clr-primary)';
       document.querySelectorAll(`${parent} > div:nth-of-type(${pos}) *`).forEach(elmnt => {
-        elmnt.style.color = '#fff';
-        elmnt.style.stroke = '#fff';
+        elmnt.style.color = 'var(--clr-font-opposite)';
+        elmnt.style.stroke = 'var(--clr-font-opposite)';
       })
     }
     if (one_option) {
       if (bg_style == null || bg_style == false) {
         cache.clickable_box_context.forEach(item => {
-          document.querySelector(`${parent} > div:nth-of-type(${item})`).style.outline = '3px solid var(--clr-grey)';
+          document.querySelector(`${parent} > div:nth-of-type(${item})`).style.outline = '3px solid var(--clr-deviation)';
         })
       } else {
         cache.clickable_box_context.forEach(item => {
-          document.querySelector(`${parent} > div:nth-of-type(${item})`).style.backgroundColor = 'var(--clr-grey)';
+          document.querySelector(`${parent} > div:nth-of-type(${item})`).style.backgroundColor = 'var(--clr-deviation)';
           document.querySelectorAll(`${parent} > div:nth-of-type(${item}) *`).forEach(elmnt => {
-            elmnt.style.color = '#000';
-            elmnt.style.stroke = '#000';
+            elmnt.style.color = 'var(--clr-font)';
+            elmnt.style.stroke = 'var(--clr-font)';
           })
         })
       }
       cache.clickable_box_context = [pos];
     } else {
       cache.clickable_box_context.push(pos);
-    }
-  }
-
-  // custom operations
-
-  if (parent == '#edit-list .text-accuracy section') {
-    if (cache.clickable_box_context[0] == 3) {
-      document.querySelector(':root').style = '--clr-svg-change: #fff';
-    } else {
-      document.querySelector(':root').style = '--clr-svg-change: #000';
     }
   }
 
@@ -771,7 +959,7 @@ function clickable_box(parent, pos, one_option, bg_style) {
 
 var active_slide = null;
 var recent_slide;
-var bottom_nav_inclusions = ['home', 'library', 'statistic'];
+var bottom_nav_inclusions = ['home', 'library', 'statistic', 'shop'];
 
 function set_progress_bars_to_0() {
 
@@ -1084,9 +1272,9 @@ function update_vocab() {
 function update_vocab_list() {
 
   let name = document.querySelector('#edit-list .name input').value;
-  let text_accuracy_config = cache.clickable_box_context[0];
+  let accuracy_test_config = cache.clickable_box_context[0];
 
-  if (remove_spaces(name) == '' || text_accuracy_config == null) {
+  if (remove_spaces(name) == '' || accuracy_test_config == null) {
     alert_pup(
       {
         heading: 'Korrrekt?',
@@ -1095,8 +1283,29 @@ function update_vocab_list() {
     );
   } else {
 
+    let all_vocab_list_names = [];
+    all_vocab_lists.forEach(vl => { all_vocab_list_names.push(vl.name); });
+
+    if (all_vocab_list_names.includes(name)) {
+
+      if (cache.vocab_list_context.name != name) {
+
+        let new_name = name;
+        let count = 1;
+
+        while (all_vocab_list_names.includes(new_name)) {
+          new_name = `${name} (${count})`;
+          count++;
+        }
+
+        name = new_name;
+
+      }
+
+    }
+
     cache.vocab_list_context.name = name;
-    cache.vocab_list_context.accuracy_text_config = text_accuracy_config;
+    cache.vocab_list_context.accuracy_text_config = accuracy_test_config;
     save_local_storage();
 
     pop_up('edit-list', false);
@@ -1378,6 +1587,29 @@ let dropdown_objects = [
         back: false
       }
     ]
+  },
+  {
+    name: 'daily_target',
+    emoji: '🎯',
+    headline: 'Tägliches Ziel',
+    options: [
+      {
+        front: '5 Minuten (empfohlen)',
+        back: 5
+      },
+      {
+        front: '10 Minuten',
+        back: 10
+      },
+      {
+        front: '15 Minuten',
+        back: 15
+      },
+      {
+        front: '20 Minuten',
+        back: 20
+      }
+    ]
   }
 ];
 
@@ -1419,8 +1651,8 @@ function dropdown_display(objct_name, destination_state) {
     dropdown_elmnt.options.forEach(o => {
 
       document.querySelector('#dropdown .options').innerHTML += `
-         <button type="button" onclick="dropdown_choose('${o.front}', '${o.back}')">${o.front}</button>
-      `;
+          <button type="button" onclick="dropdown_choose('${o.front}', '${o.back}')">${o.front}</button>
+        `;
 
     });
 
@@ -1490,6 +1722,10 @@ function dropdown_custom_command() {
 
   if (name == 'attention_spaces') {
     settings.learn.attention_spaces = back === 'true' ? true : false;;
+  }
+
+  if (name == 'daily_target') {
+    settings.daily_target = parseInt(back);
   }
 
   save_local_storage();
@@ -1736,7 +1972,7 @@ function pop_up_custom_command(name, action) {
 
     if (!cache.clickable_box_already_done) {
       cache.clickable_box_already_done = true;
-      clickable_box('#edit-list .text-accuracy section', cache.vocab_list_context.accuracy_text_config, true, true);
+      clickable_box('#edit-list .accuracy-test section', cache.vocab_list_context.accuracy_text_config, true);
     } else {
       cache.clickable_box_already_done = false;
     }
@@ -1931,6 +2167,9 @@ function open_list_detail(name) {
     document.querySelector('#list-detail > .vocab-list').innerHTML += `<button type="button" onclick="edit_vocab_initialize(${vocab_counter_parameter})">${vocab.lang2}</button>`;
     vocab_counter_parameter++;
   })
+  if (vocab_list.vocabularys.length == 0) {
+    document.querySelector('#list-detail > .vocab-list').innerHTML = `<span>Keine Vokabeln 🗃</span>`;
+  }
 
   // progress
   document.querySelector('#list-detail .progress-bar > div').style.width = `${vocab_list.progress}%`;
@@ -1942,7 +2181,7 @@ function open_list_detail(name) {
     time_string += `${time_learned.hours} Stunden und `;
   }
   let minute_format = 'Minute';
-  if (time_learned.minutes > 1) {
+  if (time_learned.minutes > 1 || time_learned.minutes == 0) {
     minute_format += 'n';
   }
   time_string += `${time_learned.minutes} ${minute_format} gelernt`;
@@ -2115,14 +2354,14 @@ function set_next_vocab(first_vocab) {
     }, 375);
   }
 
-  // text_accuracy
+  // accuracy_test
 
 
-  if (cache.learn.text_accuracy_config == cache.learn.text_accuracy_counter) {
-    text_accuracy_initialize();
-    cache.learn.text_accuracy_counter = 0;
+  if (cache.learn.accuracy_test_config == cache.learn.accuracy_test_counter) {
+    accuracy_test_initialize();
+    cache.learn.accuracy_test_counter = 0;
   } else {
-    cache.learn.text_accuracy_counter++;
+    cache.learn.accuracy_test_counter++;
   }
 
   // show note button
@@ -2229,7 +2468,7 @@ function answer_vocab(weight) {
 
 // text accuracy
 
-function text_accuracy_initialize() {
+function accuracy_test_initialize() {
 
   document.querySelectorAll('.answer, .turn-flashcard').forEach(elmnt => {
     elmnt.style.animation = 'fade_out .375s ease-in-out both';
@@ -2238,24 +2477,33 @@ function text_accuracy_initialize() {
     }, 375);
   })
 
-  document.querySelector('#learn > .text-accuracy > input').value = '';
+  document.querySelector('#learn .cancel-learn').style.animation = 'fade_out .25s both';
+  setTimeout(() => {  
+    document.querySelector('#learn .cancel-learn').style.visibility = 'hidden';
+  }, 250);
 
-  document.querySelector('#learn > .text-accuracy').style.display = 'block';
-  document.querySelector('#learn > .text-accuracy').style.animation = 'fade_in .375s ease-in-out .375s both';
-  document.querySelector('#learn> .text-accuracy > input').style.border = '3.5px solid var(--clr-primary)';
+  document.querySelector('#learn > .accuracy-test > input').value = '';
+
+  document.querySelector('#learn > .accuracy-test').style.display = 'block';
+  document.querySelector('#learn > .accuracy-test').style.animation = 'fade_in .375s ease-in-out .375s both';
+  document.querySelector('#learn> .accuracy-test > input').style.border = '3.5px solid var(--clr-primary)';
 
   document.querySelector('#learn > .flashcard').style.height = '300px';
 
 }
 
-function next_vocab_text_accuracy(weight) {
+function next_vocab_accuracy_test(weight) {
 
   answer_vocab(weight);
 
   setTimeout(() => {
-    document.querySelector('#learn > .text-accuracy').style.display = 'none';
+    document.querySelector('#learn > .accuracy-test').style.display = 'none';
   }, 250);
-  document.querySelector('#learn > .text-accuracy').style.animation = 'fade_out .25s ease-in-out .375s both';
+
+  document.querySelector('#learn .cancel-learn').style.animation = 'fade_in .25s both';
+  document.querySelector('#learn .cancel-learn').style.visibility = 'visible';
+
+  document.querySelector('#learn > .accuracy-test').style.animation = 'fade_out .25s ease-in-out .375s both';
 
   document.querySelector('#learn > .flashcard').style.height = '425px';
 
@@ -2265,16 +2513,16 @@ function next_vocab_text_accuracy(weight) {
   // active normal text accuracy useability
 
   setTimeout(() => {
-    document.querySelector('#learn > .text-accuracy > button').innerHTML = `Überprüfen 🗃`;
-    document.querySelector('#learn > .text-accuracy > button').setAttribute('onclick', 'check_text_accuracy()');
+    document.querySelector('#learn > .accuracy-test > button').innerHTML = `Überprüfen 🗃`;
+    document.querySelector('#learn > .accuracy-test > button').setAttribute('onclick', 'check_accuracy_test()');
   }, 500);
 
 }
 
-function check_text_accuracy() {
+function check_accuracy_test() {
 
   let requested_vocab = cache.learn.solution;
-  let entered_solution = document.querySelector('#learn > .text-accuracy > input').value;
+  let entered_solution = document.querySelector('#learn > .accuracy-test > input').value;
 
   if (settings.learn.attention_low_upper_case == false) {
     requested_vocab = requested_vocab.toUpperCase();
@@ -2289,16 +2537,16 @@ function check_text_accuracy() {
 
   if (requested_vocab === entered_solution) {
 
-    document.querySelector('#learn > .text-accuracy > input').style.border = 'solid 3.5px var(--clr-agree)';
+    document.querySelector('#learn > .accuracy-test > input').style.border = 'solid 3.5px var(--clr-agree)';
     setTimeout(() => {
-      next_vocab_text_accuracy(1);
+      next_vocab_accuracy_test(1);
     }, 1250);
 
   } else {
 
-    document.querySelector('#learn > .text-accuracy > input').style.border = 'solid 3.5px var(--clr-warning)';
-    document.querySelector('#learn > .text-accuracy > button').innerHTML = `Ok, verstanden. 👉`;
-    document.querySelector('#learn > .text-accuracy > button').setAttribute('onclick', 'next_vocab_text_accuracy(4)');
+    document.querySelector('#learn > .accuracy-test > input').style.border = 'solid 3.5px var(--clr-warning)';
+    document.querySelector('#learn > .accuracy-test > button').innerHTML = `Ok, verstanden. 👉`;
+    document.querySelector('#learn > .accuracy-test > button').setAttribute('onclick', 'next_vocab_accuracy_test(4)');
 
   }
 
@@ -2372,7 +2620,7 @@ function learn(vl) {
   document.querySelector('#learn .flashcard span').style.opacity = 0;
   document.querySelector('#learn .flashcard span').style.animation = 'fade_in .25s ease-in-out 5s ease-in-out';
 
-  document.querySelector('#learn > .text-accuracy').style.display = 'none';
+  document.querySelector('#learn > .accuracy-test').style.display = 'none';
   document.querySelector('#learn > .flashcard').style.height = '425px';
 
   // disable bottom nav
@@ -2410,22 +2658,22 @@ function learn(vl) {
 
   cache.learn.last_vocabs = [];
   cache.learn.vocab_counter = 0;
-  cache.learn.text_accuracy_counter = 0;
+  cache.learn.accuracy_test_counter = 0;
   cache.learn.answer_log = [];
   cache.learn.note_on = false;
 
   // text accuracy config
 
   if (vocab_list.accuracy_text_config == 1) {
-    cache.learn.text_accuracy_config = Infinity;
+    cache.learn.accuracy_test_config = Infinity;
   }
 
   if (vocab_list.accuracy_text_config == 2) {
-    cache.learn.text_accuracy_config = 3;
+    cache.learn.accuracy_test_config = 3;
   }
 
   if (vocab_list.accuracy_text_config == 3) {
-    cache.learn.text_accuracy_config = 1;
+    cache.learn.accuracy_test_config = 1;
   }
 
   set_next_vocab(true);
@@ -2514,15 +2762,12 @@ function calculate_shift_coins(accuracy, vocab_counter, time) {
 
   let added_shift_coins = 0;
 
-  added_shift_coins += accuracy / 3;
-  added_shift_coins += vocab_counter;
-  added_shift_coins += time.time_object.seconds / 3;
-
-  if (time.time_object.minutes == 0 && time.time_object.seconds < 20) {
-    added_shift_coins /= 10;
-  }
-
+  added_shift_coins += time.time_object.seconds / 2;
   added_shift_coins = Math.round(added_shift_coins);
+
+  if (added_shift_coins == 0) {
+    added_shift_coins = 1;
+  }
 
   return added_shift_coins;
 
@@ -2623,7 +2868,7 @@ function finish_learning() {
 
 
 
-/* --- WALLET & PAYMENT --- */
+/* --- WALLET --- */
 
 
 
@@ -2654,6 +2899,10 @@ async function wallet(request, amount) {
       new_shift_coins_value -= amount;
     }
 
+    if (request === 'set') {
+      new_shift_coins_value = amount;
+    }
+
     localStorage.setItem('shift_coins', new_shift_coins_value);
     let new_shift_coins_value_to_sha256 = await sha256(new_shift_coins_value);
     localStorage.setItem('shift_coins_comparison', new_shift_coins_value_to_sha256);
@@ -2669,11 +2918,23 @@ async function wallet(request, amount) {
 
 // auto set -> 0 if not defined
 
-if (localStorage.getItem('shift_coins') == null) {
+function set_shop_and_money_to_zero() {
 
   localStorage.setItem('shift_coins', 0);
   localStorage.setItem('shift_coins_comparison', '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9');
 
+  localStorage.setItem('owned_shop_items', JSON.stringify([]))
+  localStorage.setItem('owned_shop_items_comparison', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
+
+}
+
+if (
+  localStorage.getItem('shift_coins') == null ||
+  localStorage.getItem('shift_coins_comparison') == null ||
+  localStorage.getItem('owned_shop_items') == null ||
+  localStorage.getItem('owned_shop_items_comparison') == null
+) {
+  set_shop_and_money_to_zero();
 }
 
 // verify shift_coins
@@ -2692,12 +2953,150 @@ function hacking_retribution() {
     icon: 'alarm'
   });
 
-  localStorage.setItem('shift_coins', 0);
-  localStorage.setItem('shift_coins_comparison', '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9');
+  set_shop_and_money_to_zero();
 
   (async () => {
     let returned_value = await wallet('get');
   })();
+
+}
+
+
+
+/* --- PAYMENT & OWNED ITEMS --- */
+
+
+
+async function owned_shop_items(request, name) {
+
+  const owned_items = JSON.parse(localStorage.getItem('owned_shop_items')) || [];
+
+  // avoid hacking
+
+  const hash = await sha256(owned_items);
+
+  // continue processing
+
+  if (hash === localStorage.getItem('owned_shop_items_comparison')) {
+
+    let new_owned_items = owned_items;
+
+    if (request === 'get') {
+      return owned_items;
+    }
+
+    if (request === 'add') {
+      new_owned_items.push(name);
+    }
+
+    sha256(new_owned_items).then(hash => {
+      localStorage.setItem('owned_shop_items', JSON.stringify(new_owned_items));
+      localStorage.setItem('owned_shop_items_comparison', hash);
+    });
+
+  } else {
+    hacking_retribution();
+    return 'HACKING';
+  }
+
+}
+
+owned_shop_items('get')
+  .then(result => { });
+
+/* buy item */
+
+function buy_item_preparation(category, name) {
+
+  document.querySelector('#bottom-navigation').style.animation = 'fade_out .25s ease-in-out both';
+  setTimeout(() => {
+    document.querySelector('#bottom-navigation').style.visibility = 'hidden';
+  }, 350);
+
+  document.querySelector('.buy-item-area').style.display = 'flex';
+  document.querySelector('.buy-item-area').style.animation = 'fade_in .25s ease-in-out both';
+
+  let shop_elmnt;
+
+  if (category == 'theme') {
+    shop_items.themes.forEach(theme => {
+      if (theme.name === name) {
+        shop_elmnt = theme;
+      }
+    })
+  }
+
+  cache.shop.category = category;
+  cache.shop.name = name;
+  cache.shop.shift_coins_required = shop_elmnt.price;
+
+  document.querySelector('.buy-item > h1').innerHTML = shop_elmnt.ui_name;
+  document.querySelector('.buy-item > .amount > span').innerHTML = shop_elmnt.price;
+  document.querySelector('.buy-item > .theme-preview').style.background = `radial-gradient(circle, ${shop_elmnt.display_data.backgroundColor} 0%, ${shop_elmnt.display_data.child_elmnt_bg} 75%)`;
+
+}
+
+function complete_transaction() {
+
+  // identificate shop item
+
+  let shop_item = null;
+
+  if (cache.shop.category === 'theme') {
+
+    shop_items.themes.forEach(t => {
+      if (t.name === cache.shop.name && t.price === cache.shop.shift_coins_required) {
+        shop_item = t;
+      }
+    })
+
+  }
+
+  // check shift coins & buy
+
+  wallet("get")
+    .then(amount => {
+
+      if (amount >= shop_item.price) {
+
+        shop_item.owned = true;
+        apply_any_theme(shop_item.name, false);
+
+        owned_shop_items('add', shop_item.name).then(result => { });
+
+        (async () => {
+          await wallet('remove', parseInt(shop_item.price));
+          auto_initialize_ui();
+        })();
+
+        cancel_transaction();
+
+      } else {
+
+        cancel_transaction();
+        alert_pup(
+          {
+            heading: 'Fail',
+            text: 'Leider hast du zu wenig ShiftCoins. 🪙',
+            icon: 'paid'
+          }
+        );
+
+      }
+
+    });
+
+}
+
+function cancel_transaction() {
+
+  document.querySelector('#bottom-navigation').style.animation = 'fade_in .25s ease-in-out both';
+  document.querySelector('#bottom-navigation').style.visibility = 'visible';
+
+  setTimeout(() => {
+    document.querySelector('.buy-item-area').style.display = 'none';
+  }, 250);
+  document.querySelector('.buy-item-area').style.animation = 'fade_out .25s ease-in-out both';
 
 }
 
@@ -2862,7 +3261,7 @@ function import_vocab_list() {
 function add_imported_list(file_data) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0'];
+  let accepted_builds = ['1.0', '2.0'];
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 
@@ -2889,11 +3288,20 @@ function add_imported_list(file_data) {
 
     }
 
-    if (vocab_list.exam == true) {
-      exams.push(vocab_list.added_exam);
-    }
+    // exam
 
-    delete vocab_list.added_exam;
+    if (vocab_list.exam == true && vocab_list.added_exam != null) {
+
+      let all_exam_names = [];
+      exams.forEach(e => { all_exam_names.push(e.refered_list) })
+
+      vocab_list.added_exam.refered_list = vocab_list.name;
+
+      if (!all_exam_names.includes(vocab_list.added_exam.refered_list)) {
+        exams.push(vocab_list.added_exam);
+      }
+
+    }
 
     all_vocab_lists.unshift(vocab_list);
     add_to_recent(vocab_list.name);
@@ -2916,5 +3324,71 @@ function add_imported_list(file_data) {
     return;
 
   }
+
+}
+
+
+
+/* --- DEV TOOLS --- */
+
+
+
+function go_to_settings() {
+
+  if (cache.support_activation_count == 4) {
+    cache.support_activation_count = 0;
+    support_access_start();
+  } else {
+    cache.support_activation_count++;
+    slide('settings');
+    setTimeout(() => {
+      cache.support_activation_count = 0;
+    }, 3000);
+
+  }
+
+}
+
+function support_access_start() {
+
+  console.log('SUPPORT ACCESS CHECK');
+  let code = prompt('Bitte geben Sie den Code ein!');
+
+  sha256(code).then(hash => {
+
+
+    if (hash === '2d1d0580edff25b453e0c5fc683ff0d5f88ec182dc2d7154d3760adb3555a352') {
+
+      let command = prompt('Zugriff akzeptiert. Was möchten Sie tun?');
+
+
+
+      if (command.toUpperCase() == 'SHIFT COINS') {
+
+        let new_value = prompt(`Geben Sie einen neuen Betrag ein.`);
+        if (new_value != 'false') {
+          (async () => {
+            await wallet('set', parseInt(new_value));
+          })();
+        }
+
+        alert(`Erfolgreich!`);
+      }
+
+
+      if (command.toUpperCase() == 'RESET') {
+        localStorage.clear();
+        alert('Reset abeschlossen!');
+        window.location.reload();
+      }
+
+    } else {
+
+      alert('Zugriff abgelehnt!');
+
+    }
+
+
+  });
 
 }

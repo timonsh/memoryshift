@@ -103,7 +103,7 @@ function slide_header_initialize() {
             elmnt.setAttribute('src', user.avatar);
         })
         document.querySelectorAll('.slide-intro button').forEach(e => {
-            e.setAttribute('onclick', "slide('settings')");
+            e.setAttribute('onclick', "go_to_settings()");
         });
     } else {
         document.querySelectorAll('main > section > header.slide-intro img').forEach(elmnt => {
@@ -173,7 +173,7 @@ function recent_list() {
 
     // if no lists
 
-    if (recent_list_opens.length == 0) {
+    if (recent_list_opens.length == 0 || all_vocab_lists.length == 0) {
 
         document.querySelector(`#recent > section`).innerHTML += `
         <div class="no-lists-ui-elmnt" onclick="pop_up('add-list', true)">
@@ -250,7 +250,7 @@ function home_overview() {
         display_format = 'Minuten'
     }
     let display_format_2 = 'Tag';
-    if (get_streak() > 1) {
+    if (get_streak() > 1 || get_streak() == 0) {
         display_format_2 += 'e';
     }
     document.querySelector('#overview > .widgets > button:first-of-type > div > span').innerHTML = `${daily_target_data().done} ${display_format}`;
@@ -383,6 +383,8 @@ function settings_ini() {
 
     document.querySelector(`#settings .learn > div:nth-of-type(3) button`).innerHTML = `${settings.learn.vocab_counter} Vokabeln`;
 
+    // daily target
+    document.querySelector('#settings .daily-target > div:first-of-type > button').innerHTML = `${settings.daily_target} Minuten`;
 }
 
 
@@ -403,6 +405,135 @@ function setup_ini() {
 
 
 
+/* --- SHOP --- */
+
+
+
+function shop() {
+
+    // shift_coins
+
+    let shift_coins;
+
+    wallet('get').then(result => {
+
+        shift_coins = result;
+        document.querySelector('#shop .payment-method-list .shift-coins span').innerHTML = shift_coins;
+
+    });
+
+    // item
+
+    shop_item_ini();
+
+}
+
+
+
+/* --- SHOP ITEM INI --- */
+
+
+
+function shop_item_ini() {
+
+    owned_shop_items('get').then(result => {
+
+        const additional_items = result;
+
+        // owned
+
+        let border = 'none';
+
+        if (localStorage.getItem('theme') == 'auto') {
+            border = '5px solid var(--clr-agree)';
+        }
+
+        document.querySelector('#shop .owned article').innerHTML = `
+         <div style="background-color: var(--clr-deviation); outline: ${border}" onclick="start_auto_theme()">
+             <div style="background-color: var(--clr-primary-light)">
+                <span>Auto</span>
+             </div>
+         </div>
+    `;
+
+        document.querySelector('#shop .available > article').innerHTML = '';
+
+        shop_items.themes.forEach(theme => {
+
+            if (theme.owned || additional_items.includes(theme.name)) {
+
+                border = 'none';
+                if (active_theme === theme.name && localStorage.getItem('theme') != 'auto') {
+                    border = '5px solid var(--clr-agree)';
+                }
+
+                document.querySelector('#shop .owned article').innerHTML += `
+                <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="apply_any_theme('${theme.name}', false)">
+                     <div style="background-color: ${theme.display_data.child_elmnt_bg};">
+                         <span>${theme.ui_name}</span>
+                     </div>
+                 </div>
+
+            `;
+
+            } else {
+
+                // available
+
+                border = 'none';
+                if (active_theme === theme.name && localStorage.getItem('theme') != 'auto') {
+                    border = '5px solid var(--clr-agree)';
+                }
+
+                document.querySelector('#shop .available > article').innerHTML += `
+                <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${theme.name}')">
+                    <button type="button" onclick="buy_theme_preparation">
+                        <div class="set-icon">paid</div>
+                        <span>${theme.price}</span>
+                    </button>
+                     <div style="background-color: ${theme.display_data.child_elmnt_bg};">
+                         <span>${theme.ui_name}</span>
+                     </div>
+                 </div>
+
+            `;
+
+                auto_set_icons();
+
+            }
+
+            // nothing available
+
+            let nothing_available = true;
+            let not_owned_items = [];
+            shop_items.themes.forEach(t => {
+                if (!t.owned) {
+                    not_owned_items.push(t.name);
+                }
+            })            
+
+            not_owned_items.forEach(i => {
+                if (!additional_items.includes(i)) {
+                    nothing_available = false;
+                }
+            })
+
+            if (nothing_available) {
+                document.querySelector('#shop .available').style.animation = 'fade_out .25s both';
+                setTimeout(() => {
+                    document.querySelector('#shop .available').style.display = 'none';
+                }, 250);
+            }
+
+        });
+
+
+    })
+
+}
+
+
+
 /* --- FINAL FUNCTION --- */
 
 
@@ -418,6 +549,7 @@ function auto_initialize_ui() {
     recent_list();
     standard_header();
     auto_scale_recent();
+    shop();
     setup_ini();
 
     auto_set_icons();
