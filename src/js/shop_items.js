@@ -47,7 +47,7 @@ const shop_items = {
             name: 'vivid-orchid',
             ui_name: 'Vivid Orchid',
             path: './src/themes/vivid-orchid.css',
-            price: 100,
+            price: 200,
             owned: false,
             display_data: {
                 backgroundColor: '#9575cd',
@@ -59,7 +59,7 @@ const shop_items = {
             name: 'jungle-mist',
             ui_name: 'Jungle Mist',
             path: './src/themes/jungle-mist.css',
-            price: 100,
+            price: 250,
             owned: false,
             display_data: {
                 backgroundColor: '#1b5e20',
@@ -71,7 +71,7 @@ const shop_items = {
             name: 'polar-blue',
             ui_name: 'Polar Blue',
             path: './src/themes/polar-blue.css',
-            price: 150,
+            price: 600,
             owned: false,
             display_data: {
                 backgroundColor: '#0d47a1',
@@ -83,13 +83,33 @@ const shop_items = {
             name: 'mystic-lavender',
             ui_name: 'Mystic Lavender',
             path: './src/themes/mystic-lavender.css',
-            price: 200,
+            price: 400,
             owned: false,
             display_data: {
                 backgroundColor: '#6a0dad',
                 child_elmnt_bg: '#471b6f'
             },
             emoji: '🪻'
+        },
+        {
+            name: 'christmas-dream',
+            ui_name: 'Christmas Dream',
+            path: './src/themes/christmas-dream.css',
+            price: 2412,
+            owned: false,
+            display_data: {
+                backgroundColor: '#c7101e',
+                child_elmnt_bg: '#358c39'
+            },
+            emoji: '🧑‍🎄',
+            additional_theme_item: [
+                {
+                    type: 'img/gif',
+                    path: './src/themes/christmas-dream-stars.gif'
+                }
+            ],
+            limited: true,
+            active: true
         }
 
 

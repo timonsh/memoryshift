@@ -56,7 +56,7 @@
     <!-- site config -->
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="author" content="WebByte Studio">
     <meta name="keywords"
         content="Memory Shift, MShift, Vokabeltrainer, TIMONO Vokabeltrainer, WebByte Studio, Online Vokabeltrainer, Timon Schroth, MPG, MPGG">
@@ -100,6 +100,11 @@
 
     </div>
 
+    <!-- additional theme items -->
+
+    <div id="additional-theme-item">
+    </div>
+
 
     <main>
 
@@ -114,7 +119,7 @@
             <!-- header -->
 
             <header class="slide-intro">
-
+                <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Memory Shift</h1>
 
                 <button type="button">
@@ -129,7 +134,7 @@
 
                 <section class="widgets">
 
-                    <button type="button">
+                    <button type="button" onclick="slide('statistic')">
                         <h2>Tägliches Ziel</h2>
                         <div>
                             <canvas id="daily-goal"></canvas>
@@ -139,7 +144,7 @@
 
                     <div></div>
 
-                    <button type="button">
+                    <button type="button" onclick="slide('statistic')">
                         <h2>Streak</h2>
                         <div>
                             <div class="set-icon filled">local_fire_department</div>
@@ -187,7 +192,7 @@
         <section id="library">
 
             <header class="slide-intro">
-
+                <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Bibliothek</h1>
                 <button type="button">
                     <img alt="Avatar">
@@ -268,7 +273,7 @@
         <section id="statistic">
 
             <header class="slide-intro">
-
+                <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Statistik</h1>
                 <button type="button">
                     <img alt="Avatar">
@@ -449,7 +454,7 @@
             <!-- header -->
 
             <header class="slide-intro">
-
+                <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Einstellungen</h1>
 
                 <button type="button">
@@ -468,6 +473,7 @@
 
                 <h1></h1>
 
+                <span></span>
                 <span></span>
                 <span></span>
 
@@ -619,7 +625,7 @@
             <!-- header -->
 
             <header class="slide-intro">
-
+                <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Shop</h1>
 
                 <button type="button">
@@ -643,9 +649,21 @@
 
             <section class="news">
 
-                <div class="set-icon">event</div>
-                <h1>New Themes</h1>
-                <span>Entdecke sie jetzt!</span>
+                <img src="./src/vid/christmas-dream-intro.gif" alt="Christmas Dream">
+
+            </section>
+
+            <!-- limited -->
+
+            <section class="limited">
+
+                <div>
+                    <span>🧑‍🎄</span>
+                    <h1>Christmas Season</h1>
+                </div>
+
+                <article class="shop-item-contain">
+                </article>
 
             </section>
 
@@ -655,7 +673,7 @@
 
                 <h1>Shop</h1>
 
-                <article>
+                <article class="shop-item-contain">
                 </article>
 
             </section>
@@ -666,7 +684,7 @@
 
                 <h1>Im Besitz</h1>
 
-                <article>
+                <article class="shop-item-contain">
                 </article>
 
             </section>
@@ -821,9 +839,126 @@
 
 
 
+        <!-- --- VIP & DEVELOPER DASHBOARD --- -->
+
+
+
+        <section id="vip-dashboard">
+
+            <header class="slide-intro">
+                <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
+                <h1>VIP Dashboard</h1>
+                <button type="button">
+                    <img alt="Avatar">
+                </button>
+
+            </header>
+
+            <!-- exclusive operations -->
+
+            <div class="exclusive-operations">
+
+                <header>
+
+                    <div>
+                        <img src="./src/img/vip.svg" alt="VIP Krone">
+                    </div>
+
+                    <h1>Exclusive Operations</h1>
+
+                </header>
+
+                <button type="button" onclick="vip('set-shift-coins')" style="background-color: var(--clr-quaternary);">
+
+                    <span>🪙</span>
+                    <h1>ShiftCoins festlegen</h1>
+
+                </button>
+
+                <button type="button" onclick="vip('get-every-theme')" style="background-color: var(--clr-agree);">
+
+                    <span>🎨</span>
+                    <h1>Get-Every-Theme</h1>
+
+                </button>
+
+                <button type="button" onclick="vip('get-specific-theme')" style="background-color: var(--clr-accent);">
+
+                    <span>🖌</span>
+                    <h1>Get-Specific-Theme</h1>
+
+                </button>
+
+            </div>
+
+            <!-- dev tools -->
+
+            <div class="dev-tools">
+
+                <header>
+
+                    <div>
+                        <img src="./src/img/code.svg" alt="VIP Krone">
+                    </div>
+
+                    <h1>Dev Tools<h1>
+
+                </header>
+
+                <button type="button" onclick="vip('app-reset')" style="background-color: var(--clr-setup-accent-1);">
+
+                    <span>🔙</span>
+                    <h1>App-Reset</h1>
+
+                </button>
+
+                <button type="button" onclick="command()" style="background-color: var(--clr-tertiary);">
+
+                    <span>🧑‍💻</span>
+                    <h1>Command</h1>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
 
 
     </main>
+
+
+
+    <!-- --- REACH DAILY GOAL --- -->
+
+
+
+    <section id="reach-daily-goal">
+
+
+        <img src="./src/vid/celebrate.gif" alt="Konfetti">
+
+        <span>✅</span>
+
+        <h1>Tägliches Ziel erreicht!</h1>
+
+        <article>
+
+            <div>
+                <div class="set-icon">paid</div>
+            </div>
+
+            <h1></h1>
+
+        </article>
+
+        <button class="primary" onclick="close_rdg()">Weiter so! 🎉</button>
+
+
+    </section>
 
 
 

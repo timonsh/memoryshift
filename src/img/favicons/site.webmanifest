@@ -4,7 +4,9 @@
     "start_url": "/",
     "display": "standalone",
     "orientation": "portrait",
-    "launch_handler": {},
+    "launch_handler": {
+        "client_mode": "navigate-existing"
+    },
     "id": "com.webbytestudio.memoryshift",
     "description": "Memory Shift ist ein innovativer Vokabeltrainer für Schüler*innen & Studierende 🎓🗃",
     "background_color": "#2a45f8",
@@ -20,5 +22,8 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "scope": "/",
+    "categories": ["education", "productivity", "tools"],
+    "display_override": ["standalone"]
 }

@@ -113,22 +113,32 @@ function exam_view() {
 function slide_header_initialize() {
 
     if (user.avatar != null) {
-        document.querySelectorAll('main > section > header.slide-intro img').forEach(elmnt => {
+        document.querySelectorAll('main > section > header.slide-intro > button:last-of-type img').forEach(elmnt => {
             elmnt.setAttribute('src', user.avatar);
         })
-        document.querySelectorAll('.slide-intro button').forEach(e => {
+        document.querySelectorAll('.slide-intro button:last-of-type').forEach(e => {
             e.setAttribute('onclick', "go_to_settings()");
         });
     } else {
         document.querySelectorAll('main > section > header.slide-intro img').forEach(elmnt => {
             elmnt.remove();
         })
-        document.querySelectorAll('main > section > header.slide-intro button').forEach(btn => {
+        document.querySelectorAll('main > section > header.slide-intro button:last-of-type').forEach(btn => {
             btn.setAttribute('class', 'set-icon filled');
             btn.setAttribute('onclick', 'slide("settings")')
         })
-        document.querySelectorAll('main > section > header.slide-intro button').forEach(btn => {
+        document.querySelectorAll('main > section > header.slide-intro button:last-of-type').forEach(btn => {
             btn.innerHTML = 'account_circle';
+        })
+    }
+
+    if (check_vip_status()) {
+        document.querySelectorAll('main > section > header.slide-intro button:first-of-type').forEach(e => {
+            e.style.visibility = 'visible';
+        })
+    } else {
+        document.querySelectorAll('main > section > header.slide-intro button:first-of-type').forEach(e => {
+            e.style.visibility = 'hidden';
         })
     }
 
@@ -366,12 +376,14 @@ function settings_ini() {
     document.querySelector(`#settings .profile-box h1`).innerHTML = user.name.first_name;
 
     if (user.email != null && user.email != '') {
-        document.querySelector(`#settings span:first-of-type`).innerHTML = `📬 ${user.email}`;
+        document.querySelector(`#settings .profile-box span:first-of-type`).innerHTML = `📬 ${user.email}`;
     }
 
     if (user.school != null) {
-        document.querySelector(`#settings span:last-of-type`).innerHTML = `🏫 ${user.school}`;
+        document.querySelector(`#settings .profile-box span:nth-of-type(2)`).innerHTML = `🏫 ${user.school}`;
     }
+
+    document.querySelector(`#settings .profile-box span:nth-of-type(3)`).innerHTML = `🔥 Beste Streak: ${user.highest_streak}`;
 
     // articles
     document.querySelector(`#settings .profile > div:first-of-type input`).value = user.name.first_name;
@@ -444,9 +456,143 @@ function shop() {
 
 /* --- SHOP ITEM INI --- */
 
-
-
 function shop_item_ini() {
+
+    const additional_items = owned_shop_items('get');
+
+    // reset
+
+    document.querySelector('#shop .limited article').innerHTML = '';
+    document.querySelector('#shop .available article').innerHTML = '';
+
+    let border = 'none';
+
+    if (localStorage.getItem('theme') == 'auto') {
+        border = '5px solid var(--clr-agree)';
+    }
+
+    // auto theme & owned reset
+
+    document.querySelector('#shop .owned article').innerHTML = `
+        <div style="background-color: var(--clr-deviation); outline: ${border}" onclick="start_auto_theme()">
+            <div style="background-color: var(--clr-primary-light)">
+                <span>Auto</span>
+            </div>
+        </div>
+    `;
+
+    shop_items.themes.forEach(t => {
+
+
+        border = 'none';
+        if (active_theme === t.name && localStorage.getItem('theme') != 'auto') {
+            border = '5px solid var(--clr-agree)';
+        }
+
+        if (t.owned || additional_items.includes(t.name)) {
+
+            document.querySelector('#shop .owned article').innerHTML += `
+            <div style="background-color: ${t.display_data.backgroundColor}; border: ${border};" onclick="apply_any_theme('${t.name}', false)">
+                 <div style="background-color: ${t.display_data.child_elmnt_bg};">
+                     <span>${t.ui_name}</span>
+                 </div>
+             </div>
+            `;
+
+        } else {
+
+            if (t.active != false) {
+
+                if (t.limited != true) {
+
+                    document.querySelector('#shop .available article').innerHTML += `
+                    <div style="background-color: ${t.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${t.name}')">
+                         <button type="button" onclick="buy_theme_preparation">
+                          <div class="set-icon">paid</div>
+                          <span>${t.price}</span>
+                        </button>
+                    <div style="background-color: ${t.display_data.child_elmnt_bg};">
+                        <span>${t.ui_name}</span>
+                    </div>
+                    </div>
+
+                     `;
+
+                }
+
+            }
+
+        }
+
+        if (t.limited && t.active) {
+
+            if (!additional_items.includes(t.name)) {
+
+                document.querySelector('#shop .limited article').innerHTML += `
+            <div style="background-color: ${t.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${t.name}')">
+                 <button type="button" onclick="buy_theme_preparation">
+                    <div class="set-icon">paid</div>
+                    <span>${t.price}</span>
+                </button>
+                <div style="background-color: ${t.display_data.child_elmnt_bg};">
+                    <span>${t.ui_name}</span>
+                </div>
+            </div>
+
+            `;
+            } else {
+
+                document.querySelector('#shop .limited article').innerHTML += `
+            <div style="background-color: ${t.display_data.backgroundColor}; border: ${border};" onclick="apply_any_theme('${t.name}', false)">
+                 <div style="background-color: ${t.display_data.child_elmnt_bg};">
+                     <span>${t.ui_name}</span>
+                 </div>
+             </div>
+            `;
+
+            }
+
+        }
+
+
+
+
+    })
+
+    // nothing available
+
+    let nothing_available = true;
+    let not_owned_items = [];
+    shop_items.themes.forEach(t => {
+        if (!t.owned) {
+            not_owned_items.push(t.name);
+        }
+    })
+
+    not_owned_items.forEach(i => {
+        if (!additional_items.includes(i)) {
+            nothing_available = false;
+        }
+    })
+
+    if (nothing_available) {
+        document.querySelector('#shop .available').style.animation = 'fade_out .25s both';
+        setTimeout(() => {
+            document.querySelector('#shop .available').style.display = 'none';
+        }, 250);
+    }
+
+    ;
+
+
+    auto_set_icons();
+
+
+}
+
+
+
+function shop_item_ini1() {
 
     const result = owned_shop_items('get');
     const additional_items = result;
@@ -513,6 +659,27 @@ function shop_item_ini() {
 
         }
 
+        document.querySelector(`#shop .limited article`).innerHTML = '';
+
+        shop_items.themes.forEach(theme => {
+
+            if (theme.limited && theme.active) {
+                document.querySelector(`#shop .limited article`).innerHTML += `
+                <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${theme.name}')">
+                    <button type="button" onclick="buy_theme_preparation">
+                        <div class="set-icon">paid</div>
+                        <span>${theme.price}</span>
+                    </button>
+                     <div style="background-color: ${theme.display_data.child_elmnt_bg};">
+                         <span>${theme.ui_name}</span>
+                     </div>
+                 </div>
+
+                `;
+            }
+
+        })
+
         // nothing available
 
         let nothing_available = true;
@@ -558,6 +725,7 @@ function auto_initialize_ui() {
     standard_header();
     auto_scale_recent();
     shop();
+    streak_checkup();
     setup_ini();
 
     auto_set_icons();

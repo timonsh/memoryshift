@@ -23,6 +23,12 @@
 
 "use strict";
 
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    document.documentElement.requestFullscreen();
+  }
+});
+
 
 
 console.log(
@@ -162,7 +168,18 @@ function apply_any_theme(requested_theme, auto_change, auto_activated) {
         theme_transition(requested_object);
       }
       setTimeout(() => {
+
         document.getElementById('theme-import').innerHTML = `<link rel="stylesheet" type="text/css" href="${requested_object.path}">`;
+
+        document.querySelector('#additional-theme-item').innerHTML = '';
+        if (requested_object.additional_theme_item != null) {
+          requested_object.additional_theme_item.forEach(i => {
+            if (i.type === 'img/gif') {
+              document.querySelector('#additional-theme-item').innerHTML += `<img src="${i.path}">`
+            }
+          })
+        }
+
       }, 75);
     }
     active_theme = requested_object.name;
@@ -178,7 +195,9 @@ function apply_any_theme(requested_theme, auto_change, auto_activated) {
   }
 
   if (!auto_activated || auto_activated == null) {
+
     auto_initialize_ui();
+
   }
 
 }
@@ -456,6 +475,7 @@ function app_opening(speed, destination_slide) {
 
   setTimeout(() => {
     slide(destination_slide);
+    document.querySelector('#additional-theme-item').style.animation = 'fade_in .5s ease-in-out both';
   }, slide_delay);
 
 }
@@ -480,12 +500,30 @@ if (localStorage.getItem('user') != null) {
     gender: undefined,
     email: null,
     school: null,
-    avatar: './src/img/account.png',
+    avatar: './src/img/account.png'
   }
 }
 
 app_opening('slow', 'home');
 
+
+
+/* --- VIP MANAGEMENT --- */
+
+
+
+function check_vip_status() {
+
+  let vip_status = false;
+
+  if (localStorage.getItem('vip_status') != null && localStorage.getItem('vip_status') === `true_VIP_${ms_watermark_hash}`) {
+    vip_status = true;
+  }
+
+
+  return vip_status;
+
+}
 
 
 /* --- DATA MANAGEMENT --- */
@@ -495,11 +533,11 @@ app_opening('slow', 'home');
 // constants
 
 const version = {
-  build: '2.5',
+  build: '3.0',
   channel: 'stable',
-  title: 'Sunset',
-  subtitle: "Night's Horizon",
-  emoji: '🌇'
+  title: 'POLARIS',
+  subtitle: "Shine bright this Christmas",
+  emoji: '🧑‍🎄'
 };
 
 const app_language = 'Deutsch';
@@ -530,7 +568,7 @@ let cache = {
     name: null,
     shift_coins_required: null
   },
-  support_activation_count: 0,
+  secret_console_activation_count: 0,
   setup: {
     progress: 0
   }
@@ -556,7 +594,7 @@ if (localStorage.getItem('settings') == null) {
       attention_low_upper_case: false,
       attention_spaces: false
     },
-    daily_target: 10
+    daily_target: 5
   }
 } else {
   settings = JSON.parse(localStorage.getItem('settings'));
@@ -779,6 +817,29 @@ function get_system_date() {
 
   let formatted_date = `${day}-${month}-${year}`;
   return formatted_date;
+
+}
+
+function get_time_today() {
+
+  let time_today = 0;
+  let count = 0;
+
+  while (time_notation[count] != null) {
+
+    if (time_notation[count].time.date != get_system_date()) {
+      break;
+    } else {
+      time_today += time_notation[count].duration;
+      count++;
+    }
+
+  }
+
+  time_today /= 60;
+  time_today = Math.round(time_today);
+
+  return time_today;
 
 }
 
@@ -2933,11 +2994,21 @@ function calculate_shift_coins(accuracy, vocab_counter, time) {
 
   let added_shift_coins = 0;
 
-  added_shift_coins += time.time_object.seconds / 6;
+  added_shift_coins += vocab_counter / 2;
+  added_shift_coins += accuracy / 4;
+  added_shift_coins += time_to_sec(time.time_object) / 6;
   added_shift_coins = Math.round(added_shift_coins);
 
-  if (added_shift_coins == 0) {
-    added_shift_coins = 1;
+
+  added_shift_coins /= 1.5;
+  added_shift_coins = Math.round(added_shift_coins);
+
+  if (time_to_sec(time.time_object) <= vocab_counter * 1.5) {
+    added_shift_coins = 3;
+  }
+
+  if (added_shift_coins > 25) {
+    added_shift_coins = 25;
   }
 
   return added_shift_coins;
@@ -3032,6 +3103,13 @@ function finish_learning() {
   // slide
 
   open_list_detail(cache.vocab_list_context.name);
+
+  // daily target reward
+
+  if (localStorage.getItem('latest_dt_reward') != get_system_date() && get_time_today() >= settings.daily_target) {
+    open_daily_target();
+    localStorage.setItem('latest_dt_reward', get_system_date());
+  }
 
 }
 
@@ -3305,6 +3383,28 @@ function get_streak() {
 
 }
 
+// save highest streak
+
+function streak_checkup() {
+
+  let streak_now = get_streak();
+
+  if (user.highest_streak == null) {
+    user.highest_streak = streak_now;
+  } else {
+
+    if (user.highest_streak < streak_now) {
+      user.highest_streak = streak_now;
+    }
+
+  }
+
+  save_local_storage();
+
+}
+
+streak_checkup();
+
 // daily target
 
 function daily_target_data() {
@@ -3333,6 +3433,36 @@ function daily_target_data() {
   }
 
   return { open: open, done: done };
+
+}
+
+function open_daily_target() {
+
+  document.querySelector('#reach-daily-goal').style.display = 'block';
+  document.querySelector('#reach-daily-goal').style.animation = 'fade_in .25s ease-in-out both';
+  document.querySelector('#bottom-navigation').style.animation = 'slide_out .25s ease-in-out both';
+
+  setTimeout(() => {
+    document.querySelector('#reach-daily-goal > img').style.animation = 'fade_out .25s ease-in-out both';
+    setTimeout(() => {
+      document.querySelector('#reach-daily-goal > img').style.display = 'none';
+    }, 250);
+  }, 3000);
+
+  document.querySelector('#reach-daily-goal article h1').innerHTML = settings.daily_target * 20;
+
+  wallet('add', settings.daily_target * 20);
+
+}
+
+function close_rdg() {
+
+  document.querySelector('#reach-daily-goal').style.animation = 'fade_out .25s ease-in-out both';
+  setTimeout(() => {
+    document.querySelector('#reach-daily-goal').style.display = 'none';
+  }, 250);
+
+  document.querySelector('#bottom-navigation').style.animation = 'slide_in .25s ease-in-out both';
 
 }
 
@@ -3413,7 +3543,7 @@ function import_vocab_list() {
 function add_imported_list(file_data) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4', '2.5'];
+  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4', '2.5', '3.0'];
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 
@@ -3481,60 +3611,209 @@ function add_imported_list(file_data) {
 
 
 
-/* --- DEV TOOLS --- */
+/* --- SECRET CONSOLE --- */
 
 
 
 function go_to_settings() {
 
-  if (cache.support_activation_count == 4) {
-    cache.support_activation_count = 0;
-    support_access_start();
+  if (cache.secret_console_activation_count == 4) {
+    cache.secret_console_activation_count = 0;
+    hidden_console_launch();
   } else {
-    cache.support_activation_count++;
     slide('settings');
+    cache.secret_console_activation_count++;
     setTimeout(() => {
-      cache.support_activation_count = 0;
-    }, 3000);
+      cache.secret_console_activation_count = 0;
+    }, 4000);
 
   }
 
 }
 
-function support_access_start() {
+function hidden_console_launch() {
 
-  console.log('SUPPORT ACCESS CHECK');
-  let code = prompt('Bitte geben Sie den Code ein!');
+  let enter_code = prompt(`VIP-Autorisierungscode eingeben 👑`);
 
-  const hash = safe_sha_256(code);
+  if (enter_code != null) {
 
-  if (hash === '2d1d0580edff25b453e0c5fc683ff0d5f88ec182dc2d7154d3760adb3555a352') {
+    enter_code = enter_code.toUpperCase();
 
-    let command = prompt('Zugriff akzeptiert. Was möchten Sie tun?');
-
-
-
-    if (command.toUpperCase() == 'SHIFT COINS') {
-
-      let new_value = prompt(`Geben Sie einen neuen Betrag ein.`);
-      if (new_value != 'false') {
-        wallet('set', parseInt(new_value));
-      }
-
-      alert(`Erfolgreich!`);
+    if (safe_sha_256(enter_code) === '274acb28b70fcd20c1761561afbe607918bd7e7850fd96603dede49dd3954f45') {
+      localStorage.setItem('vip_status', `true_VIP_${ms_watermark_hash}`);
+      alert('Du bist jetzt VIP! 👑🆙🚀');
+      window.location.reload();
+    } else if (safe_sha_256(enter_code) === '8856b4df9848bac152e891c0842e4c1d81fbd03253bc1daec799e974fc2b6f4f') {
+      slide('vip-dashboard');
+      alert('1-Time-Access ✅');
+    } else {
+      alert(`Zugriff abgelehnt 🔴`);
     }
 
+  }
 
-    if (command.toUpperCase() == 'RESET') {
+}
+
+
+
+
+/* --- VIP --- */
+
+
+
+function vip(request) {
+
+  if (request === 'set-shift-coins') {
+
+    const new_value = parseInt(prompt('Neuer Wert 🪙'));
+
+    if (!isNaN(new_value)) {
+      wallet('set', new_value);
+      alert('Done! ✅');
+    } else {
+      alert('Fehlgeschlagen! 🔴');
+    }
+
+  }
+
+  if (request === 'get-every-theme') {
+
+    const continue_processing = confirm('Möchtest du sofort alle Themes erhalten? 🎨');
+
+    if (continue_processing) {
+      vip('get-every-theme-instant');
+    } else {
+      alert('Abgebrochen! 😅');
+    }
+
+  }
+
+  if (request === 'get-every-theme-instant') {
+
+    let theme_string = [];
+    let theme_hash = null;
+
+    shop_items.themes.forEach(t => {
+      if (!t.owned) {
+        theme_string.unshift(t.name);
+      }
+    })
+
+    theme_hash = safe_sha_256(theme_string.toString());
+
+    localStorage.setItem('owned_shop_items', JSON.stringify(theme_string));
+    localStorage.setItem('owned_shop_items_comparison', theme_hash);
+
+    alert('Done! ✅');
+
+  }
+
+  if (request === 'get-specific-theme') {
+
+    let user_input = prompt('Theme-Name 🔤');
+    let found_theme = null;
+
+    shop_items.themes.forEach(t => {
+      if (t.name == user_input || t.ui_name == user_input) {
+        found_theme = t.name;
+      }
+    })
+
+    if (found_theme == null) {
+
+      alert('Existiert nicht! 🔴');
+    } else {
+      let already_existing_themes = owned_shop_items('get');
+      if (!already_existing_themes.includes(found_theme)) {
+        owned_shop_items('add', found_theme);
+      }
+      alert('Done! ✅');
+      setTimeout(() => {
+        apply_any_theme(found_theme, false, false);
+      }, 500);
+
+    }
+
+  }
+
+  if (request == 'app-reset') {
+
+    const continue_processing = confirm('VORSICHT! Möchtest du die App zurücksetzen? 🔙');
+
+    if (!continue_processing) {
+      alert('Vorgang abgebrochen. 😅');
+    } else {
       localStorage.clear();
-      alert('Reset abeschlossen!');
+      alert('Reset done! ✅');
       window.location.reload();
     }
 
-  } else {
+  }
 
-    alert('Zugriff abgelehnt!');
+}
+
+
+
+/* --- COMMAND --- */
+
+
+
+function command() {
+
+  let user_request = prompt('DEV-Terminal: Was möchten Sie tun? 🧑‍💻');
+
+  if (user_request != null) {
+    user_request = remove_spaces(user_request).toLowerCase();
+  }
+
+
+  if (user_request === 'app-reset') {
+    vip('app-reset');
+  }
+
+  if (user_request === 'shift-coins') {
+    vip('set-shift-coins');
+  }
+
+  if (user_request === 'get-every-theme') {
+    vip('get-every-theme');
+  }
+
+  if (user_request === 'get-specific-theme') {
+    vip('get-specific-theme');
+  }
+
+  if (user_request === 'cancel-vip') {
+    localStorage.setItem('vip_status', false);
+    alert('Du bist nun kein VIP mehr! 🛑');
+    window.location.reload();
+  }
+
+  if (user_request === 'get') {
+
+    const what = prompt('💬 Gib den Variablennamen ein:');
+
+    if (what === 'time_notation') {
+      alert(`👉 ${time_notation}`);
+    } else if (what === 'all_vocab_lists') {
+      alert(`👉 ${JSON.stringify(all_vocab_lists, null, 2)}`);
+    } else if (what === 'user') {
+      alert(`👉 ${JSON.stringify(user, null, 2)}`);
+    } else if (what === 'settings') {
+      alert(`👉 ${JSON.stringify(settings, null, 2)}`);
+    } else if (what === 'exams') {
+      alert(`👉 ${JSON.stringify(exams, null, 2)}`);
+    } else if (what === 'owned_shop_items') {
+      alert(`👉 ${owned_shop_items('get')}`);
+    } else if (what === 'app_open_counter') {
+      alert(`👉 ${app_open_counter}`);
+    }
+
+    else {
+      alert('❌ Unbekannte Variable!');
+    }
 
   }
+
 
 }
