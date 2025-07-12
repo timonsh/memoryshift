@@ -3042,13 +3042,9 @@ async function wallet(request, amount) {
   const shift_coins = parseInt(localStorage.getItem('shift_coins')) || 0;
 
   let new_shift_coins_value = shift_coins;
-  let continue_processing = false;
+  let continue_processing = true;
 
   let shift_coins_value_to_sha256 = await sha256(shift_coins);
-
-  if (shift_coins_value_to_sha256 === localStorage.getItem('shift_coins_comparison')) {
-    continue_processing = true;
-  }
 
   if (continue_processing) {
 
@@ -3074,8 +3070,6 @@ async function wallet(request, amount) {
 
   } else {
 
-    hacking_retribution();
-    return 'HACKING';
 
   }
 
@@ -3111,7 +3105,7 @@ if (
 // hacking
 
 function hacking_retribution() {
-
+/*
   alert_pup({
     heading: 'HACKING! 👮',
     text: 'Deine ShiftCoins wurden zurück auf 0 gesetzt. 🪙',
@@ -3123,7 +3117,7 @@ function hacking_retribution() {
   (async () => {
     let returned_value = await wallet('get');
   })();
-
+*/
 }
 
 
@@ -3142,7 +3136,7 @@ async function owned_shop_items(request, name) {
 
   // continue processing
 
-  if (hash === localStorage.getItem('owned_shop_items_comparison')) {
+  if (true) {
 
     let new_owned_items = owned_items;
 
@@ -3160,8 +3154,6 @@ async function owned_shop_items(request, name) {
     });
 
   } else {
-    hacking_retribution();
-    return 'HACKING';
   }
 
 }
