@@ -1,4 +1,33 @@
+/*
+
+
+
+*** VERY IMPORTANT 👇 ***
+
+
+
+* 🚀 Projekt: Memory Shift - Learn smarter
+* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* 🌐 Website: https://memoryshift.app
+*
+* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
+* irgendeiner Weise verwendet oder verändert werden.
+*
+* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
+*
+* 📬 Kontakt: service@webbyte.studio
+
+
+
+*/
+
+
+
 /* --- CONFIGURATION --- */
+
+
 
 :root {
     width: 100%;
@@ -22,11 +51,6 @@ body {
     transition: .5s;
 }
 
-svg,
-svg * {
-    transition: .1s;
-}
-
 ::selection {
     background-color: var(--crl-primary);
 }
@@ -46,16 +70,23 @@ button {
     align-items: center;
 }
 
+svg,
+svg * {
+    transition: .1s;
+}
+
 main {
     width: 100%;
-    height: calc(100% - 70px);
+    height: auto;
+    min-height: 100%;
     position: relative;
     display: none;
 }
 
 main>section {
     width: 100%;
-    height: calc(100% - 70px);
+    height: auto;
+    min-height: 100%;
     position: absolute;
     display: none;
     opacity: 1;
@@ -142,6 +173,26 @@ main>section>header>h1 {
     text-align: center;
 }
 
+main>section>header.slide-intro .back {
+    width: 37.5px;
+    height: 37.5px;
+    position: absolute;
+    border-radius: 15px;
+    background-color: var(--clr-light-deviation);
+    border: none;
+    left: 1rem;
+    top: .25rem;
+}
+
+main>section>header.slide-intro .back svg {
+    width: auto;
+    height: 23px;
+}
+
+main>section>header.slide-intro .back svg * {
+    fill: var(--clr-deep-deviation);
+}
+
 .recent-slide-btn {
     width: 40px;
     height: 40px;
@@ -186,6 +237,7 @@ main>section>header>button>img {
     width: 37.5px;
     height: auto;
     border-radius: 50%;
+    pointer-events: none;
 }
 
 main>section>header>button:first-of-type {
@@ -264,6 +316,64 @@ button.secondary.delete * {
     fill: var(--clr-font-opposite);
 }
 
+button.dropdown,
+input.dropdown,
+a.dropdown {
+    width: 100%;
+    height: 60px;
+    display: block;
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 1.15rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: var(--clr-light-deviation);
+    border: none;
+    border-radius: 20px;
+}
+
+button.deviation,
+input.deviation {
+    background-color: var(--clr-deviation);
+}
+
+button.adjust,
+input.adjust {
+    width: 85%;
+}
+
+.img-include {
+    position: relative;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+.img-include img {
+    width: auto;
+    height: 30px;
+}
+
+.img-include svg {
+    width: auto;
+    height: 35px;
+}
+
+.img-include div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-include>* {
+    margin-left: .9rem;
+    margin-right: .9rem;
+}
+
 /* progress bar */
 
 .progress-bar {
@@ -294,8 +404,11 @@ button.secondary.delete * {
     margin-left: auto;
     margin-right: auto;
     margin-top: 1.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: .6rem;
     border: 2.5px solid var(--clr-primary);
-    border-radius: 15px;
+    border-radius: 35px;
 }
 
 .primary-box>span {
@@ -470,6 +583,42 @@ button.secondary.delete * {
 
 }
 
+/* text shadow */
+
+@keyframes text_shadow {
+
+    from {
+        text-shadow: 0 0 0;
+    }
+
+    to {
+        text-shadow: 0 0 20px;
+    }
+
+}
+
+/* btn sizing */
+
+@keyframes btn_sizing {
+
+    0% {
+        width: 60px;
+        height: 60px;
+    }
+
+    50% {
+        width: 45px;
+        height: 45px;
+        transform: translateY(7.5px);
+    }
+
+    100% {
+        width: 60px;
+        height: 60px;
+    }
+
+}
+
 
 
 /* --- APP OPENING --- */
@@ -485,14 +634,71 @@ button.secondary.delete * {
     align-items: center;
     top: 0;
     left: 0;
-    background-color: #b30b19;
+    background-color: #2a45f8;
 }
 
 #app-opening>img {
-    width: 150px;
+    width: 250px;
     height: auto;
-    display: none;
+    border-radius: 30px;
     opacity: 0;
+    animation: fade_in .25s .75s both;
+}
+
+@keyframes ultra_expand {
+
+    1% {
+        visibility: visible;
+    }
+
+    100% {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border-radius: 0;
+        visibility: visible;
+    }
+
+}
+
+@keyframes shadow_intro_effect {
+
+    0% {
+        box-shadow: 0 0 0px #2a45f8;
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    90% {
+        width: 125px;
+    }
+
+    100% {
+        width: 200px;
+        box-shadow: 0 0 175px #2a45f8;
+        opacity: 1;
+    }
+
+}
+
+/* summary stars sizing */
+
+@keyframes sizing_in_summary_stars {
+
+    from {
+        width: 0;
+        height: 0;
+    }
+
+    to {
+        width: 72.5%;
+        height: auto;
+    }
+
 }
 
 
@@ -512,6 +718,7 @@ button.secondary.delete * {
     left: 0;
     z-index: 0;
     opacity: 0;
+    animation: fade_in .5s 3.5s both;
 }
 
 #additional-theme-item>img {
@@ -526,16 +733,22 @@ button.secondary.delete * {
 
 
 #bottom-navigation {
-    width: 100%;
-    height: 70px;
+    width: 90%;
+    height: 65px;
     position: fixed;
-    bottom: 0;
-    opacity: 0;
-    animation: fade_in .3s .35s both;
+    bottom: 10px;
+    left: 5%;
+    padding-left: 1rem;
+    padding-right: 1rem;
     display: none;
     justify-content: space-evenly;
     align-items: center;
     background-color: var(--clr-bottom-navigation);
+    border: 1.5px solid var(--clr-bottom-navigation-border);
+    backdrop-filter: blur(25px);
+    border-radius: 50px;
+    opacity: 0;
+    animation: fade_in .3s .35s both;
 }
 
 #bottom-navigation * {
@@ -543,21 +756,25 @@ button.secondary.delete * {
 }
 
 #bottom-navigation>button {
-    width: auto;
-    margin-left: .5rem;
-    margin-right: .5rem;
+    width: 25%;
     height: 100%;
+    position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: .5rem;
+    margin-right: .5rem;
     background-color: transparent;
     border: none;
 }
 
 #bottom-navigation>button>div {
+    width: 100%;
+    height: 100%;
     position: absolute;
-    transform: translateY(-6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #bottom-navigation>button>div:last-of-type {
@@ -565,8 +782,9 @@ button.secondary.delete * {
 }
 
 #bottom-navigation>button>div>svg {
-    width: 23.5px;
-    height: auto;
+    width: auto;
+    height: 35px;
+    position: relative;
 }
 
 #bottom-navigation>button>div>svg * {
@@ -581,6 +799,7 @@ button.secondary.delete * {
     font-size: .9rem;
     transform: translateY(17.5px);
     color: var(--clr-deep-deviation);
+    display: none;
 }
 
 #bottom-navigation>.active>span:last-of-type {
@@ -665,7 +884,7 @@ button.secondary.delete * {
 
 .widgets>button:last-of-type>div>div,
 .widgets>button:last-of-type>div>div>svg {
-    width: 22.5px;
+    width: 30px;
     height: auto;
 }
 
@@ -678,12 +897,28 @@ button.secondary.delete * {
 
 #recent {
     width: 100%;
-    height: 42.5%;
+    height: 350px;
     display: block;
     position: relative;
     margin-top: 1.5rem;
     padding-left: 7.5%;
     overflow: scroll;
+}
+
+@media (max-height: 830px) {
+
+    #recent {
+        height: 315px;
+    }
+
+}
+
+@media (max-height: 750px) {
+
+    #recent {
+        height: 300px;
+    }
+
 }
 
 #recent::-webkit-scrollbar {
@@ -780,14 +1015,17 @@ button.secondary.delete * {
 #recent .no-lists-ui-elmnt>header>button {
     width: 35px;
     height: 35px;
+    position: relative;
     background-color: var(--clr-warning);
     border-radius: 50%;
     border: none;
 }
 
 #recent .no-lists-ui-elmnt>header>button svg {
-    width: 20px;
+    width: 27.5px;
     height: auto;
+    position: absolute;
+    transform: translateX(-.75px);
 }
 
 #recent .no-lists-ui-elmnt>header>button>svg * {
@@ -847,22 +1085,20 @@ button.secondary.delete * {
     padding-bottom: 95px;
 }
 
-#library>div {
+#library>div:first-of-type {
     width: 100%;
     height: auto;
     display: flex;
     justify-content: center;
     position: fixed;
     z-index: 1;
-    bottom: calc(70px + .75rem);
+    bottom: calc(85px + .75rem);
 }
 
-#library>div>button {
-    width: 70px;
-    height: 70px;
+#library>div:first-of-type>button {
+    width: 60px;
+    height: 60px;
     position: relative;
-    padding-top: .36rem;
-    padding-left: .465rem;
     border-radius: 50%;
     border: none;
     background-color: var(--clr-primary);
@@ -870,32 +1106,33 @@ button.secondary.delete * {
     margin-right: .3rem;
 }
 
-#library>div>button>svg {
+#library>div:first-of-type>button:active,
+#library>div:first-of-type>button:hover {
+    animation: btn_sizing .5s;
+}
+
+#library>div:first-of-type>button>svg {
     width: auto;
-    height: 43%;
-    transform: translateX(-1.25px);
-    transform: translateY(-1px);
+    height: 70%;
 }
 
-#library>div>button:last-of-type {
-    background-color: var(--clr-quaternary);
+#library>div:first-of-type>button:last-of-type {
+    background-color: var(--clr-secondary);
 }
 
-#library>div>button:last-of-type>svg {
-    height: 50%;
-    transform: translateX(-1px);
-    transform: translateY(-1px);
+#library>div:first-of-type>button:last-of-type>svg {
+    height: 55%;
 }
 
-#library>div>button>svg * {
+#library>div:first-of-type>button>svg * {
     fill: var(--clr-font-opposite);
 }
 
 #library>section>div {
-    height: 285px;
-    margin-top: 1.25rem;
+    height: 295px;
+    margin-top: 1.5rem;
     position: relative;
-    border-radius: 45px;
+    border-radius: 50px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
@@ -974,7 +1211,7 @@ button.secondary.delete * {
 }
 
 #list-detail>.info>div>span>svg {
-    width: 23px;
+    width: 25px;
     height: auto;
 }
 
@@ -985,6 +1222,7 @@ button.secondary.delete * {
 #list-detail>.info>div>h3 {
     font-size: 1.15rem;
     margin-left: .75rem;
+    margin-top: .95rem;
     font-weight: normal;
 }
 
@@ -1007,33 +1245,29 @@ button.secondary.delete * {
     height: 35px;
     background-color: var(--clr-primary);
     border-radius: 50%;
+    margin-right: .75rem;
 }
 
 #list-detail>.widget-row>button {
+    width: 35px;
+    height: auto;
+    position: relative;
+    margin-right: .3rem;
     background-color: transparent;
     border: none;
-    margin-right: .3rem;
 }
 
 #list-detail>.widget-row>button>svg {
-    width: 25px;
+    width: 27.5px;
     height: auto;
 }
 
-#list-detail>.widget-row>button:first-of-type {
-    margin-right: .725rem;
-}
-
-#list-detail>.widget-row>button:first-of-type>svg {
-    width: 16px;
+#list-detail>.widget-row>button>svg {
+    position: absolute;
 }
 
 #list-detail>.widget-row>button:first-of-type>svg * {
     fill: var(--clr-font-opposite);
-}
-
-#list-detail>.widget-row>button:last-of-type>svg {
-    width: 27.5px;
 }
 
 #list-detail>.vocab-list {
@@ -1054,7 +1288,7 @@ button.secondary.delete * {
     padding-right: .5rem;
     background-color: var(--clr-light-deviation);
     border: 2.5px solid var(--clr-deviation);
-    border-radius: 12.5px;
+    border-radius: 20px;
     margin-top: .55rem;
     z-index: 1;
 }
@@ -1069,14 +1303,12 @@ button.secondary.delete * {
 
 #list-detail>.learn-btn {
     width: 100%;
-    height: calc(55px + 1rem);
-    background-color: var(--clr-background);
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: end;
     position: absolute;
-    bottom: 1rem;
-    outline: 1.5px solid var(--clr-background);
+    bottom: 90px;
 }
 
 
@@ -1088,7 +1320,7 @@ button.secondary.delete * {
 #small-pop-up-area {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 2;
     display: none;
     justify-content: center;
@@ -1205,10 +1437,10 @@ button.secondary.delete * {
     display: none;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     background-color: var(--clr-background);
 }
 
@@ -1268,6 +1500,7 @@ button.secondary.delete * {
     display: none;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    overflow: hidden;
     background-color: var(--clr-deviation);
     border-radius: 25px;
 }
@@ -1276,7 +1509,7 @@ button.secondary.delete * {
     width: 100%;
     height: 60px;
     border: none;
-    background-color: var(--clr-deviation);
+    background-color: transparent;
     font-size: 1.3rem;
 }
 
@@ -1300,7 +1533,7 @@ button.secondary.delete * {
 #pop-up-area>div {
     width: 100%;
     height: 95%;
-    position: absolute;
+    position: fixed;
     display: none;
     bottom: 0;
     padding-top: calc(70px + 1.5rem);
@@ -1372,7 +1605,7 @@ button.secondary.delete * {
     padding-right: .75rem;
     background-color: transparent;
     border: 3.5px solid var(--clr-deep-deviation);
-    border-radius: 25px;
+    border-radius: 35px;
     font-size: 2rem;
     text-align: center;
 }
@@ -1416,6 +1649,7 @@ textarea.big_text_field {
     flex-direction: column;
     background-color: var(--clr-deviation);
     border-radius: 25px;
+    transition: .175s;
 }
 
 #edit-list .accuracy-test section>div svg {
@@ -1599,7 +1833,7 @@ textarea.big_text_field {
     left: 1rem;
     background-color: var(--clr-deviation);
     border: none;
-    border-radius: 10px;
+    border-radius: 17.5px;
     transition: .5s;
 }
 
@@ -1645,7 +1879,7 @@ textarea.big_text_field {
 
 #learn>.cancel-learn>svg {
     width: auto;
-    height: 45%;
+    height: 67.5%;
 }
 
 #learn>.cancel-learn>svg * {
@@ -1690,8 +1924,8 @@ textarea.big_text_field {
 
 #learn>.turn-flashcard>button>div>svg {
     width: auto;
-    height: 40px;
-    margin-top: .375rem;
+    height: 48.5px;
+    margin-top: .205rem;
 }
 
 #learn>.turn-flashcard>button>div>svg * {
@@ -1719,7 +1953,7 @@ textarea.big_text_field {
     padding-right: .75rem;
     background-color: transparent;
     border: 3.5px solid var(--clr-primary);
-    border-radius: 25px;
+    border-radius: 35px;
     font-size: 1.65rem;
     font-weight: bold;
     text-align: center;
@@ -1789,7 +2023,7 @@ textarea.big_text_field {
 }
 
 #learn>.summary>.stats article svg {
-    width: 37.5px;
+    width: 40px;
     height: auto;
 }
 
@@ -1798,7 +2032,6 @@ textarea.big_text_field {
 }
 
 #learn article:nth-of-type(1) svg {
-    width: 32.5px !important;
     transform: translateY(2.5px);
 }
 
@@ -1965,8 +2198,21 @@ textarea.big_text_field {
 
 #statistic .daily-target canvas {
     width: auto !important;
-    height: 145px !important;
+    height: 135px !important;
     margin-right: .75rem;
+}
+
+#statistic .daily-target>div>div {
+    width: auto;
+    height: 115px;
+    margin-right: 1rem;
+    display: none;
+    opacity: 0;
+}
+
+#statistic .daily-target>div>div>svg {
+    width: auto;
+    height: 115px;
 }
 
 #statistic .daily-target h1 {
@@ -1982,6 +2228,21 @@ textarea.big_text_field {
     font-size: 3.5rem;
     font-family: "Pacifico", "Karla", sans-serif;
     font-weight: 700;
+    color: var(--clr-font-opposite);
+}
+
+#statistic .all-time {
+    height: 165px;
+    background-color: var(--clr-primary);
+}
+
+#statistic .all-time h1 {
+    width: 100%;
+    text-align: center;
+    font-family: "Pacifico", "Karla", sans-serif;
+    font-size: 3rem;
+    margin: 0;
+    margin-top: .345rem;
     color: var(--clr-font-opposite);
 }
 
@@ -2047,21 +2308,6 @@ textarea.big_text_field {
 #settings article>div>span {
     font-size: 1.5rem;
     display: block;
-}
-
-#settings article>div>input,
-#settings article>div>button {
-    width: 100%;
-    height: 60px;
-    display: block;
-    font-size: 1.3rem;
-    text-align: center;
-    margin-top: 1.15rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    background-color: var(--clr-light-deviation);
-    border: none;
-    border-radius: 20px;
 }
 
 #settings article>div:not(:first-of-type) {
@@ -2325,6 +2571,15 @@ textarea.big_text_field {
     color: var(--clr-font-opposite);
 }
 
+#setup .start-profile>button {
+    position: absolute;
+    left: 7.5%;
+    bottom: 0;
+    border: 3px solid #273259;
+    background-color: transparent;
+    color: #273259;
+}
+
 #setup .set-profile>h1 {
     text-align: center;
 }
@@ -2396,17 +2651,16 @@ textarea.big_text_field {
 
 
 
-/* --- IMPRINT --- */
+/* --- OFF DOC --- */
 
 
 
-#imprint {
-    padding-top: 2rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+.off-doc {
+    padding-left: 7.5%;
+    padding-right: 7.5%;
 }
 
-.imprint-link {
+.off-doc-link {
     width: 100%;
     display: block;
     text-align: center;
@@ -2414,7 +2668,20 @@ textarea.big_text_field {
     color: var(--clr-deep-deviation);
     font-weight: bold;
     margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.off-doc h1 {
+    font-size: 1.5rem;
     margin-bottom: 2rem;
+}
+
+#settings>a:first-of-type {
+    margin-bottom: 0rem;
+}
+
+#settings>a:last-of-type {
+    margin-top: 1rem;
 }
 
 
@@ -2555,8 +2822,9 @@ textarea.big_text_field {
 }
 
 #shop>.payment-method-list>div>div>svg {
+    position: absolute;
     width: auto;
-    height: 40px;
+    height: 30px;
 }
 
 #shop>.payment-method-list>div>div>svg * {
@@ -2740,34 +3008,35 @@ textarea.big_text_field {
 
 #shop .limited {
     height: 300px;
-    background-color: #9e020f;
-    border: 5px solid #358c39;
+    background-color: #63b8edd4;
+    border: 5px solid #2c8dca;
 }
 
-#shop .limited article  {
+#shop .limited article {
+    /*transform: translateY(-1.5rem);*/
     margin-top: 5rem;
 }
 
 #shop .limited>div {
     width: 100%;
-    height: auto;
-    position: relative;
+    height: 100px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: unset;
 }
 
 #shop .limited>div>span {
     position: absolute;
+    left: 1.75rem;
     font-size: 2.5rem;
-    top: 1.5rem;
-    left: 1.5rem;
 }
 
 #shop .limited>div>h1 {
     position: absolute;
+    left: 6rem;
     font-size: 1.5rem;
-    color: #FFD700;
-    top: .75rem;
-    left: 5.75rem;
-    text-shadow: 0 0 7.5px #FFD700;
+    color: #003366;
 }
 
 
@@ -2987,7 +3256,7 @@ textarea.big_text_field {
     background-color: var(--clr-primary);
 }
 
-#reach-daily-goal > span {
+#reach-daily-goal>span {
     width: 100%;
     display: block;
     text-align: center;
@@ -2995,13 +3264,13 @@ textarea.big_text_field {
     font-size: 5rem;
 }
 
-#reach-daily-goal > h1 {
+#reach-daily-goal>h1 {
     margin-top: 4rem;
     text-align: center;
     font-size: 2.5rem;
 }
 
-#reach-daily-goal > article {
+#reach-daily-goal>article {
     width: 85%;
     height: auto;
     display: flex;
@@ -3011,7 +3280,7 @@ textarea.big_text_field {
     margin-right: auto;
 }
 
-#reach-daily-goal > article > div {
+#reach-daily-goal>article>div {
     width: 60px;
     height: 60px;
     background-color: var(--clr-quaternary);
@@ -3022,29 +3291,181 @@ textarea.big_text_field {
     margin-right: .6rem;
 }
 
-#reach-daily-goal > article > div svg {
+#reach-daily-goal>article>div svg {
     width: auto;
     height: 35px;
     padding-top: .25rem;
 }
 
-#reach-daily-goal > article > h1 {
+#reach-daily-goal>article>h1 {
     font-family: "Pacifico", "Raleway", Helvetica, sans-serif;
     font-size: 2rem;
     color: var(--clr-quaternary);
     margin-left: .6rem;
 }
 
-#reach-daily-goal > button {
+#reach-daily-goal>button {
     margin-top: 3rem;
     margin-bottom: 3rem;
     background-color: var(--clr-agree);
 }
 
-#reach-daily-goal > img {
+#reach-daily-goal>img {
     width: 100%;
     height: auto;
     position: fixed;
     top: 0;
     left: 0;
 }
+
+
+
+/* --- INFO --- */
+
+
+
+#info-area {
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+#info {
+    width: 85%;
+    height: 70%;
+    display: none;
+    overflow: scroll;
+    background-color: var(--clr-light-deviation);
+    border-radius: 35px;
+}
+
+#info>div {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding-top: 1.75rem;
+}
+
+#info>div>span {
+    font-size: 2.25rem;
+    margin-right: .75rem;
+}
+
+#info>div>h1 {
+    font-size: 2rem;
+    margin-left: .75rem;
+}
+
+#info>p {
+    width: 75%;
+    height: auto;
+    max-height: 57.5%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 150%;
+    font-size: 1.25rem;
+    overflow: scroll;
+}
+
+#info>article {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+#info>article>* {
+    margin-left: .5rem;
+    margin-right: .5rem;
+    font-size: 1.3rem;
+}
+
+#info>article>button:first-of-type {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--clr-warning);
+}
+
+#info>article>button:last-of-type {
+    width: auto;
+    min-width: 150px;
+    height: 50px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--clr-primary);
+    color: var(--clr-font-opposite);
+}
+
+
+
+/* --- OVERLAY EFFECT --- */
+
+
+
+#overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: var(--clr-primary);
+    font-size: 2rem;
+    font-family: monospace;
+}
+
+#overlay-animation {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: brightness(60%);
+}
+
+#overlay-animation>img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+/*
+/*
+/*    🔥💻 Powered by WebByte Studio 💻🔥
+/*                                        
+/*    💬 Join the Discord: https://discord.gg/53SverZQtV
+/*    📹 Follow on Instagram: instagram.com/webbytestudio
+/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
+/*
+/*
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */

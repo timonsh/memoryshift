@@ -2,18 +2,22 @@
 
 
 
-* Projekt: Memory Shift - Learn smarter
-* Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
-* Website: https://memoryshift.app
+*** VERY IMPORTANT 👇 ***
+
+
+
+* 🚀 Projekt: Memory Shift - Learn smarter
+* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* 🌐 Website: https://memoryshift.app
 *
-* Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
 * Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
 * irgendeiner Weise verwendet oder verändert werden.
 *
-* Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
 * Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
 *
-* Kontakt: service@webbyte.studio
+* 📬 Kontakt: service@webbyte.studio
 
 
 
@@ -31,7 +35,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./src/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./src/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./src/img/favicons/favicon-16x16.png">
-    <link rel="manifest" href="./src/img/favicons/site.webmanifest">
+    <link rel="manifest" href="./site.webmanifest">
     <link rel="mask-icon" href="./src/img/favicons/safari-pinned-tab.svg" color="#2a45f8">
     <link rel="shortcut icon" href="./src/img/favicons/favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Memory Shift">
@@ -40,7 +44,7 @@
     <meta name="msapplication-config" content="./src/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#2a45f8">
 
-    <!-- google analytics-->
+    <!-- google analytics -->
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0MJD3LCM6M"></script>
     <script>
@@ -50,6 +54,8 @@
         gtag('js', new Date());
 
         gtag('config', 'G-0MJD3LCM6M', { 'anonymize_ip': true });
+
+        <!-- *** IP-Adress anonymized 🔒 *** -->
 
     </script>
 
@@ -61,17 +67,17 @@
     <meta name="keywords"
         content="Memory Shift, MShift, Vokabeltrainer, TIMONO Vokabeltrainer, WebByte Studio, Online Vokabeltrainer, Timon Schroth, MPG, MPGG">
     <meta name="description"
-        content="Dein smarter Vokabeltrainer für effizientes und nachhaltiges Lernen. Optimiere deinen Fortschritt mit cleveren Wiederholungen und beherrsche deine Vokabeln schnell und easy. Entwickelt von WebByte Studio">
+        content="Dein smarter Vokabeltrainer für effizientes und nachhaltiges Lernen. Optimiere deinen Fortschritt mit cleveren Wiederholungen und beherrsche deine Vokabeln schnell und easy. MShift - Entwickelt von WebByte Studio">
     <title>Memory Shift 🎓 - Dein smarter Vokabeltrainer von WebByte Studio</title>
 
-    <!-- theme -->
+    <!-- theme integration -->
 
     <div id="theme-import">
     </div>
 
-    <!-- import -->
+    <!-- import sources -->
 
-    <script src="./src/js/shop_items.js" type="text/javascript"></script>
+    <script src="./src/js/verified-shop-items.js" type="text/javascript"></script>
 
     <link rel=" stylesheet" type="text/css" href="./src/css/@font-face.css">
     <link rel="stylesheet" type="text/css" href="./src/css/style.css">
@@ -81,10 +87,12 @@
     <script type="text/javascript" src="./src/import/chart.min.js" defer></script>
     <script type="text/javascript" src="./src/import/crypto-sha256.min.js" defer></script>
 
-    <script type="text/javascript" src="./src/js/initialize_ui.js" defer></script>
+    <script type="text/javascript" src="./src/js/interface-ini.js" defer></script>
+    <script type="text/javascript" src="./src/js/info-card-drafts.js" defer></script>
     <script type="text/javascript" src="./src/js/app.js" defer></script>
-    <script type="text/javascript" src="./src/js/dynamic_design.js" defer></script>
-    <script type="text/javascript" src="./src/js/chart_implementation.js" defer></script>
+    <script type="text/javascript" src="./src/js/dynamic-design.js" defer></script>
+    <script type="text/javascript" src="./src/js/chart-implement.js" defer></script>
+    <script type="text/javascript" src="./src/js/console-alert.js" defer></script>
 
 </head>
 
@@ -96,7 +104,7 @@
 
     <div id="app-opening">
 
-        <img src="./src/vid/intro.gif" alt="App Opening Animation">
+        <img src="./src/vid/winter-opening.gif" alt="MShift App Opening">
 
     </div>
 
@@ -287,7 +295,8 @@
 
                     <span>Tägliches Ziel</span>
                     <div>
-                        <canvas id="daily-target"></canvas>
+                        <div class="set-icon">tick_mshift</div>
+                        <canvas id="daily-target" class="statistic-daily-target"></canvas>
                         <h1></h1>
                     </div>
 
@@ -307,21 +316,28 @@
                     <section>
 
                         <div>
-                            <h2>12</h2>
+                            <h2></h2>
                             <span>Heute</span>
                         </div>
 
                         <div>
-                            <h2>61</h2>
+                            <h2></h2>
                             <span>7 Tage</span>
                         </div>
 
                         <div>
-                            <h2>132</h2>
+                            <h2></h2>
                             <span>30 Tage</span>
                         </div>
 
                     </section>
+
+                </article>
+
+                <article class="all-time">
+
+                    <span>Gesamte Zeit</span>
+                    <h1></h1>
 
                 </article>
 
@@ -370,7 +386,7 @@
                 <div>
 
                     <button type="button" onclick="answer_vocab(1)">
-                        <img src="./src/img/understanding/very_good.svg" alt="Sehr gut">
+                        <img src="./src/img/understanding/very-good.svg" alt="Sehr gut">
                     </button>
 
                     <button type="button" onclick="answer_vocab(2)">
@@ -378,7 +394,7 @@
                     </button>
 
                     <button type="button" onclick="answer_vocab(3)">
-                        <img src="./src/img/understanding/not_good.svg" alt="Okay">
+                        <img src="./src/img/understanding/not-good.svg" alt="Okay">
                     </button>
 
                     <button type="button" onclick="answer_vocab(4)">
@@ -487,17 +503,17 @@
 
                 <div>
                     <span>Vorname</span>
-                    <input type="name" name="first_name" placeholder="Vorname">
+                    <input type="name" name="first_name" placeholder="Vorname" class="dropdown">
                 </div>
 
                 <div>
                     <span>Nachname</span>
-                    <input type="name" name="last_name" placeholder="Nachname">
+                    <input type="name" name="last_name" placeholder="Nachname" class="dropdown">
                 </div>
 
                 <div>
                     <span>E-Mail-Adresse</span>
-                    <input type="text" name="email" placeholder="E-Mail"
+                    <input type="text" name="email" placeholder="E-Mail" class="dropdown"
                         pattern="^(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}$">
                 </div>
 
@@ -530,17 +546,17 @@
 
                 <div onclick="dropdown_display('attention_low_upper_case', true)">
                     <span>Groß-/ Kleinschreibung berücksichtigen</span>
-                    <button type="button"></button>
+                    <button type="button" class="dropdown"></button>
                 </div>
 
                 <div onclick="dropdown_display('attention_spaces', true)">
                     <span>Leerzeichen berücksichtigen</span>
-                    <button type="button"></button>
+                    <button type="button" class="dropdown"></button>
                 </div>
 
                 <div onclick="dropdown_display('set-vocab-counter', true)">
                     <span>Vokabeln pro Lerndurchgang</span>
-                    <button type="button"></button>
+                    <button type="button" class="dropdown"></button>
                 </div>
 
             </article>
@@ -553,7 +569,7 @@
 
                 <div onclick="dropdown_display('daily_target', true)">
                     <span>Tägliches Ziel</span>
-                    <button type="button"></button>
+                    <button type="button" class="dropdown"></button>
                 </div>
 
             </article>
@@ -582,6 +598,49 @@
 
             </article>
 
+            <!-- account management -->
+
+            <article class="account">
+
+                <h1>📂 Account</h1>
+
+                <div>
+
+                    <span>Backup & Sync</span>
+                    <br>
+
+                    <button type="button" onclick="export_account()" class="dropdown">👇 Account exportieren</button>
+                    <button type="button" onclick="throw_info(account_import)" class="dropdown">👆 Account
+                        importieren</button>
+
+                </div>
+
+            </article>
+
+            <!-- social -->
+
+            <article class="social">
+
+                <h1>📣 Socials</h1>
+
+                <a href="https://discord.gg/8tBMgJpEKW" class="dropdown img-include" target="_blank">
+                    <img src="./src/img/discord.svg" alt="Discord Logo">
+                    Discord
+                </a>
+
+                <a href="https://www.instagram.com/webbytestudio" class="dropdown img-include" target="_blank">
+                    <img src="./src/img/instagram.png" alt="Instagram Logo">
+                    Instagram
+                </a>
+
+                <a href="https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E" class="dropdown img-include"
+                    target="_blank">
+                    <img src="./src/img/whatsapp.webp" alt="WhatsApp Logo">
+                    WhatsApp
+                </a>
+
+            </article>
+
             <!-- support -->
 
             <article class="support">
@@ -593,7 +652,7 @@
                     <span>Vielen Dank!</span>
                     <br>
                     <a href="https://buymeacoffee.com/timonschroth" target="_blank">
-                        <img src="./src/img/buy_me_a_coffee.png" alt="Buy me a coffee">
+                        <img src="./src/img/buymeacofee.png" alt="Buy me a coffee">
                     </a>
 
                     <a href="https://www.paypal.com/paypalme/schrothtimon" target="_blank">
@@ -605,7 +664,8 @@
 
             </article>
 
-            <a href="./imprint.html" class="imprint-link">Impressum & Datenschutzerklärung</a>
+            <a href="./impressum.html" class="off-doc-link">Impressum & Datenschutzerklärung</a>
+            <a href="./nutzungsbedingungen.html" class="off-doc-link">Nutzungsbedingungen</a>
 
             <button type="button">
                 <img src="./src/img/webbytestudio.svg" alt="WebByte Studio Logo">
@@ -649,7 +709,7 @@
 
             <section class="news">
 
-                <img src="./src/vid/christmas-dream-intro.gif" alt="Christmas Dream">
+                <img src="./src/vid/aurora-shop-preview.gif" alt="AURORA">
 
             </section>
 
@@ -658,8 +718,8 @@
             <section class="limited">
 
                 <div>
-                    <span>🧑‍🎄</span>
-                    <h1>Christmas Season</h1>
+                    <span>❄</span>
+                    <h1>AURORA Winter</h1>
                 </div>
 
                 <article class="shop-item-contain">
@@ -797,6 +857,8 @@
                 <p>
                     Lass uns zum Starten <br> ein Profil für dich <br> erstellen.
                 </p>
+
+                <button class="primary" onclick="throw_info(account_import)">Importieren</button>
 
             </section>
 
@@ -1278,15 +1340,15 @@
             <article class="accuracy-test-config">
                 <h1>Wie möchtest du AccuracyTest verwenden?</h1>
                 <div class="clickable_box" onclick="clickable_box('#add-list > .accuracy-test-config', 1, true)">
-                    <img src="./src/img/accuracy_test/1.svg" alt="Nie">
+                    <img src="./src/img/accuracy-test/1.svg" alt="Nie">
                     <span>Nie</span>
                 </div>
                 <div class="clickable_box" onclick="clickable_box('#add-list > .accuracy-test-config', 2, true)">
-                    <img src="./src/img/accuracy_test/2.svg" alt="Manchmal">
+                    <img src="./src/img/accuracy-test/2.svg" alt="Manchmal">
                     <span>Manchmal</span>
                 </div>
                 <div class="clickable_box" onclick="clickable_box('#add-list > .accuracy-test-config', 3, true)">
-                    <img src="./src/img/accuracy_test/3.svg" alt="Häufig">
+                    <img src="./src/img/accuracy-test/3.svg" alt="Häufig">
                     <span>Häufig</span>
                 </div>
             </article>
@@ -1307,14 +1369,14 @@
 
             <article class="name auto-adjust-childs">
 
-                <h2>Name</h2>
+                <h2>🔤 Name</h2>
                 <input type="name" name="list_name" placeholder="Listenname" class="big_text_field primary-focus">
 
             </article>
 
             <article class="accuracy-test auto-adjust-childs">
 
-                <h2>AccuracyTest</h2>
+                <h2>✍ AccuracyTest</h2>
 
                 <section>
                     <div onclick="clickable_box('#edit-list .accuracy-test section', 1, true)">
@@ -1333,9 +1395,18 @@
 
             </article>
 
+            <article class="auto-adjust-childs site-focus">
+
+                <h2>🎯 Sprachfokus</h2>
+
+                <button type="button" class="dropdown deviation adjust"
+                    onclick="dropdown_display('site-focus', true)">Automatisch</button>
+
+            </article>
+
             <article class="auto-adjust-childs">
 
-                <h2>Löschen</h2>
+                <h2>🗑 Löschen</h2>
                 <button type="button" class="delete secondary" onclick="small_pop_up('verify-delete-list', true)">
                     <div class="set-icon">delete</div>
                     <span>Löschen</span>
@@ -1350,6 +1421,47 @@
         </div>
 
     </section>
+
+
+
+    <!-- --- INFO --- -->
+
+
+
+    <section id="info-area">
+
+        <section id="info">
+
+            <div>
+
+                <span></span>
+                <h1></h1>
+
+            </div>
+
+            <p></p>
+
+            <article>
+
+                <button type="button" onclick="close_info()">👈</button>
+                <button type="button"></button>
+
+            </article>
+
+        </section>
+
+    </section>
+
+
+
+    <!-- --- OVERLAY EFFECT --- -->
+
+
+
+    <div id="overlay"></div>
+    <div id="overlay-animation">
+        <img>
+    </div>
 
 
 
@@ -1389,3 +1501,17 @@
 </body>
 
 </html>
+
+
+
+<!-- ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ -->
+<!--
+<!--
+<!--    🔥💻 Powered by WebByte Studio 💻🔥
+<!--                                        
+<!--    💬 Join the Discord: https://discord.gg/53SverZQtV
+<!--    📹 Follow on Instagram: instagram.com/webbytestudio
+<!--    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
+<!--
+<!--
+<!-- ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ -->

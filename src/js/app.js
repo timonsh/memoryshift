@@ -1,19 +1,23 @@
-/*!
+/*
 
 
 
-* Projekt: Memory Shift - Learn smarter
-* Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
-* Website: https://memoryshift.app
+*** VERY IMPORTANT 👇 ***
+
+
+
+* 🚀 Projekt: Memory Shift - Learn smarter
+* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* 🌐 Website: https://memoryshift.app
 *
-* Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
 * Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
 * irgendeiner Weise verwendet oder verändert werden.
 *
-* Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
 * Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
 *
-* Kontakt: service@webbyte.studio
+* 📬 Kontakt: service@webbyte.studio
 
 
 
@@ -23,51 +27,54 @@
 
 "use strict";
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
   if (window.matchMedia('(display-mode: standalone)').matches) {
     document.documentElement.requestFullscreen();
   }
+
 });
 
+document.querySelectorAll('main > section').forEach(slide => {
+  slide.innerHTML += `
+    <div style="width: 100%; height: 80px; display: block;"></div>
+  `;
+})
 
-
-console.log(
-  "%cAchtung! 🛑",
-  "color: #f4263f; font-size: 40px; font-weight: 700;"
-);
-console.log(
-  "%cDie Nutzung der Entwicklertools kann zu unerwarteten Fehlfunktionen und erheblichen Sicherheitsrisiken führen. " +
-  "Jegliche Manipulation oder Analyse des Codes stellt eine Verletzung der Urheberrechte dar. " +
-  "Alle Rechte vorbehalten © 2024 WebByte Studio (Inhaber: Timon Schroth). " +
-  "Unbefugte Nutzung kann zivil- und strafrechtliche Konsequenzen nach sich ziehen.",
-  "color: #f4263f; font-size: 16px; font-weight: 700;"
-);
 
 
 
 /* --- CONTROL BTN TRIGGER EVENTS --- */
 
 
+function ignore_user_actions(duration) {
 
-let click_locked = false;
+  let blocker = true
 
-document.addEventListener('click', (event) => {
-  if (click_locked) {
-    event.stopPropagation();
-    event.preventDefault();
-    return;
+  const block_event = (event) => {
+    if (blocker) {
+      event.stopPropagation()
+      event.preventDefault()
+    }
   }
 
-  click_locked = true;
+  const events = ['click', 'touchstart', 'mousedown', 'keydown']
+  events.forEach((event) => document.addEventListener(event, block_event, true))
 
   setTimeout(() => {
-    click_locked = false;
-  }, 200);
-}, true);
+    blocker = false
+    events.forEach((event) => document.removeEventListener(event, block_event, true))
+  }, duration)
+
+}
 
 
 
 /* --- DEACTIVATE AUTO COMPLETE --- */
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("input").forEach(input => {
@@ -174,8 +181,9 @@ function apply_any_theme(requested_theme, auto_change, auto_activated) {
         document.querySelector('#additional-theme-item').innerHTML = '';
         if (requested_object.additional_theme_item != null) {
           requested_object.additional_theme_item.forEach(i => {
+            document.querySelector('#additional-theme-item').style.opacity = 1;
             if (i.type === 'img/gif') {
-              document.querySelector('#additional-theme-item').innerHTML += `<img src="${i.path}">`
+              document.querySelector('#additional-theme-item').innerHTML += `<img src="${i.path}" alt="Theme Animation">`;
             }
           })
         }
@@ -450,7 +458,7 @@ function slow_opening() {
 
     auto_initialize_ui();
 
-  }, 4000);
+  }, 2850);
 
 }
 
@@ -461,10 +469,10 @@ function app_opening(speed, destination_slide) {
     setTimeout(() => {
       document.querySelector('#setup').style.height = '100%';
       document.querySelector('#bottom-navigation').style.display = 'none';
-    }, 4100);
+    }, 3000);
   }
 
-  let slide_delay = 4125;
+  let slide_delay = 3000;
 
   if (speed == 'slow') {
     slow_opening();
@@ -475,7 +483,12 @@ function app_opening(speed, destination_slide) {
 
   setTimeout(() => {
     slide(destination_slide);
-    document.querySelector('#additional-theme-item').style.animation = 'fade_in .5s ease-in-out both';
+    document.querySelectorAll('#app-opening *').forEach(ao => {
+      ao.style.animation = 'fade_out .25s ease-in-out both';
+      setTimeout(() => {
+        ao.remove();
+      }, 250);
+    })
   }, slide_delay);
 
 }
@@ -533,15 +546,15 @@ function check_vip_status() {
 // constants
 
 const version = {
-  build: '3.0',
+  build: '4.0',
   channel: 'stable',
-  title: 'POLARIS',
-  subtitle: "Shine bright this Christmas",
-  emoji: '🧑‍🎄'
+  title: 'AURORA',
+  subtitle: "Glow through the Winter",
+  emoji: '❄'
 };
 
 const app_language = 'Deutsch';
-const available_languages = ['Englisch', 'Französisch', 'Spanisch', 'Latein', 'Russisch'];
+const available_languages = ['Englisch', 'Französisch', 'Spanisch', 'Latein', 'Griechisch', 'Russisch'];
 
 // app open counter
 
@@ -682,6 +695,20 @@ function save_local_storage() {
 
 
 
+// save json
+
+function save_JSON(jsonData) {
+
+  const jsonString = JSON.stringify(jsonData);
+  const blob = new Blob([jsonString], { type: "application/json" });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "data.json";
+  link.click();
+
+}
+
 // crypto
 
 function safe_sha_256(input) {
@@ -689,6 +716,47 @@ function safe_sha_256(input) {
   input = input.toString();
   return sha256(input);
 
+}
+
+
+function encrypt(input, key) {
+
+  const utf8Input = unescape(encodeURIComponent(input + key));
+  return btoa(utf8Input);
+
+
+}
+
+function decrypt(encrypted, key) {
+
+  const decoded = decodeURIComponent(escape(atob(encrypted)));
+  if (decoded.endsWith(key)) {
+    return decoded.slice(0, -key.length);
+  }
+  throw "Invalid key";
+
+}
+
+function compress_JSON(data) {
+
+  const jsonString = JSON.stringify(data);
+
+  const compressed = Array.from(jsonString)
+    .map(char => char.charCodeAt(0).toString(36))
+    .join("");
+
+  return compressed;
+
+}
+
+function decompress_JSON(compressedData) {
+
+  const jsonString = compressedData
+    .match(/.{1,2}/g)
+    .map(code => String.fromCharCode(parseInt(code, 36)))
+    .join("");
+
+  return JSON.parse(jsonString);
 }
 
 // time
@@ -1616,6 +1684,7 @@ function add_list(data) {
     progress: 5,
     accuracy_text_config: data.accuracy_text_config,
     vocabularys: [],
+    site_focus: null,
     version: version,
     source: 'local_created',
     creator: {
@@ -1812,6 +1881,25 @@ let dropdown_objects = [
         back: 20
       }
     ]
+  },
+  {
+    name: 'site-focus',
+    emoji: '🗃',
+    headline: 'Sprachfokus',
+    options: [
+      {
+        front: 'Automatisch (empfohlen)',
+        back: null
+      },
+      {
+        front: 'App-Sprache',
+        back: 2
+      },
+      {
+        front: 'Fremdsprache',
+        back: 1
+      }
+    ]
   }
 ];
 
@@ -1928,6 +2016,11 @@ function dropdown_custom_command() {
 
   if (name == 'daily_target') {
     settings.daily_target = parseInt(back);
+  }
+
+  if (name == 'site-focus') {
+    cache.vocab_list_context.site_focus = parseInt(back);
+    edit_list_dropdown_ini();
   }
 
   save_local_storage();
@@ -2184,6 +2277,8 @@ function pop_up_custom_command(name, action) {
 
     document.querySelector('#edit-list .name input').value = cache.vocab_list_context.name;
 
+    edit_list_dropdown_ini();
+
   }
 
   if (name == 'add-exam') {
@@ -2436,11 +2531,16 @@ function open_list_detail(name) {
 
   // learn-btn
   if (vocab_list.vocabularys.length >= 5) {
-    document.querySelector('#list-detail > .learn-btn > button').setAttribute('onclick', `learn('${vocab_list.name}')`);
+    document.querySelector('.learn-btn > button').setAttribute('onclick', `learn('${vocab_list.name}')`);
     document.querySelector('.learn-btn > button').style.backgroundColor = 'var(--clr-primary)';
+
   } else {
-    document.querySelector('#list-detail > .learn-btn > button').setAttribute('onclick', null);
+    document.querySelector('.learn-btn > button').setAttribute('onclick', `alert_pup({
+      heading: '5 Vokabeln',
+      text: 'Ab 5 Vokabeln kannst du lernen. 🗃'
+      })`);
     document.querySelector('.learn-btn > button').style.backgroundColor = 'var(--clr-primary-light)';
+
   }
 
   height_list_detail_vl();
@@ -2502,10 +2602,19 @@ function choose_vocab() {
 
 function set_next_vocab(first_vocab) {
 
+  ignore_user_actions(500);
+
   user_answer_available = false;
   let next_vocab = choose_vocab();
 
-  let requested_site = Math.floor(Math.random() * 2) + 1;
+  let requested_site = null;
+
+  if (cache.vocab_list_context.site_focus != null) {
+    requested_site = cache.vocab_list_context.site_focus;
+  } else {
+    requested_site = Math.floor(Math.random() * 2) + 1;
+  }
+
   cache.learn.requested_site = requested_site;
   cache.learn.vocab = next_vocab;
 
@@ -2595,6 +2704,8 @@ let active_site;
 let user_answer_available;
 
 function rotate_flashcard() {
+
+  ignore_user_actions(500);
 
   if (!cache.learn.disable_rotate) {
 
@@ -2854,6 +2965,11 @@ function learn(vl) {
   document.querySelector('#learn > .accuracy-test').style.display = 'none';
   document.querySelector('#learn > .flashcard').style.height = '425px';
 
+  // end card reset
+
+  document.querySelector('#learn .summary img').style.width = 0;
+  document.querySelector('#learn .summary img').style.height = 0;
+
   // disable bottom nav
 
   document.querySelector('#bottom-navigation').style.animation = 'slide_out .5s .25s both';
@@ -3043,6 +3159,8 @@ function enable_summary() {
 
   // apply star graphic
 
+  document.querySelector('#learn .summary img').style.animation = 'sizing_in_summary_stars 1s .175s both'
+
   if (accuracy < 50) {
     document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/img/stars/one_star.svg');
   }
@@ -3230,6 +3348,13 @@ function owned_shop_items(request, name) {
 
     if (request === 'add') {
       new_owned_items.push(name);
+    }
+
+    if (request === 'set') {
+      new_owned_items = [];
+      name.forEach(item => {
+        new_owned_items.push(item);
+      })
     }
 
     let hash = safe_sha_256(new_owned_items);
@@ -3488,8 +3613,13 @@ function export_vocab_list() {
     });
   }
 
-  let export_data = JSON.stringify(vocab_list);
-  let file_name = `${vocab_list.name}.vocab`;
+  let config_data = {
+    type: 'vocab-list',
+    crypto_data: encrypt(JSON.stringify(vocab_list), 'MS_VL_91224')
+  };
+
+  let export_data = JSON.stringify(config_data);
+  let file_name = `${vocab_list.name}.mshift`;
 
   const blob = new Blob([export_data], { type: 'application/octet-stream' });
   saveAs(blob, file_name);
@@ -3502,18 +3632,17 @@ function import_vocab_list() {
 
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = '.vocab';
+  input.accept = '.vocab, .mshift';
 
   input.addEventListener('change', (event) => {
     const file = event.target.files[0];
 
     if (file) {
-      if (file.type !== 'application/octet-stream' && !file.name.endsWith('.vocab')) {
-        console.error('Bitte wähle eine gültige .vocab-Datei aus.');
+      if (file.type !== 'application/octet-stream' && !file.name.endsWith('.vocab') && !file.name.endsWith('.mshift')) {
         alert_pup(
           {
             heading: 'Upload-Fehler',
-            text: 'Die Datei muss auf .VOCAB enden. 📁'
+            text: 'Bitte wähle eine gültige MSHIFT-Datei aus. 📁'
           }
         );
         return;
@@ -3524,7 +3653,12 @@ function import_vocab_list() {
       reader.onload = (e) => {
         const content = e.target.result;
         const vocab_list = JSON.parse(content);
-        add_imported_list(vocab_list);
+        if (file.name.endsWith('.vocab')) {
+          add_imported_list(vocab_list, '.vocab');
+        }
+        if (file.name.endsWith('.mshift')) {
+          add_imported_list(vocab_list, '.mshift');
+        }
       };
 
       reader.onerror = () => {
@@ -3540,10 +3674,23 @@ function import_vocab_list() {
 
 }
 
-function add_imported_list(file_data) {
+function add_imported_list(file_data, import_method) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4', '2.5', '3.0'];
+  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4', '2.5', '3.0', '4.0'];
+
+  if (import_method === '.mshift') {
+    try {
+      vocab_list = JSON.parse(decrypt(file_data.crypto_data, 'MS_VL_91224'));
+    } catch {
+      alert_pup(
+        {
+          heading: 'Ungültig',
+          text: 'Die Datei wurde manuell beschädigt. 📁'
+        }
+      );
+    }
+  }
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 
@@ -3639,11 +3786,11 @@ function hidden_console_launch() {
 
     enter_code = enter_code.toUpperCase();
 
-    if (safe_sha_256(enter_code) === '274acb28b70fcd20c1761561afbe607918bd7e7850fd96603dede49dd3954f45') {
+    if (safe_sha_256(enter_code) === 'e01036b9697a292572be7582a1391de4be9225701f98b5abd3c3bcc91c0b741e') {
       localStorage.setItem('vip_status', `true_VIP_${ms_watermark_hash}`);
       alert('Du bist jetzt VIP! 👑🆙🚀');
       window.location.reload();
-    } else if (safe_sha_256(enter_code) === '8856b4df9848bac152e891c0842e4c1d81fbd03253bc1daec799e974fc2b6f4f') {
+    } else if (safe_sha_256(enter_code) === 'e61724301840bf8ec384b4a74f649e81f322a581584170d4e140d98a3742f15c') {
       slide('vip-dashboard');
       alert('1-Time-Access ✅');
     } else {
@@ -3817,3 +3964,314 @@ function command() {
 
 
 }
+
+
+
+/* --- ACCOUNT EXPORT --- */
+
+
+
+function export_account() {
+
+  close_info();
+
+  let data = {
+    user: user,
+    settings: settings,
+    all_vocab_lists: all_vocab_lists,
+    exams: exams,
+    time_notation: time_notation,
+    version: version,
+    app_open_counter: app_open_counter,
+    shift_coins: wallet('get'),
+    additional_shop_items: owned_shop_items('get'),
+    recent_list_opens: recent_list_opens
+  };
+
+  data = `'${JSON.stringify(data)}'`;
+
+  let crypto_data = encrypt(data, `MS_ACC_61224`);
+  let verification_hash = safe_sha_256(crypto_data + 'MS');
+
+  let file_content = {
+    type: 'account',
+    crypto_data: crypto_data,
+    verification_hash: verification_hash
+  }
+
+  let export_data = JSON.stringify(file_content);
+  let file_name = `Dein Account.mshift`;
+
+  const blob = new Blob([export_data], { type: 'application/octet-stream' });
+  saveAs(blob, file_name);
+
+}
+
+
+
+/* --- ACCOUNT IMPORT --- */
+
+
+
+function import_account() {
+
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.mshift';
+
+  input.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      if (file.type !== 'application/octet-stream' && !file.name.endsWith('.mshift')) {
+        console.error('Bitte wähle eine gültige .mshift-Datei aus.');
+        alert_pup(
+          {
+            heading: 'Upload-Fehler',
+            text: 'Die Datei muss auf .MSHIFT enden. 📁'
+          }
+        );
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        const content = e.target.result;
+        insert_uploaded_account(content);
+      };
+
+      reader.onerror = () => {
+        console.error('Fehler beim Lesen der Datei.');
+        window.location.reload();
+      };
+
+      reader.readAsText(file);
+    }
+  });
+
+  input.click();
+
+}
+
+function insert_uploaded_account(file_content) {
+
+  const content = JSON.parse(file_content);
+
+  if (content.type != 'account') {
+
+    alert_pup(
+      {
+        heading: 'Ungültig',
+        text: 'Die Datei wurde manuell bearbeitet und kann nicht verwertet werden. 📂'
+      }
+    );
+
+  } else {
+
+    let original_data = null;
+
+    try {
+      original_data = decrypt(content.crypto_data, 'MS_ACC_61224');
+    } catch {
+      hacking_retribution();
+    }
+
+    original_data = JSON.parse(original_data.slice(1, -1));
+
+    let required_hash = content.verification_hash;
+    let created_hash = safe_sha_256(content.crypto_data + 'MS');
+
+    let continue_processing = false;
+
+    if (required_hash === created_hash) {
+      continue_processing = true;
+    } else {
+      hacking_retribution();
+    }
+
+    if (continue_processing) {
+
+      let accepted_builds = ['4.0'];
+
+      if (accepted_builds.includes(original_data.version.build)) {
+
+        user = original_data.user;
+        settings = original_data.settings;
+        time_notation = original_data.time_notation;
+        all_vocab_lists = original_data.all_vocab_lists;
+        exams = original_data.exams;
+        recent_list_opens = original_data.recent_list_opens;
+        localStorage.setItem('app_open_counter', parseInt(original_data.app_open_counter));
+
+        wallet('set', original_data.shift_coins);
+        owned_shop_items('set', original_data.additional_shop_items);
+
+        save_local_storage();
+
+        document.querySelector('#overlay').innerHTML = 'Import ✅';
+        document.querySelector('#overlay').style.display = 'flex';
+        document.querySelector('#overlay').style.animation = 'fade_in 2s ease-in-out both';
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3750);
+
+      } else {
+
+        alert_pup(
+          {
+            heading: 'App-Version Err',
+            text: 'Exportierte Accounts aus dieser App-Version werden nicht unterstützt. ⛔'
+          }
+        );
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+/* --- INFO --- */
+
+
+
+function throw_info(data) {
+
+  document.querySelector('#info-area').style.display = 'flex';
+  document.querySelector('#info').style.display = 'block';
+  document.querySelector('#info').style.animation = 'slide_in .175s ease-out both';
+
+  document.querySelectorAll('main, #additional-theme-item').forEach(e => {
+    e.style.filter = 'brightness(20%)';
+    e.style.opacity = '0.2';
+  })
+
+  document.querySelector('#bottom-navigation').style.animation = 'slide_out .25s ease-in-out both';
+
+  document.querySelector('#info div span').innerHTML = data.emoji;
+  document.querySelector('#info div h1').innerHTML = data.headline;
+  document.querySelector('#info p').innerHTML = data.text;
+
+  document.querySelector('#info article > button:last-of-type').setAttribute('onclick', data.onclick);
+
+  if (data.custom_btn_text != null) {
+    document.querySelector('#info article > button:last-of-type').innerHTML = data.custom_btn_text;
+  } else {
+    document.querySelector('#info article > button:last-of-type').innerHTML = 'Okay ✅';
+  }
+
+}
+
+function close_info() {
+
+  document.querySelector('#info').style.animation = 'slide_out .175s ease-out both';
+  setTimeout(() => {
+    document.querySelector('#info').style.display = 'block';
+    document.querySelector('#info-area').style.display = 'none';
+  }, 175);
+
+  document.querySelectorAll('main, #additional-theme-item').forEach(e => {
+    e.style.filter = 'unset';
+    e.style.opacity = '1';
+  })
+
+  document.querySelector('#bottom-navigation').style.animation = 'slide_in .25s ease-in-out both';
+
+}
+
+function overlay_animation(path, overlay, duration_out) {
+
+  document.querySelector('#overlay-animation > img').setAttribute('src', null);
+
+  if (overlay === 1) {
+    document.querySelector('#overlay-animation').style.zIndex = 1;
+  } else {
+    document.querySelector('#overlay-animation').style.zIndex = 'unset';
+  }
+
+  let duration = duration_out || 2700;
+
+  document.querySelector('#overlay-animation').style.display = 'flex';
+  document.querySelector('#overlay-animation').style.animation = 'fade_in .25s';
+  document.querySelector('#overlay-animation > img').setAttribute('src', path);
+  setTimeout(() => {
+    document.querySelector('#overlay-animation').style.animation = 'fade_out 1s';
+    setTimeout(() => {
+      document.querySelector('#overlay-animation').style.display = 'none';
+    }, 250);
+  }, duration);
+
+}
+
+function lead_to_donate() {
+
+  close_info();
+
+  slide('settings');
+
+  setTimeout(() => {
+
+    const container = document.getElementById('settings');
+    const target = document.querySelector('.support');
+
+    container.scrollTo({
+      top: target.offsetTop,
+      behavior: 'smooth'
+    });
+
+    overlay_animation('./src/vid/heart.gif');
+
+  }, 500);
+
+}
+
+
+
+/* --- APP OPEN TRIGGER --- */
+
+
+
+// donate
+
+let possible_opens_donation = [25, 125, 225, 325, 425];
+
+if (possible_opens_donation.includes(app_open_counter)) {
+
+  setTimeout(() => {
+    throw_info(support_project_info);
+  }, 4000);
+
+}
+
+// discord
+
+let possible_opens_discord = [75, 175, 275, 375, 475];
+
+if (possible_opens_discord.includes(app_open_counter)) {
+
+  setTimeout(() => {
+    throw_info(join_discord);
+  }, 4000);
+
+}
+
+
+
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+/*
+/*
+/*    🔥💻 Powered by WebByte Studio 💻🔥
+/*                                        
+/*    💬 Join the Discord: https://discord.gg/53SverZQtV
+/*    📹 Follow on Instagram: instagram.com/webbytestudio
+/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
+/*
+/*
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+
+

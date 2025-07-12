@@ -1,17 +1,29 @@
-/*!
-* Projekt: Memory Shift - Learn smarter
-* Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
-* Website: https://memoryshift.app
+/*
+
+
+
+*** VERY IMPORTANT 👇 ***
+
+
+
+* 🚀 Projekt: Memory Shift - Learn smarter
+* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* 🌐 Website: https://memoryshift.app
 *
-* Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
 * Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
 * irgendeiner Weise verwendet oder verändert werden.
 *
-* Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
 * Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
 *
-* Kontakt: service@webbyte.studio
+* 📬 Kontakt: service@webbyte.studio
+
+
+
 */
+
+
 
 :root {
     --clr-background: #0f2910;
@@ -28,7 +40,8 @@
     --clr-deviation: #256838;
     --clr-deep-deviation: #1b4f2c;
 
-    --clr-bottom-navigation: #0d250e;
+    --clr-bottom-navigation: #0d250ec7;
+    --clr-bottom-navigation-border: #0a1f0c;
 
     --clr-agree: #3ddc68;
     --clr-warning: #d84315;
@@ -46,6 +59,7 @@
     --clr-Latein: #66bb6a;
     --clr-Deutsch: #388e3c;
     --clr-Russisch: #4caf50;
+    --clr-Griechisch: #01944f;
 }
 
 #statistic .streak {
@@ -61,3 +75,19 @@ input::placeholder,
 textarea::placeholder {
     color: #b8d8c0 !important;
 }
+
+
+
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+/*
+/*
+/*    🔥💻 Powered by WebByte Studio 💻🔥
+/*                                        
+/*    💬 Join the Discord: https://discord.gg/53SverZQtV
+/*    📹 Follow on Instagram: instagram.com/webbytestudio
+/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
+/*
+/*
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+
+

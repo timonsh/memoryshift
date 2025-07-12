@@ -1,0 +1,7 @@
+# robots.txt für Memory Shift
+
+User-agent: *
+Disallow: /private/  # Verhindert das Crawlen des privaten Ordners
+Disallow: /tmp/      # Verhindert das Crawlen des temporären Ordners
+
+Sitemap: https://www.memoryshift.app/sitemap.xml  # Link zu deiner Sitemap
