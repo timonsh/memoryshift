@@ -274,6 +274,8 @@ function add_list_language_initialize() {
 
 /* --- HOME OVERVIEW --- */
 
+
+
 function home_overview() {
 
     let display_format = 'Minute';
@@ -289,6 +291,19 @@ function home_overview() {
     }
     document.querySelector('#overview > .widgets > button:first-of-type > div > span').innerHTML = `${daily_target_data().done} ${display_format}`;
     document.querySelector('#overview > .widgets > button:last-of-type > div > span').innerHTML = `${get_streak()} ${display_format_2}`;
+
+    if (daily_target_data().open == 0) {
+        document.querySelector('#daily-goal').style.animation = 'fade_out .25s both';
+        setTimeout(() => {
+            document.querySelector('#daily-goal').style.display = 'none';
+        }, 250);
+        document.querySelector('.widgets > button:first-of-type > div > div svg').style.display = 'block';
+        document.querySelector('.widgets > button:first-of-type > div > div svg').style.animation = 'fade_in .25s both';
+    } else {
+        document.querySelector('.widgets > button:first-of-type > div > div svg').style.display = 'none';
+        document.querySelector('#daily-goal').style.animation = 'fade_in .25s both';
+        document.querySelector('#daily-goal').style.display = 'block';
+    }
 
 }
 
@@ -594,30 +609,16 @@ function shop_item_ini() {
 
     })
 
-    // nothing available
+    // no items available
 
-    let nothing_available = true;
-    let not_owned_items = [];
-    shop_items.themes.forEach(t => {
-        if (!t.owned) {
-            not_owned_items.push(t.name);
-        }
-    })
+    let shop_verficication_elmnt = document.querySelector('#shop .available article > div:first-of-type');
 
-    not_owned_items.forEach(i => {
-        if (!additional_items.includes(i)) {
-            nothing_available = false;
-        }
-    })
-
-    if (nothing_available) {
+    if (shop_verficication_elmnt == null) {
         document.querySelector('#shop .available').style.animation = 'fade_out .25s both';
         setTimeout(() => {
             document.querySelector('#shop .available').style.display = 'none';
         }, 250);
     }
-
-    ;
 
 
     auto_set_icons();

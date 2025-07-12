@@ -1,0 +1,93 @@
+/*
+
+
+
+*** VERY IMPORTANT 👇 ***
+
+
+
+* 🚀 Projekt: Memory Shift - Learn smarter
+* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* 🌐 Website: https://memoryshift.app
+*
+* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
+* irgendeiner Weise verwendet oder verändert werden.
+*
+* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
+*
+* 📬 Kontakt: service@webbyte.studio
+
+
+
+*/
+
+
+
+/* PRIMARY NIGHT THEME */
+
+:root {
+    --clr-primary: #1f38de;
+    --clr-primary-light: rgba(31, 56, 222, 0.5);
+    --clr-secondary: #d0212b;
+    --clr-tertiary: #57a49f;
+    --clr-quaternary: #c19c07;
+    --clr-accent: #d849d8;
+    --clr-setup-accent-1: #8a3a2c;
+
+    --clr-light-deviation: #1e1e1e;
+    --clr-light-deviation-mid-transparency: rgba(30, 30, 30, 0.5);
+    --clr-deviation: #2e2e2e;
+    --clr-deep-deviation: #5d5866;
+
+    --clr-bottom-navigation: #1717179d;
+    --clr-bottom-navigation-border: #1e1e1e;
+
+    --clr-agree: #049643;
+    --clr-warning: #d0212b;
+    --clr-warning-accent: #c5131c;
+    --clr-warning-3_4-transparency: rgba(208, 33, 43, 0.75);
+
+    --clr-svg-change: #fff;
+
+    --clr-background: #121212;
+    --clr-font: #fff;
+    --clr-font-opposite: #fff;
+
+    --clr-Französisch: #3d1181;
+    --clr-Englisch: #b84248;
+    --clr-Spanisch: #d54b37;
+    --clr-Latein: #049643;
+    --clr-Deutsch: #b5351d;
+    --clr-Russisch: #bf46a2;
+    --clr-Griechisch: #014d94;
+}
+
+#statistic .streak {
+    background: linear-gradient(90deg, rgba(208, 33, 43, 1) 0%, rgba(189, 66, 0, 1) 100%);
+}
+
+#statistic .time {
+    background: linear-gradient(90deg, rgba(26, 47, 184, 1) 0%, rgba(216, 73, 216, 1) 100%);
+}
+
+#settings .profile-box {
+    background: linear-gradient(90deg, rgba(26, 47, 184, 1) 0%, rgba(216, 73, 216, 1) 100%);
+}
+
+
+
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+/*
+/*
+/*    🔥💻 Powered by WebByte Studio 💻🔥
+/*                                        
+/*    💬 Join the Discord: https://discord.gg/53SverZQtV
+/*    📹 Follow on Instagram: instagram.com/webbytestudio
+/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
+/*
+/*
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+
+

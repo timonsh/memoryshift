@@ -59,7 +59,7 @@
 
     </script>
 
-    <!-- site config -->
+    <!-- site configuration -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -77,41 +77,42 @@
 
     <!-- import sources -->
 
-    <script src="./src/js/verified-shop-items.js" type="text/javascript"></script>
-
     <link rel=" stylesheet" type="text/css" href="./src/css/@font-face.css">
     <link rel="stylesheet" type="text/css" href="./src/css/style.css">
 
-    <script src="./src/import/file-saver.min.js" type="text/javascript" defer></script>
+    <script type="text/javascript" src="./src/import/crypto-sha256.min.js" defer></script>
+    <script src="./src/js/verified-shop-items.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./src/js/license-codes-library.js" defer></script>
     <script type="text/javascript" src="./src/import/material-icons-framework.js" defer></script>
     <script type="text/javascript" src="./src/import/chart.min.js" defer></script>
-    <script type="text/javascript" src="./src/import/crypto-sha256.min.js" defer></script>
-
     <script type="text/javascript" src="./src/js/interface-ini.js" defer></script>
-    <script type="text/javascript" src="./src/js/info-card-drafts.js" defer></script>
-    <script type="text/javascript" src="./src/js/app.js" defer></script>
     <script type="text/javascript" src="./src/js/dynamic-design.js" defer></script>
-    <script type="text/javascript" src="./src/js/chart-implement.js" defer></script>
+    <script type="text/javascript" src="./src/js/agent.js" defer></script>
+    <script type="text/javascript" src="./src/js/info-card-drafts.js" defer></script>
+    <script src="./src/import/file-saver.min.js" type="text/javascript" defer></script>
     <script type="text/javascript" src="./src/js/console-alert.js" defer></script>
 
 </head>
 
 <body>
 
-    <span id="display-too-small" style="display: none;">Ihr Display ist zu klein. 😭</span>
 
-    <!-- app opening -->
+
+    <!-- --- app opening --- -->
+
+
+
+    <span id="display-too-small" style="display: none;">
+        Bitte benutze ein Smartphone mit großem Display & probiere die
+        Seite zum Home-Bildschirm hinzuzufügen. 📱✨
+    </span>
 
     <div id="app-opening">
-
         <img src="./src/vid/winter-opening.gif" alt="MShift App Opening">
-
     </div>
 
-    <!-- additional theme items -->
 
-    <div id="additional-theme-item">
-    </div>
+    <div id="additional-theme-item"></div>
 
 
     <main>
@@ -124,9 +125,8 @@
 
         <section id="home">
 
-            <!-- header -->
-
             <header class="slide-intro">
+
                 <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Memory Shift</h1>
 
@@ -136,44 +136,42 @@
 
             </header>
 
-            <!-- overview -->
-
             <header id="overview">
 
-                <section class="widgets">
+                <section class="widgets parent-pos">
 
                     <button type="button" onclick="slide('statistic')">
+
                         <h2>Tägliches Ziel</h2>
                         <div>
                             <canvas id="daily-goal"></canvas>
+                            <div class="set-icon">tick_mshift</div>
                             <span></span>
                         </div>
+
                     </button>
 
                     <div></div>
 
                     <button type="button" onclick="slide('statistic')">
+
                         <h2>Streak</h2>
                         <div>
                             <div class="set-icon filled">local_fire_department</div>
                             <span></span>
                         </div>
+
                     </button>
 
                 </section>
 
             </header>
 
-            <!-- recent-->
-
             <section id="recent">
 
-                <section class="pointer-childs">
-                </section>
+                <section class="pointer-childs"></section>
 
             </section>
-
-            <!-- exam view-->
 
             <section id="exam-view">
 
@@ -181,7 +179,6 @@
 
                     <h1>📅 Prüfungen</h1>
                     <span>Behalte Prüfungen immer im Blick.</span>
-                    <!--div>Neu</div>-->
 
                 </header>
 
@@ -200,6 +197,7 @@
         <section id="library">
 
             <header class="slide-intro">
+
                 <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Bibliothek</h1>
                 <button type="button">
@@ -209,8 +207,8 @@
             </header>
 
             <span>Noch ziemlich leer hier. ✨</span>
-            <section class="auto-adjust-childs pointer-childs">
-            </section>
+
+            <section class="auto-adjust-childs pointer-childs"></section>
 
             <div>
                 <button type="button" onclick="pop_up('add-list', true)" class="set-icon">add</button>
@@ -232,10 +230,8 @@
             </div>
 
             <header>
-
                 <h2></h2>
                 <img>
-
             </header>
 
             <div class="info">
@@ -261,13 +257,10 @@
 
             </div>
 
-            <div class="vocab-list">
-            </div>
+            <div class="vocab-list"></div>
 
             <div class="learn-btn">
-
                 <button type="button" class="primary">Lernen 🎓</button>
-
             </div>
 
         </section>
@@ -281,6 +274,7 @@
         <section id="statistic">
 
             <header class="slide-intro">
+
                 <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Statistik</h1>
                 <button type="button">
@@ -294,10 +288,13 @@
                 <article class="daily-target">
 
                     <span>Tägliches Ziel</span>
+
                     <div>
+
                         <div class="set-icon">tick_mshift</div>
                         <canvas id="daily-target" class="statistic-daily-target"></canvas>
                         <h1></h1>
+
                     </div>
 
                 </article>
@@ -426,24 +423,30 @@
                     <section>
 
                         <article>
+
                             <div>
                                 <div class="set-icon">percent</div>
                             </div>
                             <span></span>
+
                         </article>
 
                         <article>
+
                             <div>
                                 <div class="set-icon">timer</div>
                             </div>
                             <span>3:12</span>
+
                         </article>
 
                         <article>
+
                             <div>
                                 <div class="set-icon">paid</div>
                             </div>
                             <span>+38</span>
+
                         </article>
 
                     </section>
@@ -467,9 +470,8 @@
 
         <section id="settings">
 
-            <!-- header -->
-
             <header class="slide-intro">
+
                 <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Einstellungen</h1>
 
@@ -479,9 +481,7 @@
 
             </header>
 
-            <!-- profile box -->
-
-            <div class="profile-box">
+            <div class="profile-box parent-pos">
 
                 <button type="button" onclick="upload_new_avatar()">
                     <img alt="Avatar">
@@ -494,8 +494,6 @@
                 <span></span>
 
             </div>
-
-            <!-- profile -->
 
             <article class="profile auto-adjust-childs">
 
@@ -561,8 +559,6 @@
 
             </article>
 
-            <!-- daily goal -->
-
             <article class="daily-target auto-adjust-childs">
 
                 <h1>🎯 Tägliches Ziel</h1>
@@ -574,8 +570,6 @@
 
             </article>
 
-            <!-- help / problems -->
-
             <article class="help">
 
                 <h1>🙏 Hilfe & Probleme</h1>
@@ -586,8 +580,6 @@
 
             </article>
 
-            <!-- contact -->
-
             <article class="contact">
 
                 <h1>📬 Kontakt</h1>
@@ -597,8 +589,6 @@
                 </div>
 
             </article>
-
-            <!-- account management -->
 
             <article class="account">
 
@@ -616,8 +606,6 @@
                 </div>
 
             </article>
-
-            <!-- social -->
 
             <article class="social">
 
@@ -641,8 +629,6 @@
 
             </article>
 
-            <!-- support -->
-
             <article class="support">
 
                 <h1>❤ Support</h1>
@@ -651,11 +637,12 @@
 
                     <span>Vielen Dank!</span>
                     <br>
-                    <a href="https://buymeacoffee.com/timonschroth" target="_blank">
-                        <img src="./src/img/buymeacofee.png" alt="Buy me a coffee">
+
+                    <a href="https://buymeacoffee.com/timonschroth" target="_blank" class="bmc-btn">
+                        <img src="./src/img/buymeacoffee.png" alt="Buy me a coffee">
                     </a>
 
-                    <a href="https://www.paypal.com/paypalme/schrothtimon" target="_blank">
+                    <a href="https://paypal.me/heytimon" target="_blank">
                         <img src="./src/img/paypal.png" alt="PayPal">
                         <span>Mit PayPal unterstützen</span>
                     </a>
@@ -681,10 +668,8 @@
 
         <section id="shop">
 
-
-            <!-- header -->
-
             <header class="slide-intro">
+
                 <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>Shop</h1>
 
@@ -694,26 +679,22 @@
 
             </header>
 
-            <!-- payment methods -->
-
             <section class="payment-method-list">
 
                 <div class="shift-coins">
                     <div class="set-icon">paid</div>
-                    <span>264</span>
+                    <span></span>
+                </div>
+
+                <div class="code-license" onclick="throw_flexible_area('code-license');">
+                    <div class="set-icon">key</div>
                 </div>
 
             </section>
 
-            <!-- news / updates -->
-
             <section class="news">
-
                 <img src="./src/vid/aurora-shop-preview.gif" alt="AURORA">
-
             </section>
-
-            <!-- limited -->
 
             <section class="limited">
 
@@ -722,34 +703,25 @@
                     <h1>AURORA Winter</h1>
                 </div>
 
-                <article class="shop-item-contain">
-                </article>
+                <article class="shop-item-contain"></article>
 
             </section>
-
-            <!-- available -->
 
             <section class="available">
 
                 <h1>Shop</h1>
 
-                <article class="shop-item-contain">
-                </article>
+                <article class="shop-item-contain"></article>
 
             </section>
-
-            <!-- owned -->
 
             <section class="owned">
 
                 <h1>Im Besitz</h1>
 
-                <article class="shop-item-contain">
-                </article>
+                <article class="shop-item-contain"></article>
 
             </section>
-
-            <!-- buy item -->
 
             <section class="buy-item-area">
 
@@ -758,10 +730,12 @@
                     <h1></h1>
 
                     <div class="theme-preview"></div>
+
                     <div class="amount">
                         <div class="set-icon">paid</div>
                         <span></span>
                     </div>
+
                     <div class="btns">
                         <button type="button" onclick="cancel_transaction()">Zurück</button>
                         <button type="button" onclick="complete_transaction()">Kaufen</button>
@@ -770,8 +744,6 @@
                 </section>
 
             </section>
-
-            <!-- theme transition -->
 
             <section class="theme-transition">
 
@@ -807,6 +779,7 @@
                         <h1>MemoryShift</h1>
                         <h2>Learn smarter</h2>
                     </header>
+
                     <button type="button" class="primary" onclick="app_setup_steps('start-setup')">Loslegen 🚀</button>
                     <span>WebByte Studio</span>
 
@@ -908,6 +881,7 @@
         <section id="vip-dashboard">
 
             <header class="slide-intro">
+
                 <button type="button" onclick="slide('vip-dashboard')"><img src="./src/img/crown.svg"></button>
                 <h1>VIP Dashboard</h1>
                 <button type="button">
@@ -915,8 +889,6 @@
                 </button>
 
             </header>
-
-            <!-- exclusive operations -->
 
             <div class="exclusive-operations">
 
@@ -953,8 +925,6 @@
 
             </div>
 
-            <!-- dev tools -->
-
             <div class="dev-tools">
 
                 <header>
@@ -988,8 +958,6 @@
 
 
 
-
-
     </main>
 
 
@@ -998,12 +966,12 @@
 
 
 
-    <section id="reach-daily-goal">
+    <section id="reach-daily-goal" class="fullscreen-basic">
 
 
         <img src="./src/vid/celebrate.gif" alt="Konfetti">
 
-        <span>✅</span>
+        <span>🎯</span>
 
         <h1>Tägliches Ziel erreicht!</h1>
 
@@ -1034,13 +1002,13 @@
 
             <h1 class="emoji"></h1>
             <h1 class="headline"></h1>
+
             <button type="button" class="choose-btn" onclick="options_display(true)">Auswählen</button>
             <button type="button" class="submit set-icon" onclick="continue_dropdown()">arrow_forward</button>
 
         </div>
 
-        <div class="options">
-        </div>
+        <div class="options"></div>
 
     </section>
 
@@ -1052,7 +1020,9 @@
 
     <section id="small-pop-up-area">
 
+
         <!-- alert -->
+
 
         <div class="alert">
 
@@ -1061,8 +1031,7 @@
                 <h1></h1>
             </header>
 
-            <p>
-            </p>
+            <p></p>
 
             <form onsubmit="return false;">
 
@@ -1074,7 +1043,9 @@
 
         </div>
 
+
         <!-- verify cancel learning -->
+
 
         <div class="verify-cancel-learning">
 
@@ -1098,7 +1069,9 @@
 
         </div>
 
+
         <!-- verify delete vocab -->
+
 
         <div class="verify-delete-vocab">
 
@@ -1122,7 +1095,9 @@
 
         </div>
 
+
         <!-- verify delete exam -->
+
 
         <div class="verify-delete-exam">
 
@@ -1146,7 +1121,9 @@
 
         </div>
 
+
         <!-- verify delete list -->
+
 
         <div class="verify-delete-list">
 
@@ -1170,6 +1147,7 @@
 
         </div>
 
+
     </section>
 
 
@@ -1180,7 +1158,9 @@
 
     <section id="pop-up-area">
 
+
         <!-- add vocab -->
+
 
         <div id="add-vocab">
 
@@ -1240,6 +1220,7 @@
             <article class="auto-adjust-childs" style="margin-top: 3rem;">
 
                 <h2>Löschen</h1>
+
                     <button type="button" class="delete secondary" onclick="small_pop_up('verify-delete-exam', true);">
                         <div class="set-icon">delete</div>
                         <span>Löschen</span>
@@ -1253,7 +1234,9 @@
 
         </div>
 
+
         <!-- edit vocab -->
+
 
         <div id="edit-vocab">
 
@@ -1300,7 +1283,9 @@
 
         </div>
 
+
         <!-- add note -->
+
 
         <div id="add-note">
 
@@ -1321,7 +1306,9 @@
 
         </div>
 
+
         <!-- add list -->
+
 
         <div id="add-list">
 
@@ -1334,7 +1321,7 @@
 
             <article class="enter-list-name">
                 <h1>Gib deiner Liste einen Titel</h1>
-                <input type="text" name="list-name" placeholder="Titel">
+                <input type="text" name="list-name" placeholder="Titel" class="parent-pos">
             </article>
 
             <article class="accuracy-test-config">
@@ -1359,7 +1346,9 @@
 
         </div>
 
+
         <!-- edit list -->
+
 
         <div id="edit-list">
 
@@ -1420,11 +1409,12 @@
 
         </div>
 
+
     </section>
 
 
 
-    <!-- --- INFO --- -->
+    <!-- --- INFO AREA --- -->
 
 
 
@@ -1433,22 +1423,83 @@
         <section id="info">
 
             <div>
-
                 <span></span>
                 <h1></h1>
-
             </div>
 
-            <p></p>
+            <p class="parent-pos"></p>
 
             <article>
-
                 <button type="button" onclick="close_info()">👈</button>
                 <button type="button"></button>
-
             </article>
 
         </section>
+
+    </section>
+
+
+
+    <!-- --- FLEXIBLE AREA --- -->
+
+
+
+    <section id="flexible-area">
+
+        <div id="code-license">
+
+            <header>
+
+                <div class="icon">
+                    <div class="set-icon">key</div>
+                </div>
+
+                <h1>Code-Eingabe</h1>
+
+            </header>
+
+            <article>
+
+                <span>
+                    Hier kannst du deinen Lizenz-/ VIP-Code eingeben. 🔒🪙
+                </span>
+
+                <input type="text" name="license-code" placeholder="AAAA-BBBB-CCCC-DDDD">
+                <button type="button" class="primary" onclick="activate_license()">Aktivieren</button>
+
+                <p class="note">
+                    Wenn du dir ShiftCoins kaufen möchtest, kannst du über meine <a
+                        href="https://buymeacoffee.com/timonschroth" target="_blank">Buy me a Coffee</a> Seite einen Code
+                    erwerben.
+                </p>
+
+                <a href="https://buymeacoffee.com/timonschroth/extras" target="_blank" class="bmc-btn">
+                    <img src="./src/img/buymeacoffee.png" alt="Buy me a coffee">
+                </a>
+
+
+
+            </article>
+
+            <article class="reward">
+
+                <img src="./src/vid/reward.gif" alt="Celebrate Animation">
+
+                <div>
+
+                    <h1></h1>
+                    <span></span>
+                    <button type="button" class="primary" onclick="exit_reward()">Juhu 🥳</button>
+
+                </div>
+
+            </article>
+
+            <div class="close-area">
+                <button type="button" class="set-icon" onclick="close_flexible_area()">cancel</button>
+            </div>
+
+        </div>
 
     </section>
 
@@ -1458,8 +1509,9 @@
 
 
 
-    <div id="overlay"></div>
-    <div id="overlay-animation">
+    <div id="overlay" class="fullscreen-basic flexbox-basic"></div>
+
+    <div id="overlay-animation" class="flexbox-basic fullscreen-basic">
         <img>
     </div>
 
@@ -1472,30 +1524,39 @@
     <nav id="bottom-navigation">
 
         <button type="button" class="home" onclick="slide('home')">
+
             <div class="set-icon">home</div>
             <div class="set-icon filled">home</div>
             <span>Home</span>
+
         </button>
 
         <button type="button" class="library" onclick="slide('library')">
+
             <div class="set-icon">bookmark</div>
             <div class="set-icon filled">bookmark</div>
             <span>Bibliothek</span>
+
         </button>
 
         <button type="button" class="statistic" onclick="slide('statistic')">
+
             <div class="set-icon">bar_chart</div>
             <div class="set-icon filled">bar_chart</div>
             <span>Statistik</span>
+
         </button>
 
         <button type="button" class="shop" onclick="slide('shop')">
+
             <div class="set-icon">shopping_bag</div>
             <div class="set-icon filled">shopping_bag</div>
             <span>Shop</span>
+
         </button>
 
     </nav>
+
 
 
 </body>

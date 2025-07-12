@@ -1,0 +1,95 @@
+/*
+
+
+
+*** VERY IMPORTANT 👇 ***
+
+
+
+* 🚀 Projekt: Memory Shift - Learn smarter
+* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
+* 🌐 Website: https://memoryshift.app
+*
+* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
+* Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
+* irgendeiner Weise verwendet oder verändert werden.
+*
+* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
+* Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
+*
+* 📬 Kontakt: service@webbyte.studio
+
+
+
+*/
+
+
+
+:root {
+    --clr-background: #081b29;
+    --clr-primary: #16a085;
+    --clr-primary-light: rgba(22, 160, 133, 0.75);
+    --clr-secondary: #1abc9c;
+    --clr-tertiary: #3498db;
+    --clr-quaternary: #9b59b6;
+    --clr-accent: #2ecc71;
+    --clr-setup-accent-1: #2980b9;
+
+    --clr-light-deviation: #1f3d5a;
+    --clr-light-deviation-mid-transparency: rgba(31, 61, 90, 0.75);
+    --clr-deviation: #255477;
+    --clr-deep-deviation: #2a6b98;
+
+    --clr-bottom-navigation: rgba(31, 61, 90, 0.85);
+    --clr-bottom-navigation-border: #255477;
+
+    --clr-agree: #27ae60;
+    --clr-warning: #e74c3c;
+    --clr-warning-accent: #c0392b;
+    --clr-warning-3_4-transparency: rgba(231, 76, 60, 0.75);
+
+    --clr-svg-change: #ffffff;
+
+    --clr-font: #ecf0f1;
+    --clr-font-opposite: #081b29;
+
+    --clr-Französisch: #8e44ad;
+    --clr-Englisch: #16a085;
+    --clr-Spanisch: #e67e22;
+    --clr-Latein: #f1c40f;
+    --clr-Deutsch: #e74c3c;
+    --clr-Russisch: #2980b9;
+    --clr-Griechisch: #2ecc71;
+}
+
+#statistic .streak {
+    background: linear-gradient(90deg, #8e44ad 0%, #1abc9c 100%);
+}
+
+#statistic .time,
+#settings .profile-box {
+    background: #1abc9c;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--clr-deep-deviation) !important;
+}
+
+#additional-theme-item img {
+    opacity: .275 !important;
+}
+
+
+
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+/*
+/*
+/*    🔥💻 Powered by WebByte Studio 💻🔥
+/*                                        
+/*    💬 Join the Discord: https://discord.gg/53SverZQtV
+/*    📹 Follow on Instagram: instagram.com/webbytestudio
+/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
+/*
+/*
+/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */

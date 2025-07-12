@@ -32,7 +32,7 @@ const shop_items = {
         {
             name: 'primary-day',
             ui_name: 'Shift Day',
-            path: './src/themes/primary-day.css',
+            path: './src/themes/primary-day/primary-day.css',
             price: 0,
             owned: true,
             display_data: {
@@ -44,7 +44,7 @@ const shop_items = {
         {
             name: 'primary-night',
             ui_name: 'Shift Night',
-            path: './src/themes/primary-night.css',
+            path: './src/themes/primary-night/primary-night.css',
             price: 0,
             owned: true,
             display_data: {
@@ -56,8 +56,8 @@ const shop_items = {
         {
             name: 'vivid-orchid',
             ui_name: 'Vivid Orchid',
-            path: './src/themes/vivid-orchid.css',
-            price: 200,
+            path: './src/themes/vivid-orchid/vivid-orchid.css',
+            price: 300,
             owned: false,
             display_data: {
                 backgroundColor: '#9575cd',
@@ -68,8 +68,8 @@ const shop_items = {
         {
             name: 'jungle-mist',
             ui_name: 'Jungle Mist',
-            path: './src/themes/jungle-mist.css',
-            price: 250,
+            path: './src/themes/jungle-mist/jungle-mist.css',
+            price: 400,
             owned: false,
             display_data: {
                 backgroundColor: '#1b5e20',
@@ -80,7 +80,7 @@ const shop_items = {
         {
             name: 'polar-blue',
             ui_name: 'Polar Blue',
-            path: './src/themes/polar-blue.css',
+            path: './src/themes/polar-blue/polar-blue.css',
             price: 600,
             owned: false,
             display_data: {
@@ -92,8 +92,8 @@ const shop_items = {
         {
             name: 'mystic-lavender',
             ui_name: 'Mystic Lavender',
-            path: './src/themes/mystic-lavender.css',
-            price: 400,
+            path: './src/themes/mystic-lavender/mystic-lavender.css',
+            price: 700,
             owned: false,
             display_data: {
                 backgroundColor: '#6a0dad',
@@ -104,7 +104,7 @@ const shop_items = {
         {
             name: 'christmas-dream',
             ui_name: 'Christmas Dream',
-            path: './src/themes/christmas-dream.css',
+            path: './src/themes/christmas-dream/christmas-dream.css',
             price: 2412,
             owned: false,
             display_data: {
@@ -115,7 +115,7 @@ const shop_items = {
             additional_theme_item: [
                 {
                     type: 'img/gif',
-                    path: './src/themes/christmas-dream-stars.gif'
+                    path: './src/themes/christmas-dream/christmas-dream-stars.gif'
                 }
             ],
             limited: true,
@@ -124,7 +124,7 @@ const shop_items = {
         {
             name: 'winter-dreamland',
             ui_name: 'Winter Dreamland',
-            path: './src/themes/winter-dreamland.css',
+            path: './src/themes/winter-dreamland/winter-dreamland.css',
             price: 2500,
             owned: false,
             display_data: {
@@ -135,14 +135,32 @@ const shop_items = {
             additional_theme_item: [
                 {
                     type: 'img/gif',
-                    path: './src/themes/winter-dreamland.gif'
+                    path: './src/themes/winter-dreamland/winter-dreamland.gif'
+                }
+            ],
+            limited: true,
+            active: true
+        },
+        {
+            name: 'aurora',
+            ui_name: 'Polarlichter',
+            path: './src/themes/aurora/aurora.css',
+            price: 3000,
+            owned: false,
+            display_data: {
+                backgroundColor: '#255477',
+                child_elmnt_bg: '#16a085'
+            },
+            emoji: '✨',
+            additional_theme_item: [
+                {
+                    type: 'img/gif',
+                    path: './src/themes/aurora/aurora.gif'
                 }
             ],
             limited: true,
             active: true
         }
-
-
 
     ]
 
