@@ -2480,7 +2480,7 @@ textarea.big_text_field {
 
 #shop>.payment-method-list {
     width: 85%;
-    display: block;
+    display: flex;
     position: relative;
     margin-top: 2.6rem;
     margin-left: auto;
@@ -2488,7 +2488,9 @@ textarea.big_text_field {
 }
 
 #shop>.payment-method-list>div {
-    width: 165px;
+    width: auto;
+    min-width: 175px;
+    padding-right: 1.25rem;
     height: 65px;
     position: relative;
     display: flex;

@@ -23,6 +23,8 @@
 
 "use strict";
 
+
+
 console.log(
   "%cAchtung! 🛑",
   "color: #f4263f; font-size: 40px; font-weight: 700;"
@@ -52,7 +54,7 @@ document.addEventListener('click', (event) => {
 
   setTimeout(() => {
     click_locked = false;
-  }, 150);
+  }, 200);
 }, true);
 
 
@@ -133,48 +135,44 @@ function apply_any_theme(requested_theme, auto_change, auto_activated) {
 
   let requested_object;
 
-  owned_shop_items('get').then(result => {
+  const result = owned_shop_items('get');
 
-    const owned_themes = result;
+  const owned_themes = result;
 
-    shop_items.themes.forEach(theme => {
-      if (theme.name === requested_theme) {
-        requested_object = theme;
-      }
-    });
-
-    let continue_processing = false;
-
-    if (requested_object.owned == true || owned_themes.includes(requested_object.name)) {
-      continue_processing = true;
-    } else {
-      return 'rejected';
+  shop_items.themes.forEach(theme => {
+    if (theme.name === requested_theme) {
+      requested_object = theme;
     }
-
-    if (continue_processing) {
-
-      if (active_theme !== requested_object.name) {
-        if (auto_activated != 'auto') {
-          theme_transition(requested_object);
-        }
-        setTimeout(() => {
-          document.getElementById('theme-import').innerHTML = `<link rel="stylesheet" type="text/css" href="${requested_object.path}">`;
-        }, 75);
-      }
-      active_theme = requested_object.name;
-      if (auto_change == false) {
-        cache.auto_theme_change = false;
-        localStorage.setItem('theme', active_theme);
-      } else if (auto_change == true) {
-        cache.auto_theme_change = true;
-        localStorage.setItem('theme', 'auto');
-      }
-
-    }
-
-    auto_initialize_ui();
-
   });
+
+  let continue_processing = false;
+
+  if (requested_object.owned == true || owned_themes.includes(requested_object.name)) {
+    continue_processing = true;
+  } else {
+    return 'rejected';
+  }
+
+  if (continue_processing) {
+
+    if (active_theme !== requested_object.name) {
+      if (auto_activated != 'auto') {
+        theme_transition(requested_object);
+      }
+      setTimeout(() => {
+        document.getElementById('theme-import').innerHTML = `<link rel="stylesheet" type="text/css" href="${requested_object.path}">`;
+      }, 75);
+    }
+    active_theme = requested_object.name;
+    if (auto_change == false) {
+      cache.auto_theme_change = false;
+      localStorage.setItem('theme', active_theme);
+    } else if (auto_change == true) {
+      cache.auto_theme_change = true;
+      localStorage.setItem('theme', 'auto');
+    }
+
+  }
 
 }
 
@@ -196,7 +194,7 @@ function theme_transition(theme) {
       document.querySelector('.theme-transition').style.display = 'none';
     }, 500);
     document.querySelector('.theme-transition').style.animation = 'fade_out .5s ease-in-out both';
-    document.querySelector('#bottom-navigation').style.animation = 'slide_in .25s ease-in-out .2s both';
+    document.querySelector('#bottom-navigation').style.animation = 'slide_in .25s ease-in-out .5s both';
   }, 1500);
 
 }
@@ -325,6 +323,8 @@ function app_setup_steps(step) {
       user.name.last_name = last_name;
       save_local_storage();
 
+      wallet('add', 25);
+
       document.querySelector(`#setup .finishing h1`).style.animation = 'fade_in 1.5s ease-in-out both';
       setTimeout(() => {
         window.location.reload();
@@ -335,9 +335,10 @@ function app_setup_steps(step) {
         document.querySelector(`#setup .progress-bar`).style.display = 'none';
       }, 250);
 
-      (async () => {
-        let returned_value = await wallet('add', 25);
-      })();
+
+      // verify shift coins
+
+      wallet('get');;
 
       auto_initialize_ui();
 
@@ -484,7 +485,7 @@ app_opening('slow', 'home');
 // constants
 
 const version = {
-  build: '2.2',
+  build: '2.4',
   channel: 'stable',
   title: 'Sunset',
   subtitle: "Night's Horizon",
@@ -612,13 +613,7 @@ if (localStorage.getItem('exams') != null) {
 
 // time_notation
 
-let time_notation;
-
-if (localStorage.getItem('time_notation') != null) {
-  time_notation = JSON.parse(localStorage.getItem('time_notation'));
-} else {
-  time_notation = [];
-}
+let time_notation = JSON.parse(localStorage.getItem('time_notation')) || [];
 
 // save_local_storage
 
@@ -638,15 +633,13 @@ function save_local_storage() {
 /* --- UNIVERSAL FUNCTIONS --- */
 
 
+
 // crypto
 
-async function sha256(message) {
+function safe_sha_256(input) {
 
-  const msg_buffer = new TextEncoder().encode(message);
-  const hash_buffer = await crypto.subtle.digest('SHA-256', msg_buffer);
-  const hash_array = Array.from(new Uint8Array(hash_buffer));
-  const hash_hex = hash_array.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hash_hex;
+  input = input.toString();
+  return sha256(input);
 
 }
 
@@ -2228,6 +2221,8 @@ function small_pop_up(name, action) {
 
   }
 
+  auto_set_icons();
+
 }
 
 // alert pop_up
@@ -2246,7 +2241,8 @@ function alert_pup(data) {
     document.querySelector('.alert > header > div').innerHTML = 'cancel';
   }
 
-  auto_initialize_ui();
+  auto_set_icons();
+
 
 }
 
@@ -2927,7 +2923,7 @@ function calculate_shift_coins(accuracy, vocab_counter, time) {
 
   let added_shift_coins = 0;
 
-  added_shift_coins += time.time_object.seconds / 2;
+  added_shift_coins += time.time_object.seconds / 6;
   added_shift_coins = Math.round(added_shift_coins);
 
   if (added_shift_coins == 0) {
@@ -2982,9 +2978,7 @@ function enable_summary() {
 
   let added_shift_coins = calculate_shift_coins(accuracy, settings.learn.vocab_counter, get_time);
 
-  (async () => {
-    let returned_value = await wallet('add', added_shift_coins);
-  })();
+  wallet('add', added_shift_coins);
 
   // add time -> time_notation
 
@@ -3037,14 +3031,18 @@ function finish_learning() {
 
 
 
-async function wallet(request, amount) {
+function wallet(request, amount) {
 
   const shift_coins = parseInt(localStorage.getItem('shift_coins')) || 0;
 
   let new_shift_coins_value = shift_coins;
-  let continue_processing = true;
+  let continue_processing = false;
 
-  let shift_coins_value_to_sha256 = await sha256(shift_coins);
+  let shift_coins_value_to_sha256 = safe_sha_256(shift_coins);
+
+  if (shift_coins_value_to_sha256 === localStorage.getItem('shift_coins_comparison')) {
+    continue_processing = true;
+  }
 
   if (continue_processing) {
 
@@ -3065,11 +3063,13 @@ async function wallet(request, amount) {
     }
 
     localStorage.setItem('shift_coins', new_shift_coins_value);
-    let new_shift_coins_value_to_sha256 = await sha256(new_shift_coins_value);
+    let new_shift_coins_value_to_sha256 = safe_sha_256(new_shift_coins_value);
     localStorage.setItem('shift_coins_comparison', new_shift_coins_value_to_sha256);
 
   } else {
 
+    hacking_retribution();
+    return 'HACKING';
 
   }
 
@@ -3080,10 +3080,10 @@ async function wallet(request, amount) {
 function set_shop_and_money_to_zero() {
 
   localStorage.setItem('shift_coins', 0);
-  localStorage.setItem('shift_coins_comparison', '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9');
+  localStorage.setItem('shift_coins_comparison', safe_sha_256(0));
 
   localStorage.setItem('owned_shop_items', JSON.stringify([]))
-  localStorage.setItem('owned_shop_items_comparison', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855');
+  localStorage.setItem('owned_shop_items_comparison', safe_sha_256([]));
 
 }
 
@@ -3098,14 +3098,11 @@ if (
 
 // verify shift_coins
 
-(async () => {
-  let returned_value = await wallet('get');
-})();
+wallet('get');
 
 // hacking
 
 function hacking_retribution() {
-/*
   alert_pup({
     heading: 'HACKING! 👮',
     text: 'Deine ShiftCoins wurden zurück auf 0 gesetzt. 🪙',
@@ -3114,10 +3111,7 @@ function hacking_retribution() {
 
   set_shop_and_money_to_zero();
 
-  (async () => {
-    let returned_value = await wallet('get');
-  })();
-*/
+  wallet('get');
 }
 
 
@@ -3126,17 +3120,18 @@ function hacking_retribution() {
 
 
 
-async function owned_shop_items(request, name) {
+function owned_shop_items(request, name) {
 
   const owned_items = JSON.parse(localStorage.getItem('owned_shop_items')) || [];
 
   // avoid hacking
 
-  const hash = await sha256(owned_items);
+  const hash = safe_sha_256(owned_items);
+  const comparison = localStorage.getItem('owned_shop_items_comparison') || null;
 
   // continue processing
 
-  if (true) {
+  if (hash === comparison || comparison === null) {
 
     let new_owned_items = owned_items;
 
@@ -3148,18 +3143,18 @@ async function owned_shop_items(request, name) {
       new_owned_items.push(name);
     }
 
-    sha256(new_owned_items).then(hash => {
-      localStorage.setItem('owned_shop_items', JSON.stringify(new_owned_items));
-      localStorage.setItem('owned_shop_items_comparison', hash);
-    });
+    let hash = safe_sha_256(new_owned_items);
+    localStorage.setItem('owned_shop_items', JSON.stringify(new_owned_items));
+    localStorage.setItem('owned_shop_items_comparison', hash);
 
   } else {
+    hacking_retribution();
+    return 'HACKING';
   }
 
 }
 
-owned_shop_items('get')
-  .then(result => { });
+owned_shop_items('get');
 
 /* buy item */
 
@@ -3211,37 +3206,32 @@ function complete_transaction() {
 
   // check shift coins & buy
 
-  wallet("get")
-    .then(amount => {
+  const amount = wallet("get");
 
-      if (amount >= shop_item.price) {
+  if (amount >= shop_item.price) {
 
-        shop_item.owned = true;
-        apply_any_theme(shop_item.name, false);
+    shop_item.owned = true;
+    apply_any_theme(shop_item.name, false);
 
-        owned_shop_items('add', shop_item.name).then(result => { });
+    owned_shop_items('add', shop_item.name);
 
-        (async () => {
-          await wallet('remove', parseInt(shop_item.price));
-          auto_initialize_ui();
-        })();
+    wallet('remove', parseInt(shop_item.price));
+    auto_initialize_ui();
 
-        cancel_transaction();
+    cancel_transaction();
 
-      } else {
+  } else {
 
-        cancel_transaction();
-        alert_pup(
-          {
-            heading: 'Fail',
-            text: 'Leider hast du zu wenig ShiftCoins. 🪙',
-            icon: 'paid'
-          }
-        );
-
+    cancel_transaction();
+    alert_pup(
+      {
+        heading: 'Fail',
+        text: 'Leider hast du zu wenig ShiftCoins. 🪙',
+        icon: 'paid'
       }
+    );
 
-    });
+  }
 
 }
 
@@ -3418,7 +3408,7 @@ function import_vocab_list() {
 function add_imported_list(file_data) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0', '2.0', '2.1', '2.2'];
+  let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4'];
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 
@@ -3511,41 +3501,35 @@ function support_access_start() {
   console.log('SUPPORT ACCESS CHECK');
   let code = prompt('Bitte geben Sie den Code ein!');
 
-  sha256(code).then(hash => {
+  const hash = safe_sha_256(code);
+
+  if (hash === '2d1d0580edff25b453e0c5fc683ff0d5f88ec182dc2d7154d3760adb3555a352') {
+
+    let command = prompt('Zugriff akzeptiert. Was möchten Sie tun?');
 
 
-    if (hash === '2d1d0580edff25b453e0c5fc683ff0d5f88ec182dc2d7154d3760adb3555a352') {
 
-      let command = prompt('Zugriff akzeptiert. Was möchten Sie tun?');
+    if (command.toUpperCase() == 'SHIFT COINS') {
 
-
-
-      if (command.toUpperCase() == 'SHIFT COINS') {
-
-        let new_value = prompt(`Geben Sie einen neuen Betrag ein.`);
-        if (new_value != 'false') {
-          (async () => {
-            await wallet('set', parseInt(new_value));
-          })();
-        }
-
-        alert(`Erfolgreich!`);
+      let new_value = prompt(`Geben Sie einen neuen Betrag ein.`);
+      if (new_value != 'false') {
+        wallet('set', parseInt(new_value));
       }
 
-
-      if (command.toUpperCase() == 'RESET') {
-        localStorage.clear();
-        alert('Reset abeschlossen!');
-        window.location.reload();
-      }
-
-    } else {
-
-      alert('Zugriff abgelehnt!');
-
+      alert(`Erfolgreich!`);
     }
 
 
-  });
+    if (command.toUpperCase() == 'RESET') {
+      localStorage.clear();
+      alert('Reset abeschlossen!');
+      window.location.reload();
+    }
+
+  } else {
+
+    alert('Zugriff abgelehnt!');
+
+  }
 
 }

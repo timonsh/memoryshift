@@ -429,12 +429,10 @@ function shop() {
 
     let shift_coins;
 
-    wallet('get').then(result => {
+    const result = wallet('get');
 
-        shift_coins = result;
-        document.querySelector('#shop .payment-method-list .shift-coins span').innerHTML = shift_coins;
-
-    });
+    shift_coins = result;
+    document.querySelector('#shop .payment-method-list .shift-coins span').innerHTML = shift_coins;
 
     // item
 
@@ -450,19 +448,18 @@ function shop() {
 
 function shop_item_ini() {
 
-    owned_shop_items('get').then(result => {
+    const result = owned_shop_items('get');
+    const additional_items = result;
 
-        const additional_items = result;
+    // owned
 
-        // owned
+    let border = 'none';
 
-        let border = 'none';
+    if (localStorage.getItem('theme') == 'auto') {
+        border = '5px solid var(--clr-agree)';
+    }
 
-        if (localStorage.getItem('theme') == 'auto') {
-            border = '5px solid var(--clr-agree)';
-        }
-
-        document.querySelector('#shop .owned article').innerHTML = `
+    document.querySelector('#shop .owned article').innerHTML = `
          <div style="background-color: var(--clr-deviation); outline: ${border}" onclick="start_auto_theme()">
              <div style="background-color: var(--clr-primary-light)">
                 <span>Auto</span>
@@ -470,18 +467,18 @@ function shop_item_ini() {
          </div>
     `;
 
-        document.querySelector('#shop .available > article').innerHTML = '';
+    document.querySelector('#shop .available > article').innerHTML = '';
 
-        shop_items.themes.forEach(theme => {
+    shop_items.themes.forEach(theme => {
 
-            if (theme.owned || additional_items.includes(theme.name)) {
+        if (theme.owned || additional_items.includes(theme.name)) {
 
-                border = 'none';
-                if (active_theme === theme.name && localStorage.getItem('theme') != 'auto') {
-                    border = '5px solid var(--clr-agree)';
-                }
+            border = 'none';
+            if (active_theme === theme.name && localStorage.getItem('theme') != 'auto') {
+                border = '5px solid var(--clr-agree)';
+            }
 
-                document.querySelector('#shop .owned article').innerHTML += `
+            document.querySelector('#shop .owned article').innerHTML += `
                 <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="apply_any_theme('${theme.name}', false)">
                      <div style="background-color: ${theme.display_data.child_elmnt_bg};">
                          <span>${theme.ui_name}</span>
@@ -490,16 +487,16 @@ function shop_item_ini() {
 
             `;
 
-            } else {
+        } else {
 
-                // available
+            // available
 
-                border = 'none';
-                if (active_theme === theme.name && localStorage.getItem('theme') != 'auto') {
-                    border = '5px solid var(--clr-agree)';
-                }
+            border = 'none';
+            if (active_theme === theme.name && localStorage.getItem('theme') != 'auto') {
+                border = '5px solid var(--clr-agree)';
+            }
 
-                document.querySelector('#shop .available > article').innerHTML += `
+            document.querySelector('#shop .available > article').innerHTML += `
                 <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${theme.name}')">
                     <button type="button" onclick="buy_theme_preparation">
                         <div class="set-icon">paid</div>
@@ -512,37 +509,34 @@ function shop_item_ini() {
 
             `;
 
-                auto_set_icons();
+            auto_set_icons();
 
+        }
+
+        // nothing available
+
+        let nothing_available = true;
+        let not_owned_items = [];
+        shop_items.themes.forEach(t => {
+            if (!t.owned) {
+                not_owned_items.push(t.name);
             }
+        })
 
-            // nothing available
-
-            let nothing_available = true;
-            let not_owned_items = [];
-            shop_items.themes.forEach(t => {
-                if (!t.owned) {
-                    not_owned_items.push(t.name);
-                }
-            })
-
-            not_owned_items.forEach(i => {
-                if (!additional_items.includes(i)) {
-                    nothing_available = false;
-                }
-            })
-
-            if (nothing_available) {
-                document.querySelector('#shop .available').style.animation = 'fade_out .25s both';
-                setTimeout(() => {
-                    document.querySelector('#shop .available').style.display = 'none';
-                }, 250);
+        not_owned_items.forEach(i => {
+            if (!additional_items.includes(i)) {
+                nothing_available = false;
             }
+        })
 
-        });
+        if (nothing_available) {
+            document.querySelector('#shop .available').style.animation = 'fade_out .25s both';
+            setTimeout(() => {
+                document.querySelector('#shop .available').style.display = 'none';
+            }, 250);
+        }
 
-
-    })
+    });
 
 }
 
