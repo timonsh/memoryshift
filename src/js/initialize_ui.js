@@ -524,7 +524,7 @@ function shop_item_ini() {
                 if (!t.owned) {
                     not_owned_items.push(t.name);
                 }
-            })            
+            })
 
             not_owned_items.forEach(i => {
                 if (!additional_items.includes(i)) {
@@ -567,4 +567,5 @@ function auto_initialize_ui() {
     setup_ini();
 
     auto_set_icons();
+
 }

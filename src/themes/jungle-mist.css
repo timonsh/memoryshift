@@ -13,10 +13,6 @@
 * Kontakt: service@webbyte.studio
 */
 
-
-
-/* JUNGLE MIST THEME */
-
 :root {
     --clr-background: #0f2910;
     --clr-primary: #3a9d38;
@@ -31,6 +27,8 @@
     --clr-light-deviation-mid-transparency: rgba(47, 131, 70, 0.65);
     --clr-deviation: #256838;
     --clr-deep-deviation: #1b4f2c;
+
+    --clr-bottom-navigation: #0d250e;
 
     --clr-agree: #3ddc68;
     --clr-warning: #d84315;

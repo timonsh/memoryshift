@@ -37,6 +37,26 @@ console.log(
 
 
 
+/* --- CONTROL BTN TRIGGER EVENTS --- */
+
+let click_locked = false;
+
+document.addEventListener('click', (event) => {
+  if (click_locked) {
+    event.stopPropagation();
+    event.preventDefault();
+    return;
+  }
+
+  click_locked = true;
+
+  setTimeout(() => {
+    click_locked = false;
+  }, 150);
+}, true);
+
+
+
 /* --- DEACTIVATE AUTO COMPLETE --- */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -285,11 +305,12 @@ function app_setup_steps(step) {
 
   if (step == 'set-profile') {
 
-    document.querySelector('#setup').style.background = ' var(--clr-primary)';
     let first_name = document.querySelector(`#setup .set-profile > article > div:first-of-type > input`).value;
     let last_name = document.querySelector(`#setup .set-profile > article > div:last-of-type > input`).value;
 
     if (remove_spaces(first_name) != '' && remove_spaces(last_name) != '') {
+
+      document.querySelector('#setup').style.background = ' var(--clr-primary)';
 
       cache.setup.progress += 25;
 
@@ -322,6 +343,8 @@ function app_setup_steps(step) {
 
     } else {
 
+      in_fade = null;
+
       alert_pup(
         {
           heading: 'Korrrekt?',
@@ -333,19 +356,20 @@ function app_setup_steps(step) {
 
   }
 
-  setTimeout(() => {
-    document.querySelector(`#setup .progress-bar > div`).style.width = `${cache.setup.progress}%`;
-  }, 350);
-
-  console.log(in_fade + out_fade)
-  document.querySelector(`#setup > button:last-of-type`).setAttribute('onclick', `app_setup_steps('${in_fade}')`);
-
   if (in_fade != null) {
-    app_setup_slide_in(in_fade);
-  }
 
-  if (out_fade != null) {
-    app_setup_slide_out(out_fade);
+    setTimeout(() => {
+      document.querySelector(`#setup .progress-bar > div`).style.width = `${cache.setup.progress}%`;
+    }, 350);
+
+    document.querySelector(`#setup > button:last-of-type`).setAttribute('onclick', `app_setup_steps('${in_fade}')`);
+
+    app_setup_slide_in(in_fade);
+
+    if (out_fade != null) {
+      app_setup_slide_out(out_fade);
+    }
+
   }
 
 }
@@ -460,7 +484,7 @@ app_opening('slow', 'home');
 // constants
 
 const version = {
-  build: '2.1',
+  build: '2.2',
   channel: 'stable',
   title: 'Sunset',
   subtitle: "Night's Horizon",
@@ -1148,22 +1172,40 @@ function add_vocab() {
 
   if (remove_spaces(native_language) != '' && remove_spaces(translation)) {
 
-    pop_up('add-vocab', false);
+    let all_l1_vocabs_in_vl = [];
+    cache.vocab_list_context.vocabularys.forEach(v => {
+      all_l1_vocabs_in_vl.push(v.lang1);
+    })
 
-    cache.vocab_list_context.vocabularys.unshift(
-      {
-        lang1: native_language,
-        lang2: translation,
-        note: note,
-        weight: 4,
-        answer_protocol: []
-      },
-    );
+    if (!all_l1_vocabs_in_vl.includes(native_language)) {
 
-    save_local_storage();
-    open_list_detail(cache.vocab_list_context.name);
+      pop_up('add-vocab', false);
 
-    cache.add_note_required = false;
+      cache.vocab_list_context.vocabularys.unshift(
+        {
+          lang1: native_language,
+          lang2: translation,
+          note: note,
+          weight: 4,
+          answer_protocol: []
+        },
+      );
+
+      save_local_storage();
+      open_list_detail(cache.vocab_list_context.name);
+
+      cache.add_note_required = false;
+
+    } else {
+
+      alert_pup(
+        {
+          heading: 'Nicht möglich.',
+          text: `Das Feld ${app_language} muss verändert werden. ✍`
+        }
+      );
+
+    }
 
   } else {
     alert_pup(
@@ -2476,6 +2518,8 @@ function set_next_vocab(first_vocab) {
     decide_show_note_button();
   }
 
+  apply_corerct_font_site_learn();
+
 }
 
 // rotate flashcard
@@ -2485,52 +2529,72 @@ let user_answer_available;
 
 function rotate_flashcard() {
 
-  document.querySelector('#learn > .flashcard > span').style.animation = 'fade_out .375s ease-in-out both';
-  document.querySelector('#learn > .flashcard > button').style.animation = 'fade_out .375s ease-in-out both';
+  if (!cache.learn.disable_rotate) {
 
-  setTimeout(() => {
-    document.querySelector('#learn > .flashcard > span').style.animation = 'fade_in .375s ease-in-out both';
-    document.querySelector('#learn > .flashcard > button').style.animation = 'fade_in .375s ease-in-out both';
-  }, 375);
+    document.querySelector('#learn > .flashcard > span').style.animation = 'fade_out .375s ease-in-out both';
+    document.querySelector('#learn > .flashcard > button').style.animation = 'fade_out .375s ease-in-out both';
 
-  let new_flashcard_text = null;
-
-  if (active_site == 1) {
-
-    document.querySelector(`#learn > .flashcard > div`).style.animation = 'rotate_flashcard_1 .75s ease-in-out';
-    new_flashcard_text = cache.learn.vocab.lang2;
-    active_site = 2;
-  } else {
-    document.querySelector(`#learn > .flashcard > div`).style.animation = 'rotate_flashcard_2 .75s ease-in-out';
-    new_flashcard_text = cache.learn.vocab.lang1;
-    active_site = 1;
-  }
-
-  setTimeout(() => {
-    document.querySelector(`#learn > .flashcard > div`).style.animation = 'none';
-  }, 750);
-
-  setTimeout(() => {
-    document.querySelector(`#learn > .flashcard > span`).innerHTML = new_flashcard_text;
-  }, 375);
-
-  if (user_answer_available == false) {
-
-    user_answer_available = true;
-    document.querySelector(`#learn > .turn-flashcard > button`).style.animation = 'fade_out .375s ease-in-out both';
     setTimeout(() => {
-      document.querySelector(`#learn > .turn-flashcard`).style.display = 'none';
-      document.querySelector(`#learn > .answer`).style.display = 'block';
+      document.querySelector('#learn > .flashcard > span').style.animation = 'fade_in .375s ease-in-out both';
+      document.querySelector('#learn > .flashcard > button').style.animation = 'fade_in .375s ease-in-out both';
     }, 375);
 
-    document.querySelector(`#learn > .answer`).style.animation = 'fade_in .375s ease-in-out both';
+    let new_flashcard_text = null;
+
+    if (active_site == 1) {
+
+      document.querySelector(`#learn > .flashcard > div`).style.animation = 'rotate_flashcard_1 .75s ease-in-out';
+      new_flashcard_text = cache.learn.vocab.lang2;
+      active_site = 2;
+    } else {
+      document.querySelector(`#learn > .flashcard > div`).style.animation = 'rotate_flashcard_2 .75s ease-in-out';
+      new_flashcard_text = cache.learn.vocab.lang1;
+      active_site = 1;
+    }
+
+    setTimeout(() => {
+      document.querySelector(`#learn > .flashcard > div`).style.animation = 'none';
+    }, 750);
+
+    setTimeout(() => {
+      document.querySelector(`#learn > .flashcard > span`).innerHTML = new_flashcard_text;
+    }, 375);
+
+    if (user_answer_available == false) {
+
+      user_answer_available = true;
+      document.querySelector(`#learn > .turn-flashcard > button`).style.animation = 'fade_out .375s ease-in-out both';
+      setTimeout(() => {
+        document.querySelector(`#learn > .turn-flashcard`).style.display = 'none';
+        document.querySelector(`#learn > .answer`).style.display = 'block';
+      }, 375);
+
+      document.querySelector(`#learn > .answer`).style.animation = 'fade_in .375s ease-in-out both';
+
+    }
+
+    setTimeout(() => {
+
+      if (cache.learn.note_on) {
+        show_note();
+      }
+
+    }, 175);
+
+    apply_corerct_font_site_learn();
 
   }
 
+}
+
+function apply_corerct_font_site_learn() {
+
   setTimeout(() => {
 
-    if (cache.learn.note_on) {
-      show_note();
+    if (cache.learn.vocab.lang1.length > 50 || cache.learn.vocab.lang2.length > 50) {
+      document.querySelector('#learn .flashcard > span').style.fontSize = '2rem';
+    } else {
+      document.querySelector('#learn .flashcard > span').style.fontSize = '2.5rem';
     }
 
   }, 175);
@@ -2586,6 +2650,8 @@ function accuracy_test_initialize() {
 
   document.querySelector('#learn > .flashcard').style.height = '300px';
 
+  cache.learn.disable_rotate = true;
+
 }
 
 function next_vocab_accuracy_test(weight) {
@@ -2616,6 +2682,8 @@ function next_vocab_accuracy_test(weight) {
 }
 
 function check_accuracy_test() {
+
+  cache.learn.disable_rotate = false;
 
   let requested_vocab = cache.learn.solution;
   let entered_solution = document.querySelector('#learn > .accuracy-test > input').value;
@@ -2757,6 +2825,7 @@ function learn(vl) {
   cache.learn.accuracy_test_counter = 0;
   cache.learn.answer_log = [];
   cache.learn.note_on = false;
+  cache.learn.disable_rotate = false;
 
   // text accuracy config
 
@@ -3357,7 +3426,7 @@ function import_vocab_list() {
 function add_imported_list(file_data) {
 
   let vocab_list = file_data;
-  let accepted_builds = ['1.0', '2.0', '2.1'];
+  let accepted_builds = ['1.0', '2.0', '2.1', '2.2'];
 
   if (accepted_builds.includes(vocab_list.version.build)) {
 
