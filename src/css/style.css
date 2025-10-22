@@ -17,7 +17,7 @@
 * ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
 * Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
 *
-* 📬 Kontakt: service@webbyte.studio
+* 📬 Kontakt: hey@timonschroth.de
 
 
 
@@ -40,16 +40,25 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
+    -webkit-transition: 0;
+    -o-transition: 0;
     transition: 0;
     background: var(--clr-background);
 }
 
 * {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
     font-family: "Karla", "Helvetica", sans-serif;
     color: var(--clr-font);
+}
+
+::-moz-selection {
+    background-color: var(--crl-primary);
 }
 
 ::selection {
@@ -65,14 +74,22 @@ body {
 }
 
 button {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     cursor: pointer;
 }
 
 svg,
 svg * {
+    -webkit-transition: .1s;
+    -o-transition: .1s;
     transition: .1s;
 }
 
@@ -96,6 +113,8 @@ main>section {
     overflow-y: scroll !important;
     overflow-x: hidden !important;
     opacity: 1;
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
 }
 
@@ -119,8 +138,14 @@ main>section {
 /* flex box */
 
 .flexbox-basic {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -155,8 +180,14 @@ main>section {
 .standard-header>div {
     width: 65px;
     height: 32.5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: absolute;
     top: 1.525rem;
@@ -166,6 +197,8 @@ main>section {
     border: 2.5px solid var(--clr-secondary);
     border-radius: 25px;
     color: var(--clr-secondary);
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
 }
 
@@ -298,6 +331,8 @@ a.primary {
     font-weight: bold;
     border: none;
     border-radius: 35px;
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
 }
 
@@ -305,6 +340,8 @@ button.secondary,
 a.secondary {
     width: calc(100% - 2rem * 2);
     height: 65px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: auto;
     margin-right: auto;
@@ -366,8 +403,14 @@ input.adjust {
 }
 
 .img-include {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
     display: flex !important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: relative;
     text-decoration: none;
@@ -385,8 +428,14 @@ input.adjust {
 }
 
 .img-include div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -412,6 +461,8 @@ input.adjust {
     height: 100%;
     background-color: var(--clr-tertiary);
     border-radius: 25px;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
     transition: 1s;
 }
 
@@ -445,9 +496,15 @@ input.adjust {
 .clickable_box {
     width: 85%;
     height: 90px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
     justify-content: unset;
     margin-left: auto;
     margin-right: auto;
@@ -505,6 +562,18 @@ input.adjust {
 
 /* fade */
 
+@-webkit-keyframes fade_in {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
 @keyframes fade_in {
 
     from {
@@ -513,6 +582,18 @@ input.adjust {
 
     to {
         opacity: 1;
+    }
+
+}
+
+@-webkit-keyframes fade_out {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
     }
 
 }
@@ -531,15 +612,46 @@ input.adjust {
 
 /* slide */
 
-@keyframes slide_in {
+@-webkit-keyframes slide_in {
 
     from {
+        -webkit-transform: translateY(+100%);
         transform: translateY(+100%);
     }
 
     to {
+        -webkit-transform: translateY(0);
         transform: translateY(0);
         opacity: 1;
+    }
+
+}
+
+@keyframes slide_in {
+
+    from {
+        -webkit-transform: translateY(+100%);
+        transform: translateY(+100%);
+    }
+
+    to {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+}
+
+@-webkit-keyframes slide_out {
+
+    from {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    to {
+        -webkit-transform: translateY(+100%);
+        transform: translateY(+100%);
     }
 
 }
@@ -547,10 +659,12 @@ input.adjust {
 @keyframes slide_out {
 
     from {
+        -webkit-transform: translateY(0);
         transform: translateY(0);
     }
 
     to {
+        -webkit-transform: translateY(+100%);
         transform: translateY(+100%);
     }
 
@@ -558,14 +672,44 @@ input.adjust {
 
 /* rotate flashcard */
 
-@keyframes rotate_flashcard_1 {
+@-webkit-keyframes rotate_flashcard_1 {
 
     from {
+        -webkit-transform: rotateY(0deg);
         transform: rotateY(0deg);
     }
 
     to {
+        -webkit-transform: rotateY(+180deg);
         transform: rotateY(+180deg);
+    }
+
+}
+
+@keyframes rotate_flashcard_1 {
+
+    from {
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+
+    to {
+        -webkit-transform: rotateY(+180deg);
+        transform: rotateY(+180deg);
+    }
+
+}
+
+@-webkit-keyframes rotate_flashcard_2 {
+
+    from {
+        -webkit-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+
+    to {
+        -webkit-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
     }
 
 }
@@ -573,16 +717,34 @@ input.adjust {
 @keyframes rotate_flashcard_2 {
 
     from {
+        -webkit-transform: rotateY(0deg);
         transform: rotateY(0deg);
     }
 
     to {
+        -webkit-transform: rotateY(-180deg);
         transform: rotateY(-180deg);
     }
 
 }
 
 /* slide_size */
+
+
+@-webkit-keyframes slide_back {
+
+    from {
+        width: 100%;
+        height: 100%;
+    }
+
+    to {
+        width: 97.5%;
+        height: 97.5%;
+        margin-top: 1.25%;
+    }
+
+}
 
 
 @keyframes slide_back {
@@ -596,6 +758,21 @@ input.adjust {
         width: 97.5%;
         height: 97.5%;
         margin-top: 1.25%;
+    }
+
+}
+
+@-webkit-keyframes slide_forward {
+
+    from {
+        width: 97.5%;
+        height: 97.5%;
+        margin-top: 1.25%;
+    }
+
+    to {
+        width: 100%;
+        height: 100%
     }
 
 }
@@ -617,6 +794,18 @@ input.adjust {
 
 /* text shadow */
 
+@-webkit-keyframes text_shadow {
+
+    from {
+        text-shadow: 0 0 0;
+    }
+
+    to {
+        text-shadow: 0 0 20px;
+    }
+
+}
+
 @keyframes text_shadow {
 
     from {
@@ -631,6 +820,27 @@ input.adjust {
 
 /* btn sizing */
 
+@-webkit-keyframes btn_sizing {
+
+    0% {
+        width: 60px;
+        height: 60px;
+    }
+
+    50% {
+        width: 45px;
+        height: 45px;
+        -webkit-transform: translateY(7.5px);
+        transform: translateY(7.5px);
+    }
+
+    100% {
+        width: 60px;
+        height: 60px;
+    }
+
+}
+
 @keyframes btn_sizing {
 
     0% {
@@ -641,6 +851,7 @@ input.adjust {
     50% {
         width: 45px;
         height: 45px;
+        -webkit-transform: translateY(7.5px);
         transform: translateY(7.5px);
     }
 
@@ -653,27 +864,69 @@ input.adjust {
 
 /* btn shake */
 
-@keyframes btn_shake {
+@-webkit-keyframes btn_shake {
 
     0% {
+        -webkit-transform: translateX(0);
         transform: translateX(0);
     }
 
     33.3% {
+        -webkit-transform: translateX(-7.5px);
         transform: translateX(-7.5px);
     }
 
     66.6% {
+        -webkit-transform: translateX(7.5px);
         transform: translateX(7.5px);
     }
 
     100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes btn_shake {
+
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    33.3% {
+        -webkit-transform: translateX(-7.5px);
+        transform: translateX(-7.5px);
+    }
+
+    66.6% {
+        -webkit-transform: translateX(7.5px);
+        transform: translateX(7.5px);
+    }
+
+    100% {
+        -webkit-transform: translateX(0);
         transform: translateX(0);
     }
 
 }
 
 /* summary stars sizing */
+
+@-webkit-keyframes sizing_in_summary_stars {
+
+    from {
+        width: 0;
+        height: 0;
+    }
+
+    to {
+        width: 72.5%;
+        height: auto;
+    }
+
+}
 
 @keyframes sizing_in_summary_stars {
 
@@ -690,6 +943,18 @@ input.adjust {
 }
 
 /* size heading up */
+
+@-webkit-keyframes size_heading_up {
+
+    from {
+        font-size: 3rem;
+    }
+
+    to {
+        font-size: 3.5rem;
+    }
+
+}
 
 @keyframes size_heading_up {
 
@@ -712,9 +977,15 @@ input.adjust {
 #app-opening {
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 0;
     left: 0;
@@ -726,20 +997,28 @@ input.adjust {
     height: auto;
     border-radius: 30px;
     opacity: 0;
+    -webkit-animation: fade_in .25s .75s both;
     animation: fade_in .25s .75s both;
 }
 
 #additional-theme-item {
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 0;
     opacity: 0;
+    -webkit-animation: fade_in .5s 3.5s both;
     animation: fade_in .5s 3.5s both;
 }
 
@@ -759,7 +1038,11 @@ input.adjust {
     width: 90%;
     height: 65px;
     display: none;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
     justify-content: space-evenly;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: fixed;
     bottom: 10px;
@@ -768,22 +1051,32 @@ input.adjust {
     padding-right: 1rem;
     background-color: var(--clr-bottom-navigation);
     border: 1.5px solid var(--clr-bottom-navigation-border);
+    -webkit-backdrop-filter: blur(25px);
     backdrop-filter: blur(25px);
     border-radius: 50px;
     opacity: 0;
+    -webkit-animation: fade_in .3s .35s both;
     animation: fade_in .3s .35s both;
 }
 
 #bottom-navigation * {
+    -webkit-transition: .15s;
+    -o-transition: .15s;
     transition: .15s;
 }
 
 #bottom-navigation>button {
     width: 25%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-left: .5rem;
     margin-right: .5rem;
@@ -794,9 +1087,15 @@ input.adjust {
 #bottom-navigation>button>div {
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -820,6 +1119,8 @@ input.adjust {
 
 #bottom-navigation>button>span:last-of-type {
     display: none;
+    -webkit-transform: translateY(17.5px);
+    -ms-transform: translateY(17.5px);
     transform: translateY(17.5px);
     font-size: .9rem;
     color: var(--clr-deep-deviation);
@@ -840,12 +1141,17 @@ input.adjust {
     height: 100%;
     display: none;
     position: fixed;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 0;
     left: 0;
     z-index: 2;
     opacity: 1;
+    -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
 }
 
@@ -861,9 +1167,13 @@ input.adjust {
 #small-pop-up-area>div>header {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     padding-top: 1rem;
     padding-left: 1.5rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -877,9 +1187,15 @@ input.adjust {
 #small-pop-up-area>div>header>div {
     width: 50px;
     height: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border: 3px solid var(--clr-font-opposite);
     border-radius: 50%;
@@ -908,9 +1224,15 @@ input.adjust {
 #small-pop-up-area>div>form {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: right;
+    -ms-flex-pack: right;
     justify-content: right;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     bottom: .75rem;
     padding-right: 1.5rem;
@@ -958,6 +1280,7 @@ input.adjust {
     top: 0;
     left: 0;
     z-index: 1;
+    -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
 }
 
@@ -981,6 +1304,8 @@ input.adjust {
     display: block;
     position: fixed;
     z-index: 1;
+    -webkit-transform: translateY(calc(-70px - 1.9rem));
+    -ms-transform: translateY(calc(-70px - 1.9rem));
     transform: translateY(calc(-70px - 1.9rem));
     border: none;
     background-color: transparent;
@@ -1004,9 +1329,15 @@ input.adjust {
 #pop-up-area>div>section:last-of-type {
     width: 100%;
     height: calc(55px + 1.25rem * 2);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: fixed;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: end;
     bottom: 0;
     padding-bottom: 1.25rem;
@@ -1026,7 +1357,11 @@ input.adjust {
 .big_text_field {
     width: calc(100% - 2rem * 2);
     height: 175px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 1.75rem;
     margin-left: auto;
@@ -1060,7 +1395,11 @@ textarea.big_text_field {
     width: 100%;
     height: 100%;
     display: none;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     position: fixed;
     top: 0;
@@ -1149,7 +1488,11 @@ textarea.big_text_field {
     height: 100%;
     display: none;
     position: fixed;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 0;
     left: 0;
@@ -1168,9 +1511,18 @@ textarea.big_text_field {
 #info>div {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
     padding-top: 1.75rem;
 }
@@ -1196,10 +1548,19 @@ textarea.big_text_field {
 #info>article {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
     bottom: 2rem;
 }
@@ -1241,7 +1602,11 @@ textarea.big_text_field {
     height: 100%;
     display: none;
     position: fixed;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 0;
     left: 0;
@@ -1263,8 +1628,14 @@ textarea.big_text_field {
 #flexible-area>div>header {
     width: 100%;
     height: 100px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
     justify-content: unset;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     padding-top: 2rem;
     padding-left: 1.75rem;
@@ -1278,8 +1649,14 @@ textarea.big_text_field {
 #flexible-area>div .icon {
     width: 75px;
     height: 75px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-radius: 25px;
     background-color: var(--clr-deviation);
@@ -1288,8 +1665,14 @@ textarea.big_text_field {
 #flexible-area>div .icon>div {
     width: 50px;
     height: 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-radius: 50%;
     background-color: var(--clr-tertiary);
@@ -1343,8 +1726,14 @@ textarea.big_text_field {
     width: 100%;
     height: auto;
     margin-top: 2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -1381,6 +1770,7 @@ textarea.big_text_field {
 
 #overlay-animation {
     z-index: -1;
+    -webkit-filter: brightness(60%);
     filter: brightness(60%);
 }
 
@@ -1403,7 +1793,11 @@ textarea.big_text_field {
     height: 100%;
     display: none;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: -2.5rem;
     left: 0;
@@ -1420,12 +1814,20 @@ textarea.big_text_field {
     width: 85%;
     height: 85%;
     display: none;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 
 #code-license .reward>div>h1 {
+    -webkit-animation: size_heading_up 2s ease-in-out both;
     animation: size_heading_up 2s ease-in-out both;
     text-align: center;
     font-size: 3rem;
@@ -1473,19 +1875,33 @@ textarea.big_text_field {
 #edit-list .accuracy-test section {
     width: 90%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
 }
 
 #edit-list .accuracy-test section>div {
     width: 30%;
     height: 125px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     border-radius: 25px;
     background-color: var(--clr-deviation);
+    -webkit-transition: .175s;
+    -o-transition: .175s;
     transition: .175s;
 }
 
@@ -1555,6 +1971,26 @@ textarea.big_text_field {
     font-weight: bold;
 }
 
+#add-vocab>article>input::-webkit-input-placeholder,
+#edit-vocab>article>input::-webkit-input-placeholder {
+    font-size: 1.5rem;
+}
+
+#add-vocab>article>input::-moz-placeholder,
+#edit-vocab>article>input::-moz-placeholder {
+    font-size: 1.5rem;
+}
+
+#add-vocab>article>input:-ms-input-placeholder,
+#edit-vocab>article>input:-ms-input-placeholder {
+    font-size: 1.5rem;
+}
+
+#add-vocab>article>input::-ms-input-placeholder,
+#edit-vocab>article>input::-ms-input-placeholder {
+    font-size: 1.5rem;
+}
+
 #add-vocab>article>input::placeholder,
 #edit-vocab>article>input::placeholder {
     font-size: 1.5rem;
@@ -1583,6 +2019,22 @@ textarea.big_text_field {
     font-weight: bold;
     background-color: transparent;
     color: var(--clr-primary);
+}
+
+#add-list>.enter-list-name>input::-webkit-input-placeholder {
+    color: var(--clr-primary-light);
+}
+
+#add-list>.enter-list-name>input::-moz-placeholder {
+    color: var(--clr-primary-light);
+}
+
+#add-list>.enter-list-name>input:-ms-input-placeholder {
+    color: var(--clr-primary-light);
+}
+
+#add-list>.enter-list-name>input::-ms-input-placeholder {
+    color: var(--clr-primary-light);
 }
 
 #add-list>.enter-list-name>input::placeholder {
@@ -1616,7 +2068,11 @@ textarea.big_text_field {
 
 .widgets {
     height: 75px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     margin-top: 2rem;
     border: 3px solid var(--clr-deviation);
@@ -1654,9 +2110,15 @@ textarea.big_text_field {
 .widgets>button>div {
     width: 100%;
     height: calc(100% - .75rem - 1rem);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     bottom: 0;
     left: 0;
@@ -1676,7 +2138,7 @@ textarea.big_text_field {
     height: auto;
 }
 
-.widgets > button:first-of-type > div > div svg {
+.widgets>button:first-of-type>div>div svg {
     width: 22.5px;
     height: 22.5px;
     display: none;
@@ -1752,7 +2214,12 @@ textarea.big_text_field {
     width: 100%;
     height: auto;
     position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     bottom: 1.25rem;
     left: 0;
@@ -1817,6 +2284,8 @@ textarea.big_text_field {
     width: 27.5px;
     height: auto;
     position: absolute;
+    -webkit-transform: translateX(-.75px);
+    -ms-transform: translateX(-.75px);
     transform: translateX(-.75px);
 }
 
@@ -1874,8 +2343,12 @@ textarea.big_text_field {
 #library>div:first-of-type {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: fixed;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     bottom: calc(85px + .75rem);
     z-index: 1;
@@ -1894,6 +2367,7 @@ textarea.big_text_field {
 
 #library>div:first-of-type>button:active,
 #library>div:first-of-type>button:hover {
+    -webkit-animation: btn_sizing .5s;
     animation: btn_sizing .5s;
 }
 
@@ -1960,8 +2434,14 @@ textarea.big_text_field {
 /* list detail */
 
 #list-detail>header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 2.25rem;
 }
@@ -1986,8 +2466,14 @@ textarea.big_text_field {
 #list-detail>.info>div {
     width: 100%;
     height: 35px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: left;
+    -ms-flex-pack: left;
     justify-content: left;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: .5rem;
 }
@@ -2017,7 +2503,11 @@ textarea.big_text_field {
 }
 
 #list-detail>.widget-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: start;
     margin-top: .8rem;
 }
@@ -2086,9 +2576,15 @@ textarea.big_text_field {
 #list-detail>.learn-btn {
     width: 100%;
     height: 55px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: end;
     bottom: 90px;
 }
@@ -2098,8 +2594,12 @@ textarea.big_text_field {
 #learn>header {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-left: 7.5%;
     margin-top: 2.25rem;
@@ -2121,9 +2621,15 @@ textarea.big_text_field {
 #learn>.flashcard {
     width: 85%;
     height: 425px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 2.25rem;
     margin-left: auto;
@@ -2131,6 +2637,8 @@ textarea.big_text_field {
     padding-left: .5rem;
     padding-right: .5rem;
     border-radius: 25px;
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
 }
 
@@ -2156,6 +2664,8 @@ textarea.big_text_field {
     border: none;
     border-radius: 17.5px;
     background-color: var(--clr-deviation);
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
 }
 
@@ -2175,6 +2685,8 @@ textarea.big_text_field {
     text-align: center;
     word-break: break-word;
     overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
     hyphens: auto;
 }
 
@@ -2211,8 +2723,12 @@ textarea.big_text_field {
 #learn>.answer>div {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     top: 3.45rem;
 }
@@ -2230,8 +2746,14 @@ textarea.big_text_field {
 #learn>.turn-flashcard {
     width: 100%;
     height: calc(100% - 2.25rem * 3 - 15px - 425px - 50px - 1.35rem - 25.63px - -.465rem);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -2265,7 +2787,11 @@ textarea.big_text_field {
 #learn>.accuracy-test>input {
     width: calc(100% - 2rem * 2);
     height: 185px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 1.75rem;
     margin-left: auto;
@@ -2279,7 +2805,29 @@ textarea.big_text_field {
     font-weight: bold;
     text-align: center;
     background-color: transparent;
+    -webkit-transition: .5s;
+    -o-transition: .5s;
     transition: .5s;
+}
+
+#learn>.accuracy-test>input::-webkit-input-placeholder {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#learn>.accuracy-test>input::-moz-placeholder {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#learn>.accuracy-test>input:-ms-input-placeholder {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#learn>.accuracy-test>input::-ms-input-placeholder {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 #learn>.accuracy-test>input::placeholder {
@@ -2322,7 +2870,11 @@ textarea.big_text_field {
 #learn>.summary>.stats>section {
     width: 100%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     margin-top: 2rem;
 }
@@ -2338,8 +2890,14 @@ textarea.big_text_field {
 #learn>.summary>.stats article>div {
     width: 70px;
     height: 70px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-radius: 25px;
 }
@@ -2354,6 +2912,8 @@ textarea.big_text_field {
 }
 
 #learn article:nth-of-type(1) svg {
+    -webkit-transform: translateY(2.5px);
+    -ms-transform: translateY(2.5px);
     transform: translateY(2.5px);
 }
 
@@ -2366,6 +2926,8 @@ textarea.big_text_field {
 }
 
 #learn>.summary>.stats article:nth-of-type(2) svg {
+    -webkit-transform: translateY(2.5px);
+    -ms-transform: translateY(2.5px);
     transform: translateY(2.5px);
 }
 
@@ -2378,6 +2940,8 @@ textarea.big_text_field {
 }
 
 #learn>.summary>.stats article:nth-of-type(3) svg {
+    -webkit-transform: translateY(3px);
+    -ms-transform: translateY(3px);
     transform: translateY(3px);
 }
 
@@ -2430,9 +2994,17 @@ textarea.big_text_field {
 
 #statistic .streak {
     height: 185px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(244, 38, 63, 1)), to(rgba(236, 88, 0, 1)));
+    background: -o-linear-gradient(left, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
     background: linear-gradient(90deg, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
 }
 
@@ -2450,21 +3022,31 @@ textarea.big_text_field {
     font-family: "Pacifico", "Karla", sans-serif;
     font-size: 5.25rem;
     margin-left: .5rem;
+    -webkit-transform: translateY(-8px);
+    -ms-transform: translateY(-8px);
     transform: translateY(-8px);
     color: var(--clr-font-opposite);
 }
 
 #statistic .time {
     height: 250px;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
+    background: -o-linear-gradient(left, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
     background: linear-gradient(90deg, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
 }
 
 #statistic .time>section {
     width: 100%;
     height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 0;
     left: 0;
@@ -2505,9 +3087,15 @@ textarea.big_text_field {
 #statistic .daily-target>div {
     width: 100%;
     height: calc(100% - 50px);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 50px;
     left: 0;
@@ -2537,6 +3125,8 @@ textarea.big_text_field {
     font-size: 6rem;
     margin: 0;
     margin-left: .75rem;
+    -webkit-transform: translateY(-.85rem);
+    -ms-transform: translateY(-.85rem);
     transform: translateY(-.85rem);
     color: var(--clr-font-opposite);
 }
@@ -2571,6 +3161,8 @@ textarea.big_text_field {
     padding-top: 1.75rem;
     padding-left: 1.35rem;
     border-radius: 50px;
+    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
+    background: -o-linear-gradient(left, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
     background: linear-gradient(90deg, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
 }
 
@@ -2645,8 +3237,14 @@ textarea.big_text_field {
 .bmc-btn {
     width: 100%;
     height: 60px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-radius: 25px;
     background-color: #ffdd00;
@@ -2786,7 +3384,11 @@ textarea.big_text_field {
 
 #setup .onboarding>header {
     height: 40%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -2830,9 +3432,15 @@ textarea.big_text_field {
 #setup .functions>article>div {
     width: 100%;
     height: 120px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 1rem;
     border: 2.5px solid var(--clr-deviation);
@@ -2865,6 +3473,8 @@ textarea.big_text_field {
 
 #setup,
 .start-profile {
+    -webkit-transition: 0 !important;
+    -o-transition: 0 !important;
     transition: 0 !important;
 }
 
@@ -3029,8 +3639,14 @@ textarea.big_text_field {
 .buy-item>.amount {
     width: 75%;
     height: 80px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 1rem;
     margin-left: auto;
@@ -3061,7 +3677,11 @@ textarea.big_text_field {
 .buy-item>.btns {
     width: 75%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     margin-top: 2rem;
     margin-left: auto;
@@ -3088,6 +3708,8 @@ textarea.big_text_field {
 
 #shop>.payment-method-list {
     width: 85%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
     margin-top: 2.6rem;
@@ -3099,8 +3721,12 @@ textarea.big_text_field {
     width: auto;
     min-width: 175px;
     height: 65px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 1.5rem;
     padding-right: 1.25rem;
@@ -3111,8 +3737,14 @@ textarea.big_text_field {
 #shop>.payment-method-list>div>div {
     width: 50px !important;
     height: 50px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-left: .5rem;
     padding: .75rem;
@@ -3140,9 +3772,15 @@ textarea.big_text_field {
 #shop>.payment-method-list .code-license {
     width: 80px;
     min-width: unset;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     right: 0;
     margin-left: unset;
@@ -3157,8 +3795,14 @@ textarea.big_text_field {
 #shop>.news {
     width: 85%;
     height: 200px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 2rem;
     margin-left: auto;
@@ -3198,9 +3842,17 @@ textarea.big_text_field {
 .shop-item-contain {
     width: 92.5%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
     justify-content: space-evenly;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
@@ -3233,6 +3885,8 @@ textarea.big_text_field {
     padding-top: 1.3rem;
     padding-left: .75rem;
     padding-right: .75rem;
+    -webkit-transform: translateY(-.2rem);
+    -ms-transform: translateY(-.2rem);
     transform: translateY(-.2rem);
     font-weight: bold;
     font-size: 1.2rem;
@@ -3289,7 +3943,11 @@ textarea.big_text_field {
     height: 100%;
     display: none;
     position: fixed;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     top: 0;
     left: 0;
@@ -3301,9 +3959,18 @@ textarea.big_text_field {
     width: 85%;
     height: 35%;
     min-height: 350px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     border-radius: 50px;
     background-color: var(--clr-light-deviation-mid-transparency);
@@ -3323,7 +3990,7 @@ textarea.big_text_field {
 }
 
 #shop .limited {
-    height: 300px;
+    min-height: 300px;
     border: 5px solid #2c8dca;
     background-color: #63b8edd4;
 }
@@ -3335,9 +4002,15 @@ textarea.big_text_field {
 #shop .limited>div {
     width: 100%;
     height: 100px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
     justify-content: unset;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -3435,9 +4108,15 @@ textarea.big_text_field {
 #vip-dashboard .dev-tools>header {
     width: 90%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-top: 2.5em;
     margin-left: auto;
@@ -3448,18 +4127,28 @@ textarea.big_text_field {
 #vip-dashboard .dev-tools>header>div {
     width: 42.5px;
     height: 42.5px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-radius: 15px;
 }
 
 #vip-dashboard .exclusive-operations>header>div {
+    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
+    background: -o-linear-gradient(left, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
     background: linear-gradient(90deg, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
 }
 
 #vip-dashboard .dev-tools>header>div {
+    background: -webkit-gradient(linear, left top, right top, from(rgba(244, 38, 63, 1)), to(rgba(236, 88, 0, 1)));
+    background: -o-linear-gradient(left, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
     background: linear-gradient(90deg, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
 }
 
@@ -3479,9 +4168,16 @@ textarea.big_text_field {
     width: 90%;
     height: auto;
     min-height: 90px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     margin-top: 1.5rem;
     margin-left: auto;
@@ -3513,8 +4209,14 @@ textarea.big_text_field {
 @media (max-height: 645px) {
 
     body {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
     }
 
@@ -3524,6 +4226,7 @@ textarea.big_text_field {
 
     #display-too-small {
         display: block !important;
+        -webkit-animation: fade_in 1s ease-in-out both;
         animation: fade_in 1s ease-in-out both;
         font-size: 1.25rem;
     }
@@ -3533,8 +4236,14 @@ textarea.big_text_field {
 @media (max-width: 319px) {
 
     body {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
     }
 
@@ -3544,6 +4253,7 @@ textarea.big_text_field {
 
     #display-too-small {
         display: block !important;
+        -webkit-animation: fade_in 1s ease-in-out both;
         animation: fade_in 1s ease-in-out both;
         font-size: 1.25rem;
     }
@@ -3580,8 +4290,14 @@ textarea.big_text_field {
 #reach-daily-goal>article {
     width: 85%;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
@@ -3590,8 +4306,14 @@ textarea.big_text_field {
 #reach-daily-goal>article>div {
     width: 60px;
     height: 60px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-right: .6rem;
     border-radius: 25px;

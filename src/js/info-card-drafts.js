@@ -17,11 +17,12 @@
 * ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
 * Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
 *
-* 📬 Kontakt: service@webbyte.studio
+* 📬 Kontakt: hey@timonschroth.de
 
 
 
 */
+
 
 
 let account_import = {
