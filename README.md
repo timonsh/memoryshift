@@ -1,25 +1,38 @@
-# Memory Shift
+# 🗂️ 𝐌𝐞𝐦𝐨𝐫𝐲 𝐒𝐡𝐢𝐟𝐭 - 𝐋𝐞𝐚𝐫𝐧 𝐒𝐦𝐚𝐫𝐭𝐞𝐫
 
-**Memory Shift** ist ein smarter, innovativer Vokabeltrainer von **WebByte Studio**, der speziell entwickelt wurde, um den Lernfortschritt zu maximieren. Durch gezielte Wiederholungen, den **AccuracyTest** und aussagekräftige Statistiken wird das Lernen nicht nur effizient, sondern auch interaktiv und motivierend gestaltet. 
+[![PWA](https://img.shields.io/badge/Web-PWA-purple)]()
+[![CSS](https://img.shields.io/badge/Vocabulary-Trainer-magenta)]()
+[![JS](https://img.shields.io/badge/1-JavaScript-yellow)]()
+[![CSS](https://img.shields.io/badge/2-CSS-blue)]()
+[![HTML](https://img.shields.io/badge/3-HTML-orange)]()
 
-### 🚀 Features
+![Website Preview](./src/img/App-Preview.png)
 
-- **Cleveres Wiederholungssystem**: Optimiert den Lernfortschritt basierend auf deinem individuellen Tempo und Bedarf.
-- **AccuracyTest**: Testet deine Genauigkeit und Rechtschreibung.
-- **Detaillierte Statistiken**: Verfolge deine Fortschritte mit präzisen Analysen und Visualisierungen.
-- **Modernes UI/UX-Design**: Ein ansprechendes, intuitives Design, das das Lernen angenehmer macht.
-- **Motivierendes Streak-System**: Bleib motiviert und sieh deine Fortschritte mit täglichen Lerngewohnheiten.
-- **Theme-Shop**: Passe das Aussehen der App nach deinen Vorlieben an + Belohnungssystem fürs Lernen.
-- **Prüfungsverfolgung**: Verfolge deine Prüfungen und erfahre immer, wie gut du vorbereitet bist.
+## 👨‍💻 Über Memory Shift
 
-### 🌐 Besuche Memory Shift
+Memory Shift ist ein moderner und innovativer Vokabeltrainer für Schüler und Studenten zum effizienten und nachhaltigen Lernen von Vokabeln und Sprachen. Durch smarte Wiederholungen von Vokabeln, zwei Abfrage-Modi,
+umfangreichen Statistiken und einem motivierenden Shop-System wird Lernen interaktiv und erfolgreich. Vokabellisten können mit anderen einfach geteilt werden durch eine Import/Export-Funktion. Es ist möglich, für Vokabellisten
+ein Prüfungsdatum einzutragen und auf der Homepage immer den Überblick zu behalten. Memory Shift ist in Kooperation mit dem Max-Planck-Gymnasium Göttingen entstanden und wurde dort schon in mehreren Lerngruppen verwendet.
 
-Erlebe die Vorteile von Memory Shift direkt auf memoryshift.app. Dort kannst du die App kostenlos nutzen und dein Vokabellernen auf das nächste Level bringen.
+🔗 Link: [memoryshift.app](https://memoryshift.app)
 
-### 💬 Über WebByte Studio
-
-WebByte Studio ist ein kreatives Startup. Durch die Verbindung von modernem, intuitiven UI/UX Design und innovativen Funktionen entwickelt es Web-Apps & Websites.
-
+### ⚡ Funktionen:
+- **Vokabellisten**: Unbegrenzt Vokabellisten mit verschiedenen Sprachen hinzufügen und Vokabeln organisieren
+- **Karteikarten**: Karteikartenabfrage, optimal zum nachhaltigen Lernen
+- **Statistiken**: Verschiedene Statistiken und Diagramme zum Lernen
+- **ShiftCoins & Theme-Shop**: Beim Lernen erhält man ShiftCoins, mit denen man im Shop App-Themes kaufen kann.
+- **AccuracyTest**: Bei AccuracyTest kann man Übersetzungen eintippen zur genauen Schreibüberprüfung
+- **Auswertung & Einschätzung**: Grafische Einschätzung des Verständnisses
+- **Streak**: Motivierendes Streak-System
+- **Prüfungsverfolgung**: Prüfungsdatum angeben & nichts verpassen
+- **Intuitives UI/UX Design**: Schönes, einfaches und modernes App-Design
+- **Import & Export**: Für Vokabellisten und sogar Accounts
+- **Einstellungen**: App-/Lerneinstellungen konfigurieren
 ---
 
-**Memory Shift** ist der perfekte Vokabeltrainer für alle, die ihr Lernen auf das nächste Level bringen wollen. Egal, ob du Schüler, Student oder einfach jemand bist, der seine Sprachkenntnisse verbessern möchte – mit Memory Shift wirst du garantiert motiviert und effizient lernen.
+> **Memory Shift - Learn Smarter**  
+> BY WEBBYTE STUDIO
+
+<div align="center">
+  <img src="https://timonschroth.de/src/img/webbytestudio.svg" width="200" height="80">
+</div>
