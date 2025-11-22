@@ -1991,6 +1991,26 @@ textarea.big_text_field {
     font-size: 1.5rem;
 }
 
+#add-vocab>article>input::-webkit-input-placeholder,
+#edit-vocab>article>input::-webkit-input-placeholder {
+    font-size: 1.5rem;
+}
+
+#add-vocab>article>input::-moz-placeholder,
+#edit-vocab>article>input::-moz-placeholder {
+    font-size: 1.5rem;
+}
+
+#add-vocab>article>input:-ms-input-placeholder,
+#edit-vocab>article>input:-ms-input-placeholder {
+    font-size: 1.5rem;
+}
+
+#add-vocab>article>input::-ms-input-placeholder,
+#edit-vocab>article>input::-ms-input-placeholder {
+    font-size: 1.5rem;
+}
+
 #add-vocab>article>input::placeholder,
 #edit-vocab>article>input::placeholder {
     font-size: 1.5rem;
@@ -3003,8 +3023,8 @@ textarea.big_text_field {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(244, 38, 63, 1)), to(rgba(236, 88, 0, 1)));
     background: -o-linear-gradient(left, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(244, 38, 63, 1)), to(rgba(236, 88, 0, 1)));
     background: linear-gradient(90deg, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
 }
 
@@ -3030,8 +3050,8 @@ textarea.big_text_field {
 
 #statistic .time {
     height: 250px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
     background: -o-linear-gradient(left, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
     background: linear-gradient(90deg, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
 }
 
@@ -3161,8 +3181,8 @@ textarea.big_text_field {
     padding-top: 1.75rem;
     padding-left: 1.35rem;
     border-radius: 50px;
-    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
     background: -o-linear-gradient(left, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
     background: linear-gradient(90deg, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
 }
 
@@ -4141,14 +4161,14 @@ textarea.big_text_field {
 }
 
 #vip-dashboard .exclusive-operations>header>div {
-    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
     background: -o-linear-gradient(left, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(42, 69, 248, 1)), to(rgba(255, 84, 255, 1)));
     background: linear-gradient(90deg, rgba(42, 69, 248, 1) 0%, rgba(255, 84, 255, 1) 100%);
 }
 
 #vip-dashboard .dev-tools>header>div {
-    background: -webkit-gradient(linear, left top, right top, from(rgba(244, 38, 63, 1)), to(rgba(236, 88, 0, 1)));
     background: -o-linear-gradient(left, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(244, 38, 63, 1)), to(rgba(236, 88, 0, 1)));
     background: linear-gradient(90deg, rgba(244, 38, 63, 1) 0%, rgba(236, 88, 0, 1) 100%);
 }
 

@@ -29,6 +29,19 @@
 
 
 
+/* --- META --- */
+
+
+
+const meta = {
+  id: 'mshift',
+  version: 'v4e',
+  name: 'Memory Shift',
+  creator: 'webbytestudio',
+};
+
+
+
 /* --- UI APP OPENING --- */
 
 
