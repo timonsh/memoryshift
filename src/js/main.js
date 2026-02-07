@@ -3582,7 +3582,7 @@ async function export_account() {
     }
 
     let export_data = JSON.stringify(file_content);
-    let file_name = `Dein Account.mshift`;
+    let file_name = `Dein MShift-Account.mshift`;
 
     const blob = new Blob([export_data], { type: 'application/octet-stream' });
     saveAs(blob, file_name);
