@@ -3339,7 +3339,7 @@ function theme_transition(theme) {
 // export vocab list
 
 
-function export_vocab_list() {
+async function export_vocab_list() {
 
   let vocab_list = JSON.parse(JSON.stringify(cache.vocab_list_context));
   vocab_list.notifications = false;
@@ -3353,16 +3353,41 @@ function export_vocab_list() {
     });
   }
 
-  let config_data = {
-    type: 'vocab-list',
-    crypto_data: encrypt(JSON.stringify(vocab_list), 'MS_VL_91224')
-  };
+  try {
 
-  let export_data = JSON.stringify(config_data);
-  let file_name = `${vocab_list.name}.mshift`;
+    const plaintext = JSON.stringify(vocab_list);
+    const ghost_result = await ghost({
+      action: 'encrypt',
+      content: plaintext,
+      keyMethod: 'password',
+      password: 'MS_VL_91224'
+    });
 
-  const blob = new Blob([export_data], { type: 'application/octet-stream' });
-  saveAs(blob, file_name);
+    if (!ghost_result.success) {
+      throw new Error(ghost_result.error);
+    }
+
+    let config_data = {
+      type: 'vocab-list',
+      crypto_method: 'ghost_v1',
+      crypto_data: arrayBufferToBase64(ghost_result.return)
+    };
+
+    let export_data = JSON.stringify(config_data);
+    let file_name = `${vocab_list.name}.mshift`;
+
+    const blob = new Blob([export_data], { type: 'application/octet-stream' });
+    saveAs(blob, file_name);
+
+  } catch (err) {
+
+    console.error('Export-Fehler:', err);
+    alert_pup({
+      heading: 'Export-Fehler',
+      text: 'Die Vokabelliste konnte nicht exportiert werden. ⛔'
+    });
+
+  }
 
 }
 
@@ -3392,14 +3417,14 @@ function import_vocab_list() {
 
       const reader = new FileReader();
 
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         const content = e.target.result;
         const vocab_list = JSON.parse(content);
         if (file.name.endsWith('.vocab')) {
-          add_imported_list(vocab_list, '.vocab');
+          await add_imported_list(vocab_list, '.vocab');
         }
         if (file.name.endsWith('.mshift')) {
-          add_imported_list(vocab_list, '.mshift');
+          await add_imported_list(vocab_list, '.mshift');
         }
       };
 
@@ -3417,14 +3442,26 @@ function import_vocab_list() {
 }
 
 
-function add_imported_list(file_data, import_method) {
+async function add_imported_list(file_data, import_method) {
 
   let vocab_list = file_data;
   let accepted_builds = ['1.0', '2.0', '2.1', '2.2', '2.4', '2.5', '3.0', '4.0', '4e'];
 
   if (import_method === '.mshift') {
     try {
-      vocab_list = JSON.parse(decrypt(file_data.crypto_data, 'MS_VL_91224'));
+      if (file_data.crypto_method === 'ghost_v1') {
+        const encrypted_buffer = base64ToArrayBuffer(file_data.crypto_data);
+        const ghost_result = await ghost({
+          action: 'decrypt',
+          content: encrypted_buffer,
+          keyMethod: 'password',
+          password: 'MS_VL_91224'
+        });
+        if (!ghost_result.success) throw new Error(ghost_result.error);
+        vocab_list = JSON.parse(ghost_result.return);
+      } else {
+        vocab_list = JSON.parse(decrypt(file_data.crypto_data, 'MS_VL_91224'));
+      }
     } catch {
       alert_pup(
         {
@@ -3432,6 +3469,7 @@ function add_imported_list(file_data, import_method) {
           text: 'Die Datei wurde manuell beschädigt. 📁'
         }
       );
+      return;
     }
   }
 
@@ -3501,7 +3539,7 @@ function add_imported_list(file_data, import_method) {
 // export account
 
 
-function export_account() {
+async function export_account() {
 
   close_info();
 
@@ -3519,22 +3557,45 @@ function export_account() {
     already_used_codes: already_used_codes_agent('get')
   };
 
-  data = `'${JSON.stringify(data)}'`;
+  try {
 
-  let crypto_data = encrypt(data, `MS_ACC_61224`);
-  let verification_hash = safe_sha_256(crypto_data + 'MS');
+    const plaintext = JSON.stringify(data);
+    const ghost_result = await ghost({
+      action: 'encrypt',
+      content: plaintext,
+      keyMethod: 'password',
+      password: 'MS_ACC_61224'
+    });
 
-  let file_content = {
-    type: 'account',
-    crypto_data: crypto_data,
-    verification_hash: verification_hash
+    if (!ghost_result.success) {
+      throw new Error(ghost_result.error);
+    }
+
+    let crypto_data = arrayBufferToBase64(ghost_result.return);
+    let verification_hash = safe_sha_256(crypto_data + 'MS');
+
+    let file_content = {
+      type: 'account',
+      crypto_method: 'ghost_v1',
+      crypto_data: crypto_data,
+      verification_hash: verification_hash
+    }
+
+    let export_data = JSON.stringify(file_content);
+    let file_name = `Dein Account.mshift`;
+
+    const blob = new Blob([export_data], { type: 'application/octet-stream' });
+    saveAs(blob, file_name);
+
+  } catch (err) {
+
+    console.error('Export-Fehler:', err);
+    alert_pup({
+      heading: 'Export-Fehler',
+      text: 'Der Account konnte nicht exportiert werden. ⛔'
+    });
+
   }
-
-  let export_data = JSON.stringify(file_content);
-  let file_name = `Dein Account.mshift`;
-
-  const blob = new Blob([export_data], { type: 'application/octet-stream' });
-  saveAs(blob, file_name);
 
 }
 
@@ -3565,9 +3626,9 @@ function import_account() {
 
       const reader = new FileReader();
 
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         const content = e.target.result;
-        insert_uploaded_account(content);
+        await insert_uploaded_account(content);
       };
 
       reader.onerror = () => {
@@ -3584,7 +3645,7 @@ function import_account() {
 }
 
 
-function insert_uploaded_account(file_content) {
+async function insert_uploaded_account(file_content) {
 
   const content = JSON.parse(file_content);
 
@@ -3602,12 +3663,24 @@ function insert_uploaded_account(file_content) {
     let original_data = null;
 
     try {
-      original_data = decrypt(content.crypto_data, 'MS_ACC_61224');
+      if (content.crypto_method === 'ghost_v1') {
+        const encrypted_buffer = base64ToArrayBuffer(content.crypto_data);
+        const ghost_result = await ghost({
+          action: 'decrypt',
+          content: encrypted_buffer,
+          keyMethod: 'password',
+          password: 'MS_ACC_61224'
+        });
+        if (!ghost_result.success) throw new Error(ghost_result.error);
+        original_data = JSON.parse(ghost_result.return);
+      } else {
+        original_data = decrypt(content.crypto_data, 'MS_ACC_61224');
+        original_data = JSON.parse(original_data.slice(1, -1));
+      }
     } catch {
       hacking_retribution();
+      return;
     }
-
-    original_data = JSON.parse(original_data.slice(1, -1));
 
     let required_hash = content.verification_hash;
     let created_hash = safe_sha_256(content.crypto_data + 'MS');
@@ -3730,6 +3803,33 @@ function decrypt(encrypted, key) {
     return decoded.slice(0, -key.length);
   }
   throw "Invalid key";
+
+}
+
+
+// ghostcrypt helpers
+
+
+function arrayBufferToBase64(buffer) {
+
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+
+}
+
+
+function base64ToArrayBuffer(base64) {
+
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
 
 }
 
