@@ -1,23 +1,26 @@
-/*
+/*                                  
+                                        
+    
 
-
-
-*** VERY IMPORTANT 👇 ***
-
-
-
-* 🚀 Projekt: Memory Shift - Learn smarter
-* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
-* 🌐 Website: https://memoryshift.app
-*
-* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
-* Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
-* irgendeiner Weise verwendet oder verändert werden.
-*
-* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
-* Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
-*
-* 📬 Kontakt: hey@timonschroth.de
+      ++++++   +++++++   +++++++        
+    +++++++++ +++++++++++++++++++       
+   ++++  ++++++++++++++++++ +++++       
+   ++    ++++++    ++++++   +++++       
+        ++++++     +++++    ++++        
+        +++++     +++++     ++++        
+        +++++     +++++    +++++        
+        ++++      ++++     ++++         
+       +++++     +++++     ++++     +   
+       ++++      +++++     ++++   +++   
+       ++++      ++++      ++++++++++   
+       ++++      ++++       +++++++     
+                                        
+                                        
+                                        
+    Project: MEMORY SHIFT
+    Version: AURORA edge (v4e)
+    Creator: WebByte Studio / timonsh
+    License: MIT License
 
 
 
@@ -103,7 +106,7 @@ function app_opening(speed, destination_slide) {
     setTimeout(() => {
       document.querySelector('#setup').style.height = '100%';
       document.querySelector('#bottom-navigation').style.display = 'none';
-    }, 3000);
+    }, 400);
   }
 
   let slide_delay = 3000;
@@ -227,7 +230,7 @@ let user = JSON.parse(localStorage.getItem('user')) || {
   gender: undefined,
   email: null,
   school: null,
-  avatar: './src/img/account.png'
+  avatar: './src/assets/img/account.png'
 
 };
 
@@ -545,10 +548,10 @@ function pop_up_custom_command(name, action) {
 
     document.querySelector(`#pop-up-area > #${name} > section:last-of-type > button`).setAttribute('onclick', `add_vocab()`);
 
-    document.querySelector(`#add-vocab > article:first-of-type > header > img`).setAttribute('src', `./src/img/languages/${app_language}.svg`);
+    document.querySelector(`#add-vocab > article:first-of-type > header > img`).setAttribute('src', `./src/assets/img/languages/${app_language}.svg`);
     document.querySelector(`#add-vocab > article:first-of-type > header > span`).innerHTML = app_language;
 
-    document.querySelector(`#add-vocab > article:last-of-type > header > img`).setAttribute('src', `./src/img/languages/${cache.vocab_list_context.language}.svg`);
+    document.querySelector(`#add-vocab > article:last-of-type > header > img`).setAttribute('src', `./src/assets/img/languages/${cache.vocab_list_context.language}.svg`);
     document.querySelector(`#add-vocab > article:last-of-type > header > span`).innerHTML = cache.vocab_list_context.language;
 
     if (!action) {
@@ -571,10 +574,10 @@ function pop_up_custom_command(name, action) {
 
     document.querySelector(`#pop-up-area > #${name} > section:last-of-type > button`).setAttribute('onclick', `update_vocab()`);
 
-    document.querySelector(`#edit-vocab > article:first-of-type > header > img`).setAttribute('src', `./src/img/languages/${app_language}.svg`);
+    document.querySelector(`#edit-vocab > article:first-of-type > header > img`).setAttribute('src', `./src/assets/img/languages/${app_language}.svg`);
     document.querySelector(`#edit-vocab > article:first-of-type > header > span`).innerHTML = app_language;
 
-    document.querySelector(`#edit-vocab > article:last-of-type > header > img`).setAttribute('src', `./src/img/languages/${cache.vocab_list_context.language}.svg`);
+    document.querySelector(`#edit-vocab > article:last-of-type > header > img`).setAttribute('src', `./src/assets/img/languages/${cache.vocab_list_context.language}.svg`);
     document.querySelector(`#edit-vocab > article:last-of-type > header > span`).innerHTML = cache.vocab_list_context.language;
 
     cache.edit_vocab = true;
@@ -1238,7 +1241,7 @@ function open_list_detail(name) {
 
   //header - title & img
   document.querySelector('#list-detail > header > h2').innerHTML = vocab_list.name;
-  document.querySelector('#list-detail > header > img').setAttribute('src', `./src/img/languages/${vocab_list.language}.svg`);
+  document.querySelector('#list-detail > header > img').setAttribute('src', `./src/assets/img/languages/${vocab_list.language}.svg`);
 
   // vocabularys
   document.querySelector('#list-detail > .vocab-list').innerHTML = null;
@@ -2332,7 +2335,7 @@ function learn(vl) {
 
 
   document.querySelector('#learn > .progress-bar > div').style.width = `${vocab_list.progress}%`;
-  document.querySelector('#learn > header > img').setAttribute('src', `./src/img/languages/${vocab_list.language}.svg`);
+  document.querySelector('#learn > header > img').setAttribute('src', `./src/assets/img/languages/${vocab_list.language}.svg`);
   document.querySelector('#learn > header > img').setAttribute('alt', vocab_list.language);
   document.querySelector('#learn > header > span').innerHTML = vocab_list.name;
   document.querySelector('#learn > .flashcard > span').innerHTML = '';
@@ -2486,15 +2489,15 @@ function enable_summary() {
   document.querySelector('#learn .summary img').style.animation = 'sizing_in_summary_stars 1s .175s both'
 
   if (accuracy < 50) {
-    document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/img/stars/one_star.svg');
+    document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/assets/img/stars/one_star.svg');
   }
 
   if (accuracy >= 50 && accuracy < 85) {
-    document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/img/stars/two_stars.svg');
+    document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/assets/img/stars/two_stars.svg');
   }
 
   if (accuracy >= 85) {
-    document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/img/stars/three_stars.svg');
+    document.querySelector(`#learn > .summary > img`).setAttribute('src', './src/assets/img/stars/three_stars.svg');
   }
 
   let added_shift_coins = calculate_shift_coins(accuracy, settings.learn.vocab_counter, get_time);
@@ -4129,7 +4132,7 @@ function upload_new_avatar() {
 function check_setup_required() {
 
   if (user.name.first_name == null || user.name.last_name == null) {
-    let img_selector = './src/img/introduction-';
+    let img_selector = './src/assets/img/introduction-';
     if (check_system_theme() == 'light') {
       img_selector += 'day';
     } else {
@@ -4174,7 +4177,7 @@ function app_setup_steps(step) {
       document.querySelector('#setup > button:last-of-type').style.display = 'block';
     }, 175);
 
-    let img_selector = './src/img/introduction-';
+    let img_selector = './src/assets/img/introduction-';
     if (check_system_theme() == 'light') {
       img_selector += 'day';
     } else {
@@ -4539,7 +4542,7 @@ function lead_to_donate() {
       behavior: 'smooth'
     });
 
-    overlay_animation('./src/vid/heart.gif');
+    overlay_animation('./src/assets/vid/heart.gif');
 
   }, 500);
 
@@ -4552,7 +4555,7 @@ if (possible_opens_donation.includes(app_open_counter)) {
 
   setTimeout(() => {
     throw_info(support_project_info);
-  }, 4000);
+  }, 2000);
 
 }
 
@@ -4566,26 +4569,23 @@ if (possible_opens_discord.includes(app_open_counter)) {
 
   setTimeout(() => {
     throw_info(join_discord);
-  }, 4000);
+  }, 2000);
 
 }
 
 
 
-app_opening('slow', 'home');
+app_opening('fast', 'home');
 
 
 
-/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
-/*
-/*
-/*    🔥💻 Powered by WebByte Studio 💻🔥
-/*                                        
-/*    💬 Join the Discord: https://discord.gg/53SverZQtV
-/*    📹 Follow on Instagram: instagram.com/webbytestudio
-/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
-/*
-/*
-/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+// ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+//
+//
+//  MEMORY SHIFT by WEBBYTE STUDIO
+//  memoryshift.app
+//
+//
+// ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 
 

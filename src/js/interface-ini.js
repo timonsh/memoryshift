@@ -1,23 +1,26 @@
-/*
+/*                                  
+                                        
+    
 
-
-
-*** VERY IMPORTANT 👇 ***
-
-
-
-* 🚀 Projekt: Memory Shift - Learn smarter
-* 📜 Urheberrecht © 2024 WebByte Studio (Timon Schroth). Alle Rechte vorbehalten.
-* 🌐 Website: https://memoryshift.app
-*
-* ❗ Dieses Programm ist urheberrechtlich geschützt. Es darf ohne ausdrückliche schriftliche
-* Genehmigung von WebByte Studio weder kopiert, vervielfältigt, verbreitet noch in
-* irgendeiner Weise verwendet oder verändert werden.
-*
-* ❗ Jede unautorisierte Nutzung, einschließlich des Kopierens, Veränderns, oder des
-* Vertriebs, ist untersagt und kann zivil- und strafrechtlich verfolgt werden.
-*
-* 📬 Kontakt: hey@timonschroth.de
+      ++++++   +++++++   +++++++        
+    +++++++++ +++++++++++++++++++       
+   ++++  ++++++++++++++++++ +++++       
+   ++    ++++++    ++++++   +++++       
+        ++++++     +++++    ++++        
+        +++++     +++++     ++++        
+        +++++     +++++    +++++        
+        ++++      ++++     ++++         
+       +++++     +++++     ++++     +   
+       ++++      +++++     ++++   +++   
+       ++++      ++++      ++++++++++   
+       ++++      ++++       +++++++     
+                                        
+                                        
+                                        
+    Project: MEMORY SHIFT
+    Version: AURORA edge (v4e)
+    Creator: WebByte Studio / timonsh
+    License: MIT License
 
 
 
@@ -42,7 +45,7 @@ function library() {
 
         document.querySelector('#library > section').innerHTML += `
         <div class="${vl.language}" onclick="open_list_detail('${vl.name}')">
-          <img src="./src/img/languages/${vl.language}.svg" alt="${vl.language}">
+          <img src="./src/assets/img/languages/${vl.language}.svg" alt="${vl.language}">
           <h1>${vl.name}</h1>
           <img src="${avatar}" alt="${vl.creator.first_name} ${vl.creator.last_name}">
          </div>
@@ -95,7 +98,7 @@ function exam_view() {
 
             document.querySelector(`#exam-view`).innerHTML += `
          <div class="pointer" onclick="open_list_detail('${exam.refered_list}')">
-           <img src="./src/img/languages/${exam.language}.svg" alt="${exam.language}">
+           <img src="./src/assets/img/languages/${exam.language}.svg" alt="${exam.language}">
            <span>${date_information}</span>
          </div>
       `;
@@ -188,7 +191,7 @@ function recent_list() {
 
             document.querySelector('#recent > section').innerHTML += `
          <div class="${list_cache.language}" onclick="open_list_detail('${list_cache.name}')">
-            <img src="./src/img/languages/${list_cache.language}.svg" alt="${list_cache.language}">
+            <img src="./src/assets/img/languages/${list_cache.language}.svg" alt="${list_cache.language}">
   
                <article>
                   <h1>${list_cache.name}</h1>
@@ -261,7 +264,7 @@ function add_list_language_initialize() {
     available_languages.forEach(lang => {
         document.querySelector('#add-list > article.choose-language').innerHTML += `
              <div class="clickable_box" onclick="clickable_box('#add-list > article.choose-language', ${count}, true)">
-                 <img src="./src/img/languages/${lang}.svg" alt="${lang}">
+                 <img src="./src/assets/img/languages/${lang}.svg" alt="${lang}">
                  <span>${lang}</span>
              </div>
         `;
@@ -471,7 +474,7 @@ function settings_ini() {
 
 function setup_ini() {
 
-    if (user.avatar != './src/img/account.png') {
+    if (user.avatar != './src/assets/img/account.png') {
         document.querySelector(`#setup .set-profile button img`).setAttribute('src', user.avatar);
         document.querySelector(`#setup .set-profile button img`).style.display = 'block';
         document.querySelector(`#setup .set-profile button img`).style.animation = 'fade_in .5s ease-in-out both';
@@ -791,16 +794,13 @@ function auto_initialize_ui() {
 
 
 
-/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
-/*
-/*
-/*    🔥💻 Powered by WebByte Studio 💻🔥
-/*                                        
-/*    💬 Join the Discord: https://discord.gg/53SverZQtV
-/*    📹 Follow on Instagram: instagram.com/webbytestudio
-/*    📞 Connect on WhatsApp: https://whatsapp.com/channel/0029Vasl8IAAInPl5pZifL1E
-/*
-/*
-/* ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨ */
+// ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+//
+//
+//  MEMORY SHIFT by WEBBYTE STUDIO
+//  memoryshift.app
+//
+//
+// ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
 
 

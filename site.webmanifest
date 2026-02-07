@@ -12,7 +12,7 @@
     "launch_handler": {
         "client_mode": "navigate-existing"
     },
-    "description": "Memory Shift ist ein innovativer Vokabeltrainer für Schüler*innen & Studierende 🎓🗃",
+    "description": "Memory Shift",
     "background_color": "#2a45f8",
     "theme_color": "#2a45f8",
     "categories": [
