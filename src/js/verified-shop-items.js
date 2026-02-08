@@ -122,7 +122,7 @@ const shop_items = {
                 }
             ],
             limited: true,
-            active: false
+            active: true
         },
         {
             name: 'winter-dreamland',

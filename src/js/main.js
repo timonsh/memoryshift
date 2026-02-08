@@ -234,6 +234,11 @@ let user = JSON.parse(localStorage.getItem('user')) || {
 
 };
 
+// fix: migrate old avatar path from before asset restructure
+if (user.avatar === './src/img/account.png') {
+  user.avatar = './src/assets/img/account.png';
+}
+
 
 const ms_watermark_hash = "MShift|WBStudio2024";
 

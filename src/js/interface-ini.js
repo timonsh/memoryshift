@@ -560,7 +560,7 @@ function shop_item_ini() {
 
                     document.querySelector('#shop .available article').innerHTML += `
                     <div style="background-color: ${t.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${t.name}')">
-                         <button type="button" onclick="buy_theme_preparation">
+                         <button type="button">
                           <div class="set-icon">paid</div>
                           <span>${t.price}</span>
                         </button>
@@ -583,7 +583,7 @@ function shop_item_ini() {
 
                 document.querySelector('#shop .limited article').innerHTML += `
             <div style="background-color: ${t.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${t.name}')">
-                 <button type="button" onclick="buy_theme_preparation">
+                 <button type="button">
                     <div class="set-icon">paid</div>
                     <span>${t.price}</span>
                 </button>
@@ -683,7 +683,7 @@ function shop_item_ini1() {
 
             document.querySelector('#shop .available > article').innerHTML += `
                 <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${theme.name}')">
-                    <button type="button" onclick="buy_theme_preparation">
+                    <button type="button">
                         <div class="set-icon">paid</div>
                         <span>${theme.price}</span>
                     </button>
@@ -705,7 +705,7 @@ function shop_item_ini1() {
             if (theme.limited && theme.active) {
                 document.querySelector(`#shop .limited article`).innerHTML += `
                 <div style="background-color: ${theme.display_data.backgroundColor}; border: ${border};" onclick="buy_item_preparation('theme', '${theme.name}')">
-                    <button type="button" onclick="buy_theme_preparation">
+                    <button type="button">
                         <div class="set-icon">paid</div>
                         <span>${theme.price}</span>
                     </button>
