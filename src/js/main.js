@@ -4559,7 +4559,7 @@ function vip(request) {
 // command
 
 
-function command() {
+function vip_command() {
 
   let user_request = prompt('DEV-Terminal: Was möchten Sie tun? 🧑‍💻');
 
