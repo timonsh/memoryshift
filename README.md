@@ -34,5 +34,5 @@ ein Prüfungsdatum einzutragen und auf der Homepage immer den Überblick zu beha
 > BY WEBBYTE STUDIO
 
 <div align="center">
-  <img src="https://timonschroth.d./src/assets/img/webbytestudio.svg" width="200" height="80">
+  <img src="https://timonsh.dev/src/assets/img/webbytestudio.svg" width="200" height="80">
 </div>
