@@ -60,6 +60,16 @@ body {
     color: var(--clr-font);
 }
 
+/* App UI: no visible scrollbars, like on a phone — also on desktop browsers
+   and in the smartphone prototype on timonsh.dev. Scrolling still works. */
+* {
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
 ::-moz-selection {
     background-color: var(--crl-primary);
 }
